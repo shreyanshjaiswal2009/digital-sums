@@ -1,79 +1,28 @@
 % !TEX TS-program = pdflatex
 % !TEX encoding = UTF-8 Unicode
-
-% This is a simple template for a LaTeX document using the "article" class.
-% See "book", "report", "letter" for other types of document.
-
 \documentclass[11pt]{amsart} % use larger type; default would be 10pt
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
-
-%%% Examples of Article customizations
-% These packages are optional, depending whether you want the features they provide.
-% See the LaTeX Companion or other references for full information.
-
-%%% PAGE DIMENSIONS
 \usepackage{geometry} % to change the page dimensions
 \geometry{letterpaper} % or letterpaper (US) or a5paper or....
-% \geometry{margin=2in} % for example, change the margins to 2 inches all round
-% \geometry{landscape} % set up the page for landscape
-%   read geometry.pdf for detailed page layout information
-
 \usepackage{graphicx} % support the \includegraphics command and options
-% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
 
 %%% PACKAGES
-\usepackage{csquotes}
-\usepackage{booktabs} % for much better looking tables
-\usepackage{array} % for better arrays (eg matrices) in maths
-\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
-\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
-\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{tcolorbox}
 \usepackage{sistyle}
 \SIthousandsep{,}
 \usepackage{hyperref}
-% These packages are all incorporated in the memoir class to one degree or another...
-
-%%% HEADERS & FOOTERS
-%\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
-%\pagestyle{fancy} % options: empty , plain , fancy
-%\renewcommand{\headrulewidth}{0pt} % customise the layout...
-%\lhead{}\chead{}\rhead{}
-%\lfoot{}\cfoot{\thepage}\rfoot{}
-
-%%% SECTION TITLE APPEARANCE
-%\usepackage{sectsty}
-%\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
-% (This matches ConTeXt defaults)
-
-%%% ToC (table of contents) APPEARANCE
-%\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
-%\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
-%\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
-%\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
-
-
-%%% THEOREM ENVIRONMENTS
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}{Corollary}[theorem]
-
 \usepackage{biblatex} %Imports biblatex package
 \usepackage{xurl}
 \addbibresource{growth-of-digital-sums-of-powers.bib} %Import the bibliography file
 
-
-%%% END Article customizations
-
-%%% The "real" document content comes below...
-
 \title{The growth of digital sums of powers}
 \author{David G Radcliffe}
-\date{} % Activate to display a given date or no date (if empty),
-         % otherwise the current date is printed 
-
+\date{\today} 
  
 \begin{document}
 
@@ -88,34 +37,35 @@ and least common multiples.
 
 \section{Motivation}
 
-This article was inspired by the following problem, due to Wacław Sierpiński:
+This article was inspired by the following problem,
+which was posed and solved by Wacław Sierpiński\cite[Problem 209]{sierpinski1970}:
 \begin{quote}
-\emph{Prove that the sum of digits of the number $2^n$ (in decimal system) increases to infinity with $n$.}
-\cite[Problem 209]{sierpinski1970}
+\emph{Prove that the sum of digits of the number $2^n$ 
+(in decimal system) increases to infinity with $n$.}
 \end{quote}
-
-% \begin{quotation}
-% Prove that the sum of digits of the number $2^n$ (in decimal system) increases
-% to infinity with $n$. \cite[Problem 209]{sierpinski1970}
-% \end{quotation}
 
 We will prove a sufficient condition on positive integers $a$ and $b$ which implies that 
 the sum of the base-$b$ digits of $a^n$ grows at least logarithmically in $n$.
+This condition includes Sierpiński's problem as a special case.
 The behavior of digital sums of powers has been studied by Senge and Straus (1973) and Stewart (1980), 
 but their results rely on deeper tools from transcendence theory. In contrast, the arguments here are elementary.
 
 Consider the sequence of powers of 2:
 
-$$1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, \ldots.$$
+\[ 
+  1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, \ldots . 
+\]
 
 This sequence grows very rapidly. Now, let us define another sequence by adding the decimal digits of each power of 2. For example,
-16 becomes $1+6=7$, and 128 becomes $1+2+8=11$. The first few terms of this new sequence are listed below.
+16 becomes $1+6=7$, and 32 becomes $3+2=5$. The first few terms of this new sequence are listed below.
 
-$$1, 2, 4, 8, 7, 5, 10, 11, 13, 8, 7, \ldots$$
+\[ 
+  1, 2, 4, 8, 7, 5, 10, 11, 13, 8, 7, \ldots . 
+\]
 
 It is apparent that this sequence grows much more slowly, and it is not monotone.
 Nevertheless, it is reasonable to conjecture that the sequence diverges to infinity. Indeed, we should
-expect that the sum of the decimal digits of $2^n$ is approximately $4.5 n \log_{10} 2$ when $n$ is large,
+expect that the sum of the decimal digits of $2^n$ is asymptotic to $4.5 n \log_{10} 2$,
 since $2^n$ has $\lfloor n \log_{10} 2\rfloor + 1$ decimal digits and the digits seem to be approximately uniformly
 distributed among $0, 1, 2, \ldots, 9$. However, this stronger statement remains to be proved.
 
@@ -157,7 +107,10 @@ Let us formalize this argument.
 The proof is by induction on $k$. The case $k = 1$ is trivial, so let us assume that $k \ge 2$.
 By the division algorithm, there exist integers $q \ge 0$ and $0 \le r < 10^{e_{k-1}}$
 such that
-$$ n = 10^{e_{k-1}} q + r.$$
+
+\[ 
+  n = 10^{e_{k-1}} q + r. 
+\]
 
 Since $n \ge 2^{e_k} > 10^{e_{k-1}}$, it follows that $q \ge 1$.
 
@@ -168,11 +121,11 @@ $c_{10}(r) \ge k - 1 $ by the induction hypothesis.
 
 Note that $c_{10}(n) = c_{10}(q) + c_{10}(r)$, since the digit expansion of $n$ is the
 concatenation of the digit expansions of $q$ and $r$, possibly with leading zeros. Therefore,
-$$
+\[
 c_{10}(n)  = c_{10}(q) + c_{10}(r) 
         \ge 1 + (k - 1) 
         = k.
-$$
+\]
 \end{proof}
   
 \begin{corollary}
@@ -206,7 +159,9 @@ then $c_{b}(n) \ge k$.
   The proof is by induction on $k$. The case $k = 1$ is trivial, so let us assume that $k \ge 2$.
   By the division algorithm, there exist integers $q \ge 0$ and $0 \le r < b^{e_{k-1}}$
   such that
-  $$ n = b^{e_{k-1}} q + r.$$
+  \[ 
+    n = b^{e_{k-1}} q + r.
+  \]
   
   Since $n \ge p^{e_k} > b^{e_{k-1}}$, it follows that $q \ge 1$.
   
@@ -216,11 +171,11 @@ then $c_{b}(n) \ge k$.
   $c_{b}(r) \ge k - 1 $ by the induction hypothesis.
   
   Therefore,
-  $$
+  \[
   c_{b}(n)  = c_{b}(q) + c_{b}(r) 
           \ge 1 + (k - 1) 
           = k.
-  $$
+  \]
   \end{proof}
 
 
@@ -228,7 +183,10 @@ then $c_{b}(n) \ge k$.
 Let $b \ge 2$ be an integer that is not a power of a prime, 
 let $p$ and $q$ be distinct prime divisors of $b$,
 and let $\{e_k\}$ be defined as in Theorem 2.
-If $$\phi_{p,q}(n) := \nu_p(n) - \nu_q(n) \frac{\nu_p(b)}{\nu_q(b)} \ge e_k$$
+If 
+\[
+  \phi_{p,q}(n) := \nu_p(n) - \nu_q(n) \frac{\nu_p(b)}{\nu_q(b)} \ge e_k
+\]
 then $c_p(n) \ge k$.
 \label{phi-lower-bound}
 \end{theorem} 
@@ -260,34 +218,43 @@ Since $k$ is arbitrary, we conclude that $\lim\limits_{n\to\infty} c_b(a^n) = \i
 
 Note that this argument also shows that $c_b(a^n)$ grows at least as fast as $\Omega(\log n)$
 when the conditions of the corollary are satisfied.
-In 1973, Senge and Straus\cite{senge-straus1973} 
+In 1973, Senge and Straus\cite[Theorem 3]{senge-straus1973} 
 proved that if $a \ge 1$ and $b \ge 2$ are positive integers then 
 $\lim\limits_{n \to \infty} c_b(a^n) = \infty$ if and only if
 $\log(a) / \log(b)$ is irrational.
 However, they did not prove a lower bound on the rate of growth.
-In 1980, Stewart\cite{stewart1980} proved that
-$$c_b(a^n) > \frac{\log \log n}{\log \log \log n + C} - 1$$
-for $n > 25$, where $C$ depends on $a$ and $b$ alone.
+In 1980, Stewart\cite[Theorem 2]{stewart1980} proved that
+if $\log(a)/\log(b)$ is irrational then
+\[
+  c_b(a^n) > \frac{\log n}{\log \log n + C} - 1
+\]
+for $n > 4$, where $C$ depends on $a$ and $b$ alone.
 
 \section{Related sequences}
 
 Theorem 3 can be applied to many other sequences. We will give two examples here.
 As before, let $b \ge 2$ be an integer that is not a prime power, 
 let $p$ and $q$ be distinct prime divisors of $b$,
-and let $$\phi_{p,q}(n) = \nu_p(n) - \nu_q(n) \frac{\nu_p(b)}{\nu_q(b)}.$$
-%Let $b$, $p$, $q$, and $\phi_{p,q}$ be as in the previous section.
+and let 
+\[
+  \phi_{p,q}(n) = \nu_p(n) - \nu_q(n) \frac{\nu_p(b)}{\nu_q(b)}.
+\]
 
 \subsection*{Factorials}
 
 By Legendre's formula\cite[p. 263]{dickson1919}, 
 $\nu_p(n!) = (n - s_p(n)) / (p - 1)$.
 Thus,
-$$\phi_{p, q} (n!) \approx n \left( \frac1{p-1} - \frac {\nu_p(b)} {(q-1)\nu_q(b)} \right)$$
+\[
+  \phi_{p, q} (n!) \approx n \left( \frac1{p-1} - \frac {\nu_p(b)} {(q-1)\nu_q(b)} \right)
+\]
 whenever $(p-1) \nu_p(b) \ne (q-1) \nu_q(b)$, since $s_p(n) + s_q(n) \ll n$.
 Therefore, $\lim\limits_{n\to\infty} c_b(n!) = \infty$ 
 for any $b$ with distinct factors $p$ and $q$
 satisfying 
-$$(p-1) \nu_p(b) > (q-1) \nu_q(b).$$ 
+\[
+  (p-1) \nu_p(b) > (q-1) \nu_q(b).
+\]
 In particular, $\lim\limits_{n\to\infty} c_{10}(n!) = \infty$.
 
 \subsection*{Cumulative LCMs}
@@ -295,8 +262,10 @@ In particular, $\lim\limits_{n\to\infty} c_{10}(n!) = \infty$.
 Let $\Lambda_n = \mathrm{lcm}(1, 2, \ldots, n)$.
 It is easy to see that $\nu_p(\Lambda_n) = \lfloor \log_p(n) \rfloor$.
 Thus,
-$$\phi_{p,q}(\Lambda_n) = \lfloor \log_p n\rfloor - \lfloor \log_q n\rfloor \cdot \frac{\nu_p(b)}{\nu_q(b)}
-\approx \log n \cdot \left( \frac1{\log p} - \frac1{\log q} \cdot \frac{\nu_p(b)}{\nu_q(b)}\right).$$
+\[
+  \phi_{p,q}(\Lambda_n) = \lfloor \log_p n\rfloor - \lfloor \log_q n\rfloor \cdot \frac{\nu_p(b)}{\nu_q(b)}
+  \approx \log n \cdot \left( \frac1{\log p} - \frac1{\log q} \cdot \frac{\nu_p(b)}{\nu_q(b)}\right).
+\]
 
 The quantity in parentheses is nonzero, since $\log(p)/\log(q)$ is irrational, and we may assume that it is
 positive, else we can switch $p$ and $q$. Therefore, 
@@ -306,6 +275,7 @@ $\lim\limits_{n \to \infty} c_b(\Lambda_n) = \infty$ for every base $b$ that is 
 {\bf Remark.} Sanna\cite{sanna2015} proved that $s_b(n!)$ and $s_b(\Lambda_n)$ are greater than
 $C_b \log n \log \log \log n$ for each integer $n > e^e$ and every $b \ge 2$, where $C_b$ is a 
 constant depending only on $b$.
+
 \medskip
 
 \printbibliography

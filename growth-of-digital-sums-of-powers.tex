@@ -6,15 +6,16 @@
 \usepackage{geometry}
 \geometry{letterpaper}
 \usepackage{graphicx}
-\usepackage[parfill]{
-	parskip
-}
+% \usepackage[parfill]{
+% 	parskip
+% }
 
 %%% PACKAGES
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{sistyle}
 \SIthousandsep{,}
+\usepackage{tcolorbox}
 \usepackage{hyperref}
 \usepackage{biblatex}
 \usepackage{xurl}
@@ -37,20 +38,19 @@
 \begin{document}
 
 	\begin{abstract}
-		We prove that the sum of the base-$b$ digits of $a^{n}$ grows at least logarithmically
-		in $n$, provided that the exponents in the prime factorization of $b$ are
-		not uniformly proportional to the corresponding exponents in the prime
-		factorization of $a$. Our approach uses only elementary number theory and applies
-		to a wide class of sequences, including factorials and
-		$\Lambda(n) = \lcm(1, 2, \ldots, n)$.
+		We prove that the sum of the base-$b$ digits of $a^{n}$ grows at least logarithmically in $n$, 
+    provided that $\log_b(d) \not\in \mathbb{Q}$, where $d$ is the smallest factor of $a$ 
+    such that $\gcd(a/d, b) = 1$.
+    Our approach uses only elementary number theory and applies to a wide class of sequences, 
+    including factorials and $\Lambda(n) = \lcm(1, 2, \ldots, n)$.
 	\end{abstract}
 
 	\maketitle
 
-	\section{Motivation}
+	\section{Introduction}
 
 	This article was inspired by the following problem, which was posed and solved
-	by Wacław Sierpiński\cite[Problem 209]{sierpinski1970}:
+	by Wac{\l}aw Sierpi{\'n}ski\cite[Problem 209]{sierpinski1970}:
 	\begin{quote}
 		\emph{Prove that the sum of digits of the number $2^{n}$ (in decimal system)
 		increases to infinity with $n$.}
@@ -70,69 +70,91 @@
 		1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, \ldots .
 	\]
 
-	This sequence grows very rapidly. Now, let us define another sequence by adding
+	This sequence grows very rapidly. Now, let us define another sequence, by adding
 	the decimal digits of each power of 2. For example, 16 becomes $1+6=7$, and 32
-	becomes $3+2=5$. The first few terms of this new sequence (\href{https://oeis.org/A001370}{A001370}) are listed below.
+	becomes $3+2=5$. The first few terms of this new sequence 
+  (\href{https://oeis.org/A001370}{A001370}) are listed below.
 
 	\[
 		1, 2, 4, 8, 7, 5, 10, 11, 13, 8, 7, \ldots .
 	\]
 
-	It is apparent that this sequence grows much more slowly, and it is not
-	monotone. Nevertheless, it is reasonable to conjecture that the sequence
-	diverges to infinity. Indeed, we should expect that the sum of the decimal
-	digits of $2^{n}$ is asymptotic to $4.5 n \log_{10}2$, since $2^{n}$ has $\lfloor
-	n \log_{10}2\rfloor + 1$ decimal digits and the digits seem to be approximately
-	uniformly distributed among $0, 1, 2, \ldots, 9$. However, this stronger conjecture
-	remains to be proved.
+	Our new sequence grows much more slowly, and it is not monotonic. 
+  Nevertheless, it is reasonable to conjecture that it diverges to infinity. 
+  Indeed, one might guess that the sum of the decimal digits of $2^{n}$ 
+  is asymptotic to $4.5 n \log_{10}2$, 
+  since $2^{n}$ has $\lfloor n \log_{10}2\rfloor + 1$ decimal digits, 
+  and the digits seem to be approximately uniformly distributed among $0, 1, 2, \ldots, 9$. 
+  However, this stronger conjecture remains to be proved.
 
 	For an integer $b \ge 2$, we write $s_{b}(n)$ for the sum of the base-$b$
 	digits of $n$, and $c_{b}(n)$ for the number of nonzero digits in that expansion.
 	These functions are asymptotic to each other, since $c_{b}(n) \le s_{b}(n) \le
-	(b-1) c_{b}(n)$ for all $n$ and $b$, so we will restrict our attention to
+	(b-1) c_{b}(n)$ for all $n$ and $b$; so we will restrict our attention to
 	$c_{b}(n)$. For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
 	prime factorization of $n$.
 
-	Let us prove that $\lim\limits_{n\to\infty}c_{10}(2^{n}) = \infty$. Observe that
-	the final digit of $2^{n}$ cannot be 0, since only multiples of 10 can end in
-	0.
+  \section*{Digital sums of powers of two}
 
-	If $2^{n}$ has four or more digits, then the last four digits cannot start
-	with three consecutive zeros. This is because $2^{n}$ is divisible by 16, so
+	Let us prove that $\lim_{n\to\infty}c_{10}(2^{n}) = \infty$. 
+
+  Let $n$ be a positive integer, and write the decimal expansion of $2^n$ as
+  $2^n = \sum_{i=0}^{\infty} d_i 10^i$, where $d_i \in \{0, \ldots, 9\}$
+  and $d_i = 0$ for all but finitely many terms. 
+  Note that the final digit $d_0$ of $2^{n}$ cannot be zero,
+  since $2^n$ is not divisible by 10.
+
+	If $2^{n} > 10$, then $2^{n}$ is divisible by 16; so
 	$2^{n} \bmod 10^{4}$, the number formed by the last four digits of $2^{n}$, is
 	also divisible by 16. If the first three of these digits were zero, then $2^{n}
-	\bmod 10^{4}$ would be less than 10, which is a contradiction.
+	\bmod 10^{4}$ would be less than 10, which is a contradiction. So at least one
+  of the digits $d_1, d_2, d_3$ is nonzero.
 
-	Similarly, if $2^{n}$ has 14 or more digits, then
-	$2^{n} \bmod 10^{14}\ge 2^{14}> 10^{4}$. So the last 14 digits of $2^{n}$ cannot
-	start with 10 consecutive zeros.
+	If $2^{n} > 10^4$, then $2^{n}$ is divisible by $2^{14}$; so
+	$2^{n} \bmod 10^{14}$, the number formed by the last 14 digits of $2^{n}$,
+  is also divisible by $2^{14}$. If the first 10 of these digits were zero,
+  then $2^{n} \bmod 10^{14}$ would be less than $10^{4}$, which is a contradiction.
+  So at least one of the digits $d_4, d_5, \ldots, d_{13}$ is nonzero.
 
 	We can continue in this way, finding longer and longer non-overlapping blocks
-	of digits, each containing at least one nonzero digit. This shows that as $n$
+	of digits, each containing at least one nonzero digit, as illustrated in Figure 1.
+  This shows that as $n$
 	increases to infinity, the number of nonzero digits of $2^{n}$ also increases to
-	infinity. Let us formalize this argument.
+	infinity.
+  
+  \begin{figure}[h]
+    \begin{centering}
+      % $2^{50}$ = 11\framebox{2589990684}\framebox{262}\framebox{4}
+      $2^{103}$ = \framebox{101412048018258352}\framebox{1197362564}\framebox{300}\framebox{8}
+    \end{centering}
+  \caption{Each block contains at least one nonzero digit.}
+  \end{figure}
+
+  Let us formalize this argument.
 
 	\begin{theorem}
-		Let $\{\alpha_{k}\}$ be a sequence of positive integers such that $\alpha_{1} = 1$ and
-		$2^{\alpha_{k+1}}> 10^{\alpha_k}$ for all $k \ge 1$. If $n$ is a positive integer that
-		is divisible by $2^{\alpha_k}$ but not divisible by 10, then $c_{10}(n) \ge k$.
+		Let $\{m_{k}\}$ be a sequence of integers such that 
+    $m_{1} \ge 1$ and $2^{m_{k}} > 10^{m_{k-1}}$ for all $k \ge 2$. 
+    If $n$ is a positive integer that is divisible by $2^{m_k}$ 
+    but not divisible by 10, then $c_{10}(n) \ge k$.
 		\label{base-ten-lower-bound}
 	\end{theorem}
 
 	\begin{proof}
 		The proof is by induction on $k$. The case $k = 1$ is trivial, so let us assume
 		that $k \ge 2$. By the division algorithm, there exist integers $q \ge 0$ and
-		$0 \le r < 10^{\alpha_{k-1}}$ such that
+		$0 \le r < 10^{m_{k-1}}$ such that
 
 		\[
-			n = 10^{\alpha_{k-1}}q + r.
+			n = 10^{m_{k-1}}q + r.
 		\]
 
-		Since $n \ge 2^{\alpha_k}> 10^{\alpha_{k-1}}$, it follows that $q \ge 1$.
+		Since $n \ge 2^{m_k} > 10^{m_{k-1}}$, it follows that $q \ge 1$.
 
-		Since $n$ and $10^{\alpha_{k-1}}$ are divisible by $2^{\alpha_{k-1}}$, $r$ is also divisible
-		by $2^{\alpha_{k-1}}$. Moreover, $r$ is not divisible by 10, so
-		$c_{10}(r) \ge k - 1$ by the induction hypothesis.
+		Since $n$ and $10^{m_{k-1}}$ are divisible by $2^{m_{k-1}}$, 
+    $r$ is also divisible by $2^{m_{k-1}}$. 
+    Moreover, $r$ is not divisible by 10,
+    so $c_{10}(r) \ge k - 1$ by the induction hypothesis.
 
 		Note that $c_{10}(n) = c_{10}(q) + c_{10}(r)$, since the digit expansion of $n$
 		is the concatenation of the digit expansions of $q$ and $r$, possibly with
@@ -142,44 +164,50 @@
 		\]
 	\end{proof}
 
-	\begin{corollary}
+  \begin{corollary}
 		Let $a$ be a positive integer that is divisible by 2 but not divisible by 10.
-		Then $\lim\limits_{n\to \infty}c_{10}(a^{n}) = \infty$.
+		Then $c_{10}(a^n) \ge \log_4(n)$ for all $n \ge 1$.
+    In particular,
+    $\lim_{n\to \infty}c_{10}(a^{n}) = \infty$.
 		\label{even-powers-base-ten-limit}
 	\end{corollary}
 
-	\begin{proof}
-		Let $k$ be a positive integer. If $n \ge \alpha_{k}$ then $a^{n}$ is divisible by
-		$2^{\alpha_k}$ but not divisible by 10, so $c_{10}(a^{n}) \ge k$ by the previous theorem.
-		Therefore, $c_{10}(a^{n}) \ge k$ for all $n \ge \alpha_{k}$. Since $k$ is
-		arbitrary, we conclude that $\lim\limits_{n\to\infty}c_{10}(a^{n}) = \infty$.
-	\end{proof}
+  \begin{proof}
+    Let $m_k = 4^{k-1}$ for $k \ge 1$. 
+    This sequence satisfies $m_{1} \ge 1$
+    and $2^{m_k} > 10^{m_{k-1}}$ for all $k \ge 2$.
+    Let $n\ge 4$ be a positive integer, and let $k = \lceil \log_4 n \rceil$,
+    so that $4^{k-1} < n \le 4^k$. Then $a^n$ is divisible by $2^n$,
+    which is greater than $2^{m_k}$. Therefore,
+    $c_{10}(a^n) \ge k \ge \log_4(n)$ by Theorem \ref{base-ten-lower-bound}.
+  \end{proof}
+
 
 	\section{Generalizing to other bases}
 
 	Our proofs rely only on divisibility properties and therefore extend naturally
-	to arbitrary bases.
+	to other bases.
 
 	\begin{theorem}
 		Let $b \ge 2$ be an integer that is not a power of a prime, and let $p$ be a
-		prime divisor of $b$. Let $\{\alpha_{k}\}$ be a sequence of positive integers such
-		that $\alpha_{1} = 1$ and $p^{\alpha_{k+1}}> b^{\alpha_k}$ for all $k \ge 1$. If $n$ is a
-		positive integer that is divisible by $p^{\alpha_k}$ but not divisible by $b$, then
+		prime divisor of $b$. Let $\{m_{k}\}$ be a sequence of integers such
+		that $m_{1} \ge 1$ and $p^{m_{k}} > b^{m_{k-1}}$ for all $k \ge 2$. If $n$ is a
+		positive integer that is divisible by $p^{m_k}$ but not divisible by $b$, then
 		$c_{b}(n) \ge k$. \label{general-powers-lower-bound}
 	\end{theorem}
 
 	\begin{proof}
 		The proof is by induction on $k$. The case $k = 1$ is trivial, so let us assume
 		that $k \ge 2$. By the division algorithm, there exist integers $q \ge 0$ and
-		$0 \le r < b^{\alpha_{k-1}}$ such that
+		$0 \le r < b^{m_{k-1}}$ such that
 		\[
-			n = b^{\alpha_{k-1}}q + r.
+			n = b^{m_{k-1}}q + r.
 		\]
 
-		Since $n \ge p^{\alpha_k}> b^{\alpha_{k-1}}$, it follows that $q \ge 1$.
+		Since $n \ge p^{m_k}> b^{m_{k-1}}$, it follows that $q \ge 1$.
 
-		Since $n$ and $b^{\alpha_{k-1}}$ are divisible by $p^{\alpha_{k-1}}$, $r$ is also
-		divisible by $p^{\alpha_{k-1}}$. Moreover, $r$ is not divisible by $b$, so $c_{b}(
+		Since $n$ and $b^{m_{k-1}}$ are divisible by $p^{m_{k-1}}$, $r$ is also
+		divisible by $p^{m_{k-1}}$. Moreover, $r$ is not divisible by $b$, so $c_{b}(
 		r) \ge k - 1$ by the induction hypothesis.
 
 		Therefore,
@@ -188,74 +216,87 @@
 		\]
 	\end{proof}
 
+  {\bf Notation.} Given an integer $b \ge 2$ with distinct prime divisors $p$ and $q$,
+  define a function $\phi_{b,p,q}$ as follows:
+	\[
+		\phi_{b,p,q}(n) = \nu_{p}(n) - \nu_{q}(n) \frac{\nu_{p}(b)}{\nu_{q}(b)}.
+	\]
+  It is easy to verify that $\phi_{b,p,q} (b^r t) = \phi_{b,p,q}(t)$ for all $r \ge 0$
+  and $t \ge 1$. Intuitively, $\phi_{b,p,q}$ is a modification of $\nu_p$
+  that ignores trailing zeros in the base-$b$ representation of
+  its argument.
+
 	\begin{theorem}
 		Let $b \ge 2$ be an integer that is not a power of a prime, let $p$ and $q$
-		be distinct prime divisors of $b$, and let $\{\alpha_{k}\}$ be defined as in Theorem
-		2. If
-		\[
-			\phi_{b,p,q}(n) := \nu_{p}(n) - \nu_{q}(n) \frac{\nu_{p}(b)}{\nu_{q}(b)}\ge \alpha_{k}
-		\]
-		then $c_{p}(n) \ge k$. \label{phi-lower-bound}
+		be distinct prime divisors of $b$, and let $\{m_{k}\}$ be defined as in Theorem
+		\ref{general-powers-lower-bound}.
+		If $\phi_{b,p,q}(n) \ge m_k$, then $c_{b}(n) \ge k$. \label{phi-lower-bound}
 	\end{theorem}
 
 	\begin{proof}
-		Write $n$ as $b^{r} m$, where $m$ is not divisible by $b$. The function $\phi
-		_{b,p,q}$ satisfies $\phi_{b,p,q}(b) = 0$ and $\phi_{b,p,q}(uv) = \phi_{b,p,q}(u) + \phi
-		_{b,p,q}(v)$ for all positive integers $u$ and $v$, so
-		$\phi_{b,p,q}(n) = \phi_{b,p,q}(m)$. Since $\nu_{p}(m) \ge \phi_{b,p,q}(m) \ge \alpha_{k}$
-		and $b \nmid m$, Theorem \ref{general-powers-lower-bound} implies that
-		$c_{b}(m) \ge k$. But $c_{b}(m) = c_{b}(n)$, since $m$ and $n$ have the same
+		Write $n$ as $b^{r} t$, where $t$ is not divisible by $b$. 
+		Observe that $\phi_{b,p,q}(n) = \phi_{b,p,q}(t)$. 
+    Since $\nu_{p}(t) \ge \phi_{b,p,q}(t) \ge m_{k}$
+		and $b \nmid t$, Theorem \ref{general-powers-lower-bound} implies that
+		$c_{b}(t) \ge k$. But $c_{b}(t) = c_{b}(n)$, since $t$ and $n$ have the same
 		digits in base $b$, apart from trailing zeros. Therefore, $c_{b}(n) \ge k$.
 	\end{proof}
 
 	\begin{theorem}
-		Let $a \ge 2$ and $b \ge 2$ be integers. Suppose that $\log(\frac{a}{d}) / \log(b)$
-		is irrational, where $d$ is the largest factor of $a$ that is coprime to $b$.
-		Then $\lim\limits_{n\to\infty}c_{b}(a^{n}) = \infty$.
+		Let $a \ge 2$ and $b \ge 2$ be integers. Let $d$ be the smallest factor of $a$
+    such that $\gcd(a/d, b) = 1$.
+    In other words, $d = \prod_p p^{\nu_p(a)}$, the product being taken over
+    the set of all prime divisors of $b$.
+    If $\log(d) / \log(b)$ is irrational, then 
+    $c_{b}(a^{n}) > \log_r n$ for all $n \ge 1$, where $r \ge 2$ is an integer
+    depending only on $a$ and $b$.
+    In particular, $\lim_{n\to\infty}c_{b}(a^{n}) = \infty$.
+    \label{general-digit-sum}
 	\end{theorem}
 
 	\begin{proof}
-    Let $p_1^{e_1} \cdots p_r^{e_r}$ be the prime factorization of $b$.
-    Then $\frac{a}{d} = p_1^{f_1} \cdots p_r^{f_r}$, where some of the $f_i$ may be zero.
+    Let $p_1^{e_1} \cdots p_r^{e_m}$ be the prime factorization of $b$.
+    Then $d = p_1^{f_1} \cdots p_r^{f_m}$, where some of the $f_i$ may be zero.
     If 
     \[
-      \frac{f_1}{e_1} = \cdots = \frac{f_r}{e_r} = t
+      \frac{f_1}{e_1} = \cdots = \frac{f_m}{e_m}
     \]
-    then $\log(\frac{a}{d}) / \log(b) = t$, which is rational.
-
-    Therefore, if $\log(\frac{a}{d}) / \log(b)$ is irrational, then the ratios
+    then $\log(d) / \log(b) = f_1/e_1$, which is rational.
+%
+    Therefore, if $\log(d) / \log(b)$ is irrational, then the ratios
     $f_i/e_i$ are not all equal, which implies that $b$ has two prime
     factors $p = p_i$ and $q = p_j$ such that $f_i / e_i > f_j / e_j$, 
     hence $\phi_{b,p,q}(a) > 0$.
   
-		Let $k > 0$ be given. There exists an integer $N$ such that
-		$\phi_{b,p,q}(a^{n}) = n \phi_{b,p,q}(a) \ge \alpha_{k}$ for all $n \ge N$, so Theorem
-		\ref{phi-lower-bound} implies that $c_{b}(a^{n}) \ge k$ for all $n \ge N$.
-		Since $k$ is arbitrary, we conclude that $\lim\limits_{n\to\infty}c_{b}(a^{n}
-		) = \infty$.
+    Let $r = \lceil \log(b) / \log(p) \rceil$, and let $m_k = r^{k-1}$ for $k \ge 1$.
+    This sequence satisfies $m_1 \ge 1$ and $p^{m_k} > b^{m_{k-1}}$
+    for all $k \ge 2$.
+%
+    Let $n$ be a positive integer, and let $k = \lfloor \log_r n \rfloor$,
+    so that $r^{k-1} < n \le r^k$. Then $a^n$ is divisible by $p^n$,
+    which is greater than $b^{m_k}$. Therefore,
+    $c_{b}(a^n) \ge k \ge \log_r(n)$ by Theorem \ref{phi-lower-bound}.
 	\end{proof}
 
-	Note that this argument also implies that $c_{b}(a^{n}) > C \log n$,
-  where $C$ depends on $a$ and $b$ alone. 
   In 1973, Senge and Straus\cite[Theorem 3]{senge-straus1973}
 	proved that if $a \ge 1$ and $b \ge 2$ are positive integers, then
-	$\lim\limits_{n \to \infty}c_{b}(a^{n}) = \infty$ if and only if
+	$\lim_{n \to \infty}c_{b}(a^{n}) = \infty$ if and only if
 	$\log(a) / \log(b)$ is irrational. However, they did not demonstrate a lower bound. 
   In 1980, Stewart\cite[Theorem 2]{stewart1980} proved that
-	if $\log(a)/\log(b)$ is irrational then
+	if $\log(a)/\log(b)$ is irrational, then
 	\[
 		c_{b}(a^{n}) > \frac{\log n}{\log \log n + C} - 1
 	\]
 	for $n > 4$, where $C$ depends on $a$ and $b$ alone.
+  Theorem \ref{general-digit-sum} achieves a stronger bound, 
+  but with stricter conditions on $a$ and $b$.
 
 	\section{Related sequences}
 
-	Theorem 3 can be applied to many other sequences. We will give two examples
-	here. As before, let $b \ge 2$ be an integer that is not a prime power, let $p$
-	and $q$ be distinct prime divisors of $b$, and let
-	\[
-		\phi_{b,p,q}(n) = \nu_{p}(n) - \nu_{q}(n) \frac{\nu_{p}(b)}{\nu_{q}(b)}.
-	\]
+	Theorem \ref{phi-lower-bound} can be applied to many other sequences. 
+  We will give two examples here. 
+  As before, let $b \ge 2$ be an integer, and let $p$
+	and $q$ be distinct prime divisors of $b$.
 
 	\subsection*{Factorials}
 
@@ -266,17 +307,18 @@
 		\right)
 	\]
 	whenever $(p-1) \nu_{p}(b) \ne (q-1) \nu_{q}(b)$, since $s_{p}(n) + s_{q}(n) \ll
-	n$. Therefore, $\lim\limits_{n\to\infty}c_{b}(n!) = \infty$ for any $b$ with distinct
+	n$. Therefore, $\lim_{n\to\infty}c_{b}(n!) = \infty$ for any $b$ with distinct
 	factors $p$ and $q$ satisfying
 	\[
 		(p-1) \nu_{p}(b) > (q-1) \nu_{q}(b).
 	\]
-	In particular, $\lim\limits_{n\to\infty}c_{10}(n!) = \infty$.
+	In particular, $\lim_{n\to\infty}c_{10}(n!) = \infty$.
 
 	\subsection*{Cumulative LCMs}
 
-	Let $\Lambda_{n} = \lcm(1, 2, \ldots, n)$. It is easy to see that
-	$\nu_{p}(\Lambda_{n}) = \lfloor \log_{p}(n) \rfloor$. Thus,
+	Let $\Lambda_{n} = \lcm(1, 2, \ldots, n)$.
+  This is sequence \href{https://oeis.org/A003418}{A003418} in the OEIS. 
+  It is easy to see that $\nu_{p}(\Lambda_{n}) = \lfloor \log_{p}(n) \rfloor$. Thus,
 	\[
 		\phi_{b,p,q}(\Lambda_{n}) = \lfloor \log_{p} n\rfloor - \lfloor \log_{q} n\rfloor
 		\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)}\approx \log n \cdot \left( \frac{1}{\log
@@ -285,7 +327,7 @@
 
 	The quantity in parentheses is nonzero, since $\log(p)/\log(q)$ is irrational,
 	and we may assume that it is positive, else we can switch $p$ and $q$. Therefore,
-	$\lim\limits_{n\to\infty}\phi_{b,p,q}(\Lambda_{n}) = \infty$, hence $\lim\limits_{n
+	$\lim_{n\to\infty}\phi_{b,p,q}(\Lambda_{n}) = \infty$, hence $\lim_{n
 	\to \infty}c_{b}(\Lambda_{n}) = \infty$ for every base $b$ that is not a prime
 	power.
 

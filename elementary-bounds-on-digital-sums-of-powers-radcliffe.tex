@@ -159,13 +159,6 @@
 			$c_{10}(a^n) \ge k \ge \log_4(n)$, by Theorem \ref{base-ten-lower-bound}.
 		\end{proof}
 
-		% 	We will prove a sufficient condition on positive integers $a$ and $b$ which implies
-		% that the sum of the base-$b$ digits of $a^{n}$ grows at least logarithmically in
-		% $n$. This condition includes Sierpiński's problem as a special case. The asymptotic 
-		% behavior of digital sums of powers has been studied by Senge and Straus (1973) and Stewart
-		% (1980), but their results rely on methods from transcendental number theory. 
-		% In contrast, the arguments here are elementary.
-
 	\section{Generalizing to other bases}
 
 		Our proofs rely only on divisibility properties and therefore extend naturally
@@ -232,7 +225,7 @@
 			Let $a \ge 2$ and $b \ge 2$ be integers. Let $d$ be the smallest factor of $a$
 			such that $\gcd(a/d, b) = 1$.
 			If $\log(d) / \log(b)$ is irrational, then 
-			$c_{b}(a^{n}) > \log_r n$ for all $n \ge 1$, where $r \ge 2$ is an integer
+			$c_{b}(a^{n}) \ge \log_r n$ for all $n \ge 1$, where $r \ge 2$ is an integer
 			depending only on $a$ and $b$.
 			In particular, $\lim_{n\to\infty}c_{b}(a^{n}) = \infty$.
 			\label{general-digit-sum}

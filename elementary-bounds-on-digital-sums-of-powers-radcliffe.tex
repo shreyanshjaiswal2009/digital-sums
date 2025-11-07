@@ -100,8 +100,7 @@
 
 		We can continue in this way, finding longer and longer non-overlapping blocks
 		of digits, each containing at least one nonzero digit, as illustrated in Figure \ref{fig-blocks}.
-		This shows that as $n$ increases to infinity, the number of nonzero digits 
-		of $2^{n}$ also increases to infinity.
+		This shows that $2^n$ increases to infinity with $n$.
   
 		\begin{figure}[h]
 			$2^{103}$ = \framebox{$101412048018258352$}\framebox{$1197362564$}\framebox{$300$}\framebox{$8$}
@@ -139,8 +138,8 @@
 		\end{proof}
 
 		\begin{corollary}
-				Let $a$ be a positive integer that is divisible by $2$ but not divisible by $10$.
-				Then $c_{10}(a^n) \ge \log_4(n)$ for all $n \ge 1$.
+			Let $a$ be a positive integer that is divisible by $2$ but not divisible by $10$.
+			Then $c_{10}(a^n) \ge \log_4(n)$ for all $n \ge 1$.
 			In particular,
 			$\lim_{n\to \infty}c_{10}(a^{n}) = \infty$.
 				\label{even-powers-base-ten-limit}
@@ -154,6 +153,7 @@
 			Let $n\ge 4$ be a positive integer, and let $k = \lceil \log_4 n \rceil$,
 			so that $4^{k-1} < n \le 4^k$. Then $a^n$ is divisible by $2^n$,
 			so $a^n$ is also divisible by $2^{\varepsilon(k)}$.
+			But $a^n$ is not divisible by $10$.
 			
 			Therefore,
 			$c_{10}(a^n) \ge k \ge \log_4(n)$, by Theorem \ref{base-ten-lower-bound}.
@@ -251,21 +251,21 @@
 			
 			Let $n$ be a positive integer, and let $k = \lceil \log_r n \rceil$,
 			so that $r^{k-1} < n \le r^k$. Then $a^n$ is divisible by $p^n$,
-			so $a^n$ is also divisible by $p^{\varepsilon(k)}$. 
+			so $a^n$ is also divisible by $p^{\varepsilon(k)}$.
 			
 			Therefore, $c_{b}(a^n) \ge k \ge \log_r(n)$, by Theorem \ref{phi-lower-bound}.
 		\end{proof}
 
 		In 1973, Senge and Straus\cite[Theorem 3]{senge-straus1973}
-			proved that if $a \ge 1$ and $b \ge 2$ are positive integers, then
-			$\lim_{n \to \infty}c_{b}(a^{n}) = \infty$ if and only if
-			$\log(a) / \log(b)$ is irrational. However, they did not demonstrate a lower bound. 
+		proved that if $a \ge 1$ and $b \ge 2$ are positive integers, then
+		$\lim_{n \to \infty}c_{b}(a^{n}) = \infty$ if and only if
+		$\log(a) / \log(b)$ is irrational. However, they did not demonstrate a lower bound. 
 		In 1980, Stewart\cite[Theorem 2]{stewart1980} proved that
-			if $\log(a)/\log(b)$ is irrational, then
-			\[
-				c_{b}(a^{n}) > \frac{\log n}{\log \log n + C} - 1
-			\]
-			for $n > 4$, where $C$ depends on $a$ and $b$ alone.
+		if $\log(a)/\log(b)$ is irrational, then
+		\[
+			c_{b}(a^{n}) > \frac{\log n}{\log \log n + C} - 1
+		\]
+		for $n > 4$, where $C$ depends on $a$ and $b$ alone.
 		Theorem \ref{general-digit-sum} achieves a stronger bound, 
 		but with stricter conditions on $a$ and $b$.
 

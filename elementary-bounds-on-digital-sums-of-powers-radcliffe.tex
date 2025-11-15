@@ -10,6 +10,7 @@
 \usepackage{parskip}
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
 \DeclareMathOperator{\lcm}{lcm}
 \addbibresource{elementary-bounds-on-digital-sums-of-powers-radcliffe.bib}
 
@@ -197,8 +198,8 @@
 			\[
 				\xi(n) = \nu_{p}(n) - \nu_{q}(n) \frac{\nu_{p}(b)}{\nu_{q}(b)}.
 			\]
-		It is easy to verify that $\xi(b^r m) = \xi(t)$ for all $r \ge 0$
-		and $t \ge 1$. Intuitively, $\xi$ is a modified $\nu_p$
+		It is easy to verify that $\xi(b^r m) = \xi(m)$ for all $r \ge 0$
+		and $m \ge 1$. Intuitively, $\xi$ is a modified $\nu_p$
 		that ignores trailing zeros in the base-$b$ representation of its argument.
 
 		\begin{theorem}
@@ -319,11 +320,141 @@
 			s_{b}(n!) > C \log n \log \log \log n
 		\]
 		for every integer $n > e^{e}$ and every $b \ge 2$, where $C$ is a constant 
-		depending only on $b$; 
-		and the same inequality for $s_{b}(\Lambda_n)$.
+		depending only on $b$,
+		and he established the same inequality for $s_{b}(\Lambda_n)$.
 
-	\medskip
+	\section{Digital sums of powers: the general case}
 
+		In this final section, we will prove that the number of nonzero digits in the base-$b$
+		expansion of $a^n$ increases to infinity with $n$, provided that $\log(b)/\log(a)$.
+
+		This condition is necessary, because if $\log(a)/\log(b) = r/s \in \mathbb{Q}$, then
+		$a^{ns} = b^{nr}$ for all $n$, so $a^{ns}$ has only one nonzero digit in its base-$b$
+		expansion.
+
+		The proof is not elementary, as it relies on a deep result in transcendental number theory,
+		concerning linear forms in logarithms.
+
+		\begin{theorem} \cite[p. 23]{baker1975}
+			Let $\alpha_1, \ldots, \alpha_n$ be nonzero algebraic numbers with degrees
+			at most $d$. Suppose that $\alpha_1, \ldots, \alpha_{n-1}$ and $\alpha_n$
+			have heights at most $A' \ge 4$ and $A \ge 4$ respectively. Let $\beta_1, \ldots, \beta_n$
+			be rational integers with heights (absolute values) at most $B \ge 2$.
+			If $\Lambda = \beta_1 \log \alpha_1 + \cdots + \beta_n \alpha_n \ne 0$,
+			there exists $C > 1$, depending only on $A$, $A'$, $B$, $n$, and $d$,
+			such that $|\Lambda| > C^{-\log A \log B}$.
+			\label{baker}
+		\end{theorem}
+
+		Recall that a nonzero algebraic number $\alpha$ is a root of an irreducible polynomial $P$
+		with integer coefficients. We may assume that the greatest common divisor of the coefficients
+		of $P$ is 1, and the leading coefficient is positive. These requirements uniquely determine $P$.
+		The \emph{degree} of $\alpha$ is equal to the degree of $P$, and the \emph{height} of $\alpha$
+		is the maximum of the absolute values of the cofficients of $P$. For a rational integer, the degree
+		is $1$ and the height is the absolute value.
+
+		% Let $a, b \ge 2$ be integers. If $\log(a)/\log(b) = r/s \in \mathbb{Q}$,
+		% then the sequences $(s_b(a^n))_{n\ge1}$ and $(c_b(a^n))_{n\ge1}$ are periodic,
+		% since $a^s = b^r$. So we will assume for the remainder of this section that
+		% $\log(a)/\log(b)$ is irrational.
+
+		\begin{lemma}
+			Let $a, b \ge 2$ be integers such that $\log(a)/\log(b)$ is irrational.
+			Then there exists a constant $C > 0$ so that if $a^n = b^r m$ and $m \nmid d$
+			then $\log m > Cn$.
+			\label{lemma}
+		\end{lemma}
+
+
+
+		\begin{proof}
+			If $\log(a)/\log(b)$ is irrational then there exist primes $p, q$ so that
+			$\nu_p(a) \nu_q(b) > \nu_q(a) \nu_p(b)$. Consequently, $\xi(a) > 0$, where
+			$\xi = \xi_{b,p,q}$ is defined as in Section 3.
+
+			Since $\nu_p(m) \ge \xi(m) = \xi(a^n) = n \xi(a)$, it follows that
+			$m$ is divisible by $p^{\lceil n \xi(a)\rceil}$, 
+			so $\log m > Cn$ where $C = \xi(a) \log p > 0$.
+		\end{proof}
+
+		\begin{theorem} 
+			Let $a, b \ge 2$ be integers, and suppose that $\log(a)/\log(b)$ is irrational.
+			Then $c_b(a^n)$ increases to infinity with $n$.
+		\end{theorem}
+
+		\begin{proof}
+			Let
+			\begin{equation}
+				a^n = b^m (d_i b^{-m_1} + \cdots + d_r b^{-m_r}),
+			\end{equation}
+			where $m = \lfloor \log_b a \rfloor$, $r = c_b(a^n)$, $d_i \in \{1, \ldots, b-1\}$,
+			and $1 = m_1 < \cdots < m_r \le m$. Assume that $r \ge 2$.
+
+			Choose $i \in \{1, \ldots, r-1\}$. We seek an upper bound on $m_{i+1}/m_i$,
+			which will imply an upper bound on $n$.
+
+			Let $q = b^{m_i} (d_1 b^{-m_1} + \cdots + d_i b^{-m_i})$ and
+			$r = b^m (d_{i+1} b^{-m_{i+1}} + \cdots d_r b^{-m_r})$, so that
+			$a^n = b^{m - m_i} q + r$. 
+
+			% Let $q = \lfloor b^{m-m_i} a^n \rfloor$ and $r = a^n \bmod b^{m-m_i}$, so that
+			% $a^n = b^{m-m_i} q + r$.
+
+
+			Observe that the following inequalities hold:
+			\begin{align*}
+			    b^{m-1} &< a^n < b^m, \\
+                b^{m_i-1} &< q < b^{m_i}, \\
+				b^{m-m_{i+1}} &< r < b^{m-m_{i+1}+1}.
+			\end{align*}
+
+			By combining these inequalities, we find that
+			\begin{equation}
+				-\log(a^{-n} r) / \log(q) \approx m_{i+1} / m_i.
+			\end{equation}
+
+			Let $\Lambda = n \log a + (m - m_i) \log b + \log q$.
+			Then $|\Lambda| = \log(1 + a^{-n} r) < a^{-n} r$.
+			But by Theorem \ref{baker}, $|\Lambda| > C^{-\log n \log q}$ for some $C > 1$
+			depending only on $a$ and $b$. Therefore, $a^{-n} r > C^{-\log n \log q}$,
+			so
+			\begin{equation}
+				-\log(a^{-n} r) / \log(q) < C' \log n.
+			\end{equation}
+
+			Since $\log m_r = \sum_{i=1}^{r-1} \log(m_{i+1}/m_i)$, Equations (2) and (3) imply that
+			\[
+			   m_r < r (\log \log n + C).
+			\]
+
+			But $m_r = \Theta(\log n)$ by Lemma \ref{lemma}, hence
+			\[
+			r > \frac{\log n}{\log \log n + C}
+			\]
+			for some $C > 0$ depending only on $a$ and $b$, when $n$ is sufficiently large.
+			Since $r = c_b(a^n)$, this confirms that $\lim_{n\to\infty} c_b(a^n) = \infty$.
+			
+		\end{proof}
+
+
+
+	
+	
+		% In this section, we will prove that $\lim_{n\to\infty} c_{10}(3^n) = \infty$.
+		% This proof is decidedly \emph{not} elementary; it requires a deep result
+		% from transcendental number theory.
+
+		% Our initial proof that $\lim_{n\to\infty} c_{10}(2^n) = \infty$
+		% was based on the idea that the decimal expansion of $2^n$ cannot contain
+		% long strings of consecutive zeros in certain locations.
+		% But this is not true for $3^n$.
+		% In fact, the decimal expansion of $3^n$ can end in $000\ldots1$ for
+		% any number of zeros, since $3^{4\cdot 10^k} \equiv 1 \pmod{10^{k+1}}$
+		% by Euler's totient theorem. So a different approach is required.
+
+		% We need to show that $3^n$ 
+
+	
 	\printbibliography
 
 \end{document}

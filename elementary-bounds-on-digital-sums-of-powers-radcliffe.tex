@@ -11,12 +11,14 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}{Corollary}
 \newtheorem{lemma}{Lemma}
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}
 \DeclareMathOperator{\lcm}{lcm}
 \addbibresource{elementary-bounds-on-digital-sums-of-powers-radcliffe.bib}
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
 \author{David G Radcliffe}
-\date{November 15, 2025}
+\date{November 16, 2025}
 
 \begin{document}
 
@@ -74,13 +76,13 @@
 		For an integer $b \ge 2$, we write $s_{b}(n)$ for the sum of the base-$b$
 		digits of $n$, and $c_{b}(n)$ for the number of nonzero digits in that expansion.
 		These functions are asymptotic to each other, since $c_{b}(n) \le s_{b}(n) \le
-		(b-1) c_{b}(n)$ for all $n$ and $b$; so we will restrict our attention to
+		(b-1) c_{b}(n)$ for all $n$ and $b$; so we restrict our attention to
 		$c_{b}(n)$. For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
 		prime factorization of $n$. If $p$ does not divide $n$ then $\nu_{p}(n) = 0$.
 
 	\section{Digital sums of powers of two}
 
-		We will present an informal proof that $c_{10}(2^{n})$ tends to infinity as $n \to \infty$.
+		We present an informal proof that $c_{10}(2^{n})$ tends to infinity as $n \to \infty$.
 		The key idea, which might seem too obvious to state, is that a positive multiple 
 		of a number cannot be smaller than that number.
 
@@ -172,8 +174,10 @@
 			$c_{10}(a^n) \ge k \ge \log_4(n)$, by Theorem \ref{base-ten-lower-bound}.
 		\end{proof}
 
-		{\bf Exercise.} Show that every power of 3 has a multiple $m$, not divisible by $10$,
-		such that $c_{10}(m) = 2$.
+		\begin{exercise}
+			Show that every power of 3 has a multiple $m$, not divisible by $10$,
+			such that $c_{10}(m) = 2$.
+		\end{exercise}
 
 	\section{Generalizing to other bases}
 
@@ -296,12 +300,12 @@
 		for $n > 4$, where $C$ depends on $a$ and $b$ alone.
 		Theorem \ref{general-digit-sum} achieves a stronger bound, 
 		but with stricter conditions on $a$ and $b$.
-		We will replicate Stewart's result in Section \ref{general-case}.
+		We replicate Stewart's result in Section \ref{general-case}.
 
 	\section{Related sequences}
 
 		Theorem \ref{phi-lower-bound} can be applied to many other sequences. 
-		We will give two examples here. 
+		We give two examples here. 
 		% As before, let $b \ge 2$ be an integer, 
 		% and let $p$ and $q$ be distinct prime divisors of $b$.
 
@@ -353,7 +357,7 @@
 			\[
 				\xi(\Lambda_{n}) = \lfloor \log_{p} n\rfloor - \lfloor \log_{q} n\rfloor
 				\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)} = \log n \cdot \left( \frac{1}{\log
-				p}- \frac{1}{\log q}\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)} + o(1)\right).
+				p}- \frac{1}{\log q}\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)}\right) + O(1).
 			\]
 
 			Since $\log(p)/\log(q)$ is irrational,
@@ -381,7 +385,7 @@
 		\]
 		for every integer $n > e^{e}$ and every $b \ge 2$, where $C$ is a constant 
 		depending only on $b$,
-		and they established the same inequality for $s_{b}(\Lambda_n)$.
+		and they established the same lower bound for $s_{b}(\Lambda_n)$.
 
 	\section{Digital sums of powers: the general case}
 		\label{general-case}
@@ -433,20 +437,21 @@
 		
 		\begin{lemma}
 			Let $a, b \ge 2$ be integers with $\log(a)/\log(b)$ irrational.
-			Then there exists $C$ and $C'$, depending only on $a$ and $b$, 
+			Then there exist $C$ and $C'$, depending only on $a$ and $b$, 
 			such that whenever
 			\[
-			 	a^n = b^r u \qquad \text{with } b \nmid u,
+				a^n = b^r u,
 			\]
-			we have
+			we have 
 			\[
 				C n \le \log u \le C' n.
 			\]
+			In other words, $u = \Theta(\log n)$.
 			\label{lemma}
 		\end{lemma}
 
 		\begin{proof}
-			Since $\log(a)/\log(b)$ is irrational, we can choose primes $p,q$ such that
+			Since $\log(a)/\log(b)$ is irrational, we can choose primes $p, q$ such that
 			\[
 				\nu_p(a) \nu_q(b) > \nu_q(a) \nu_p(b).
 			\]
@@ -479,7 +484,7 @@
 			\begin{equation*}
 				a^n = b^m \left(d_i b^{-m(1)} + \cdots + d_k b^{-m(k)}\right),
 			\end{equation*}
-			where $m = \lfloor \log_b a \rfloor$, $k = c_b(a^n)$, 
+			where $m = \lceil \log_b a \rceil$, $k = c_b(a^n)$, 
 			$d_i \in \{1, \ldots, b-1\}$,
 			and
 			\[
@@ -505,9 +510,9 @@
 
 			From the base-$b$ expansion we obtain the bounds
 			\begin{align*}
-			    b^{m-1} &< a^n < b^m, \\
-                b^{m(i)-1} &< q < b^{m(i)}, \\
-				b^{m-m(i+1)} &< r < b^{m-m(i+1)+1}.
+			    b^{m-1}      &\le a^n \le b^m, \\
+                b^{m(i)-1}   &\le q   \le b^{m(i)}, \\
+				b^{m-m(i+1)} &\le r   \le b^{m-m(i+1)+1}.
 			\end{align*}
 
 			These imply the approximation
@@ -521,7 +526,7 @@
 			   \Lambda = \log(a^{-n} b^{m - m(i)} q) = -n \log a + (m - m(i)) \log b + \log q.
 			   \label{linear-form}
 			\end{equation}
-			Then 
+			Then (since $a^{-n} r < 1/2$)
 			\[
 				|\Lambda| = -\log(1 - a^{-n} r) < 2 a^{-n} r.
 			\]
@@ -556,16 +561,27 @@
 			   \label{estimate-3}
 			\end{equation}
 
-			By Lemma~\ref{lemma}, $\log m(k) = \log n + O(1)$, 
-			so \eqref{estimate-3} implies			
+			Write $a^n$ as $b^{m-m(k)} u$, where 
+			\[
+				b^{m(k)-1} < u < b^{m(k)}.
+			\]
+
+			Thus $m(k) = \Theta(\log(u))$, and $\log(u) = \Theta(n)$ by Lemma~\ref{lemma}, so
+			\[
+				\log m(k) = \log n + O(1).
+			\]
+			Therefore, Equation \eqref{estimate-3} implies that		
 			\[
 				k > \frac{\log n}{\log \log n + C}
 			\]
 			for all sufficiently large $n$, as required.		
 		\end{proof}
 	
-	{\bf Exercise.} Prove that the number of nonzero decimal digits in the $n$th
-	Fibonacci number tends to infinity as $n \to \infty$.
+	\begin{exercise}
+		Prove that the number of nonzero decimal digits in the $n$th
+		Fibonacci number tends to infinity as $n \to \infty$.
+	\end{exercise}
+
 	\printbibliography
 
 \end{document}

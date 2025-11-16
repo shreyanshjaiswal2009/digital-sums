@@ -67,7 +67,7 @@
 		Our new sequence grows much more slowly, and it is not monotonic. 
 		Nevertheless, it is reasonable to conjecture that it tends to infinity. 
 		Indeed, one might guess that the sum of the decimal digits of $2^{n}$ 
-		is asymptotic to $4.5 n \log_{10}2$, 
+		is approximately equal to $4.5 n \log_{10}2$, 
 		since $2^{n}$ has $\lfloor n \log_{10}2\rfloor + 1$ decimal digits, 
 		and the digits seem to be approximately uniformly distributed among 
 		$0, 1, 2, \ldots, 9$. 
@@ -247,8 +247,8 @@
 		\begin{theorem}
 			Let $a \ge 2$ and $b \ge 2$ be integers. Let $d$ be the smallest factor of $a$
 			such that $\gcd(a/d, b) = 1$, and suppose that $\log(d) / \log(b)$ is irrational.
-			Then $c_{b}(a^{n}) \ge \log_r n$ for all $n \ge 1$, where $r \ge 2$ is an integer
-			depending only on $a$ and $b$.
+			Then $c_{b}(a^{n}) > C \log n$ for all $n \ge 1$, where $C > 0$ depends
+			only on $a$ and $b$.
 			In particular, $\lim_{n\to\infty}c_{b}(a^{n}) = \infty$.
 			\label{general-digit-sum}
 		\end{theorem}
@@ -274,18 +274,19 @@
 			\]
 			and so $\xi(a) > 0$.
 
-			Let $r = \lceil \log(b) / \log(p) \rceil$, and let $\varepsilon(k) = r^{k-1}$ for $k \ge 1$.
+			Let $r = \lceil \log_p b \rceil$, 
+			and let $\varepsilon(k) = r^{k-1}$ for $k \ge 1$.
 			This sequence satisfies $\varepsilon(1) \ge 1$ and
 			\[
 				p^{\varepsilon(k)} > b^{\varepsilon(k-1)}
 			\]
 			for all $k \ge 2$.
 			
-			Let $n$ be a positive integer, and let $k = \lceil \log_r n \rceil$,
-			so that $r^{k-1} < n \le r^k$. Then $a^n$ is divisible by $p^n$,
-			so $a^n$ is also divisible by $p^{\varepsilon(k)}$.
-			
-			Therefore, $c_{b}(a^n) \ge k \ge \log_r(n)$, by Theorem \ref{phi-lower-bound}.
+			Let $n$ be a positive integer, and let $k = \lceil \log_r \xi(a^n) \rceil$,
+			so that $r^{k-1} < \xi(a^n) \le r^k$.
+			Then $\xi(a^n) > \varepsilon(k)$, so Theorem \ref{phi-lower-bound} implies that $c_p(a^n) > k$.
+			But $\xi(a^n) = n \xi(a)$, which implies that $k = \Theta(\log n)$, hence
+			the conclusion follows.
 		\end{proof}
 
 		In 1973, Senge and Straus\cite[Theorem 3]{senge-straus1973}

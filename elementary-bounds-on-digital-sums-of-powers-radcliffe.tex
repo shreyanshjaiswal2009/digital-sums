@@ -5,7 +5,6 @@
 \usepackage{amssymb}
 \usepackage{tcolorbox}
 \usepackage{hyperref}
-\usepackage{biblatex}
 \usepackage{xurl}
 \usepackage{parskip}
 \newtheorem{theorem}{Theorem}
@@ -14,11 +13,10 @@
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}
 \DeclareMathOperator{\lcm}{lcm}
-\addbibresource{elementary-bounds-on-digital-sums-of-powers-radcliffe.bib}
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
 \author{David G Radcliffe}
-\date{November 16, 2025}
+\date{November 17, 2025}
 
 \begin{document}
 
@@ -308,8 +306,6 @@
 
 		Theorem \ref{phi-lower-bound} can be applied to many other sequences. 
 		We give two examples here. 
-		% As before, let $b \ge 2$ be an integer, 
-		% and let $p$ and $q$ be distinct prime divisors of $b$.
 
 		\begin{theorem}
 			Let $b \ge 2$ be an integer. Suppose that $b$ has prime divisors $p$ and $q$
@@ -409,7 +405,6 @@
 		of $\alpha$ is the maximum of the absolute values of the cofficients of $P$. 
 		A rational integer has degree $1$ and height equal to its absolute value.
 
-
 		Our proof relies on a version of Baker's theorem on linear forms in logarithms, 
 		which we use as a black box.
 
@@ -448,7 +443,7 @@
 			\[
 				C n \le \log u \le C' n.
 			\]
-			In other words, $u = \Theta(\log n)$.
+			In other words, $\log u = \Theta(n)$.
 			\label{lemma}
 		\end{lemma}
 
@@ -498,7 +493,7 @@
 			Assume that $k \ge 2$.
 
 			Fix $i\in \{1,\dots,k-1\}$. We estimate the ratio $m(i+1)/m(i)$, 
-			which will ultimately bound $n$.
+			which will ultimately bound $k$.
 
 			Define
 			\begin{align*}
@@ -584,6 +579,45 @@
 		Fibonacci number tends to infinity as $n \to \infty$.
 	\end{exercise}
 
-	\printbibliography
+\begin{thebibliography}{99}
+
+\bibitem{andrica2020}
+Andrica, D., R\u{a}dulescu, S., and {\c{T}}urca{\c{s}}, G.\ C.,
+``The exponent of a group: Properties, computations and applications,''
+in \textit{Discrete Mathematics and Applications},
+A.\ M.\ Raigorodskii and M.\ Th.\ Rassias (eds.),
+Springer, Cham, 2020, pp.~57--108.
+
+\bibitem{baker1975}
+Baker, A.,
+\textit{Transcendental Number Theory},
+Cambridge University Press, Cambridge, 1975.
+
+\bibitem{dickson1919}
+Dickson, L.\ E.,
+\textit{History of the Theory of Numbers}, Vol.~1,
+Carnegie Institution of Washington, 1919.
+
+\bibitem{sanna2015}
+Sanna, C.,
+``On the sum of digits of the factorial,''
+\textit{J. Number Theory} \textbf{147} (2015), 836--841.
+
+\bibitem{senge-straus1973}
+Senge, H.\ G. and Straus, E.\ G.,
+``PV-numbers and sets of multiplicity,''
+\textit{Period. Math. Hungar.} \textbf{3} (1973), no.~1, 93--100.
+
+\bibitem{sierpinski1970}
+Sierpi{\'n}ski, W.,
+\textit{250 Problems in Elementary Number Theory},
+American Elsevier Publishing Company, New York, 1970.
+
+\bibitem{stewart1980}
+Stewart, C.\ L.,
+``On the representation of an integer in two different bases,''
+\textit{J. Reine Angew. Math.} \textbf{319} (1980), 63--72.
+
+\end{thebibliography}
 
 \end{document}

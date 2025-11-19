@@ -10,13 +10,12 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}{Corollary}
 \newtheorem{lemma}{Lemma}
-\theoremstyle{definition}
 \newtheorem{exercise}{Exercise}
 \DeclareMathOperator{\lcm}{lcm}
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
-\author{David G Radcliffe}
-\date{November 18, 2025}
+\author{David G. Radcliffe}
+\date{November 19, 2025}
 
 \begin{document}
 
@@ -62,7 +61,7 @@
 			1, 2, 4, 8, 7, 5, 10, 11, 13, 8, 7, \ldots .
 		\]
 
-		Our new sequence grows much more slowly, and it is not monotonic. 
+		This new sequence grows much more slowly, and it is not monotonic. 
 		Nevertheless, it is reasonable to conjecture that it tends to infinity. 
 		Indeed, one might guess that the sum of the decimal digits of $2^{n}$ 
 		is approximately equal to $4.5 n \log_{10}2$, 
@@ -115,9 +114,9 @@
 		Let us formalize this argument.
 
 		\begin{theorem}
-			Let $(\varepsilon(k))_{k\ge1}$ be a sequence of integers such that 
-			$\varepsilon(1) \ge 1$ and $2^{\varepsilon(k)} > 10^{\varepsilon(k-1)}$ for all $k \ge 2$. 
-			If $n$ is a positive integer that is divisible by $2^{\varepsilon(k)}$ 
+			Let $(e(k))_{k\ge1}$ be a sequence of integers such that 
+			$e(1) \ge 1$ and $2^{e(k)} > 10^{e(k-1)}$ for all $k \ge 2$. 
+			If $n$ is a positive integer that is divisible by $2^{e(k)}$ 
 			but not divisible by $10$, then $c_{10}(n) \ge k$.
 			\label{base-ten-lower-bound}
 		\end{theorem}
@@ -127,15 +126,15 @@
 			that $k \ge 2$. 
 			By the division algorithm, there exist integers $q$ and $r$ such that
 			\[
-				n = 10^{\varepsilon(k-1)} q + r,
+				n = 10^{e(k-1)} q + r,
 			\]
-			where $q \ge 0$ and $0 \le r < 10^{\varepsilon(k-1)}$.
+			where $q \ge 0$ and $0 \le r < 10^{e(k-1)}$.
 			
 
-			Since $n \ge 2^{\varepsilon(k)} > 10^{\varepsilon(k-1)}$, it follows that $q \ge 1$.
+			Since $n \ge 2^{e(k)} > 10^{e(k-1)}$, the quotient $q$ is at least $1$.
 
-			Since $n$ and $10^{\varepsilon(k-1)}$ are divisible by $2^{\varepsilon(k-1)}$, 
-			the remainder $r$ is also divisible by $2^{\varepsilon(k-1)}$. 
+			Since $n$ and $10^{e(k-1)}$ are divisible by $2^{e(k-1)}$, 
+			the remainder $r$ is also divisible by $2^{e(k-1)}$. 
 			But $r$ is not divisible by $10$,
 			so $c_{10}(r) \ge k - 1$, by the induction hypothesis.
 
@@ -155,17 +154,17 @@
 			\end{corollary}
 
 		\begin{proof}
-			Let $\varepsilon(k) = 4^{k-1}$ for $k \ge 1$. 
-			This sequence satisfies $\varepsilon(1) \ge 1$
+			Let $e(k) = 4^{k-1}$ for $k \ge 1$. 
+			This sequence satisfies $e(1) \ge 1$
 			and 
 			\[
-				2^{\varepsilon(k)} > 10^{\varepsilon(k-1)}
+				2^{e(k)} > 10^{e(k-1)}
 			\]
 			for all $k \ge 2$.
 			
 			Let $n\ge 4$ be a positive integer, and let $k = \lceil \log_4 n \rceil$,
 			so that $4^{k-1} < n \le 4^k$. Then $a^n$ is divisible by $2^n$,
-			so $a^n$ is also divisible by $2^{\varepsilon(k)}$.
+			so $a^n$ is also divisible by $2^{e(k)}$.
 			But $a^n$ is not divisible by $10$.
 			
 			Therefore,
@@ -184,9 +183,9 @@
 
 		\begin{theorem}
 			Let $b \ge 2$ be an integer that is not a power of a prime, and let $p$ be a
-			prime divisor of $b$. Let $(\varepsilon(k))_{k\ge1}$ be a sequence of integers such
-			that $\varepsilon(1) \ge 1$ and $p^{\varepsilon(k)} > b^{\varepsilon(k-1)}$ for all $k \ge 2$. 
-			If $\nu_p(n) \ge \varepsilon(k)$ and $b \nmid n$ then $c_b(n) \ge k$.
+			prime divisor of $b$. Let $(e(k))_{k\ge1}$ be a sequence of integers such
+			that $e(1) \ge 1$ and $p^{e(k)} > b^{e(k-1)}$ for all $k \ge 2$. 
+			If $\nu_p(n) \ge e(k)$ and $b \nmid n$, then $c_b(n) \ge k$.
 			\label{general-powers-lower-bound}
 		\end{theorem}
 
@@ -195,14 +194,14 @@
 			that $k \ge 2$. By the division algorithm, there exist integers 
 			$q$ and $r$ such that
 			\[
-				n = b^{\varepsilon(k-1)}q + r,
+				n = b^{e(k-1)}q + r,
 			\]
-			where $q \ge 0$ and $0 \le r < b^{\varepsilon(k-1)}$.
+			where $q \ge 0$ and $0 \le r < b^{e(k-1)}$.
 
-			Since $n \ge p^{\varepsilon(k)}> b^{\varepsilon(k-1)}$, it follows that $q \ge 1$.
+			Since $n \ge p^{e(k)}> b^{e(k-1)}$, the quotient $q$ is at least $1$.
 
-			Since $n$ and $b^{\varepsilon(k-1)}$ are divisible by $p^{\varepsilon(k-1)}$, 
-			the remainder $r$ is also divisible by $p^{\varepsilon(k-1)}$. 
+			Since $n$ and $b^{e(k-1)}$ are divisible by $p^{e(k-1)}$, 
+			the remainder $r$ is also divisible by $p^{e(k-1)}$. 
 			But $r$ is not divisible by $b$, 
 			so $c_{b}(r) \ge k - 1$, by the induction hypothesis.
 
@@ -213,20 +212,23 @@
 			Therefore, $c_{b}(n) \ge 1 + (k - 1) = k$.
 		\end{proof}
 
-		{\bf Notation.} Given an integer $b \ge 2$ with distinct prime divisors $p$ and $q$,
-		define a function $\xi = \xi_{b,p,q}$ as follows:
+		It is desirable to relax the condition that $b \nmid n$,
+		since multiplying by a factor of the form $b^r$ does not change the number of nonzero digits
+		of $n$ in base $b$. To facilitate this, we introduce the following notation.
+		Let $b \ge 2$ be an integer with distinct prime divisors $p$ and $q$.
+		Define the function $\xi = \xi_{b,p,q}$ by
 			\[
 				\xi(n) = \nu_{p}(n) - \nu_{q}(n) \frac{\nu_{p}(b)}{\nu_{q}(b)}.
 			\]
-		The reader can verify that $\xi(b^r u) = \xi(u)$ for all $r \ge 0$
-		and $u \ge 1$. Intuitively, $\xi$ is a modified $\nu_p$
-		that ignores trailing zeros in the base-$b$ representation of its argument.
+		One easily verifies that $\xi(b^r u) = \xi(u)$ for all integers $r \ge 0$ and $u \ge 1$.
+		Intuitively, $\xi$ is a modified version of $\nu_p$
+		that is insensitive to trailing zeros in the base-$b$ expansion of its argument.
 
 		\begin{theorem}
 			Let $b \ge 2$ be an integer that is not a power of a prime, let $p$ and $q$
 			be distinct prime divisors of $b$, and let 
-			$(\varepsilon(k))_{k\ge1}$ be defined as in Theorem \ref{general-powers-lower-bound}.
-			If $\xi(n) \ge \varepsilon(k)$, then $c_{b}(n) \ge k$. 
+			$(e(k))_{k\ge1}$ be defined as in Theorem \ref{general-powers-lower-bound}.
+			If $\xi(n) \ge e(k)$, then $c_{b}(n) \ge k$. 
 			In particular, $\lim_{n\to\infty} c_b(a_n) = \infty$
 			for any sequence of positive integers that satisfies
 			$\lim_{n\to\infty} \xi(a_n) = \infty$.
@@ -236,7 +238,7 @@
 		\begin{proof}
 			Write $n$ as $b^{r} u$, where $u$ is not divisible by $b$. 
 			Note that $\xi(n) = \xi(u)$. 
-			Since $\nu_{p}(u) \ge \xi(u) \ge \varepsilon(k)$
+			Since $\nu_{p}(u) \ge \xi(u) \ge e(k)$
 			and $b \nmid u$, Theorem \ref{general-powers-lower-bound} implies that
 			$c_{b}(u) \ge k$. But $c_{b}(u) = c_{b}(n)$, since $u$ and $n$ have the same
 			digits in base $b$, apart from trailing zeros. Therefore, $c_{b}(n) \ge k$.
@@ -273,17 +275,17 @@
 			and so $\xi(a) > 0$.
 
 			Let $r = \lceil \log_p b \rceil$, 
-			and let $\varepsilon(k) = r^{k-1}$ for $k \ge 1$.
-			This sequence satisfies $\varepsilon(1) \ge 1$ and
+			and let $e(k) = r^{k-1}$ for $k \ge 1$.
+			This sequence satisfies $e(1) \ge 1$ and
 			\[
-				p^{\varepsilon(k)} > b^{\varepsilon(k-1)}
+				p^{e(k)} > b^{e(k-1)}
 			\]
 			for all $k \ge 2$.
 			
 			Let $n$ be a positive integer, and let $k = \lceil \log_r \xi(a^n) \rceil$,
 			so that
 				$r^{k-1} < \xi(a^n) \le r^k$.
-			Then $\xi(a^n) > \varepsilon(k)$, so Theorem \ref{phi-lower-bound} implies that $c_p(a^n) \ge k$.
+			Then $\xi(a^n) > e(k)$, so Theorem \ref{phi-lower-bound} implies that $c_p(a^n) \ge k$.
 			But $\xi(a^n) = n \xi(a)$, hence $k = \Theta(\log n)$, and
 			the conclusion follows.
 		\end{proof}

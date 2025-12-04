@@ -14,7 +14,7 @@
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
 \author{David G. Radcliffe}
-\date{December 3, 2025}
+\date{December 4, 2025}
 
 \begin{document}
 
@@ -23,7 +23,7 @@
 		if $\log(d)/\log(b)$ is irrational, where $d$ is the smallest factor of $a$ 
 		such that $\gcd(a/d, b) = 1$.
 		Our approach uses only elementary number theory and applies to a wide class of sequences, 
-		including factorials and $\Lambda(n) = \lcm(1, 2, \ldots, n)$.
+		including factorials and the least common multiple of $\{1, \ldots, n\}$.
 		We conclude with an expository proof of the previously known result that
 		the sum of the base-$b$ digits of $a^{n}$ tends to infinity with $n$ if and only if
 		$\log(a)/\log(b)$ is irrational.
@@ -79,12 +79,12 @@
 		digits of $n$, and $c_{b}(n)$ for the number of nonzero digits in that expansion.
 		These functions are equivalent up to a constant factor, 
 		since $c_{b}(n) \le s_{b}(n) \le (b-1) c_{b}(n)$ for all $n$ and $b$; 
-		so we restrict our attention to $c_{b}(n)$. 
+		so we focus on $c_{b}(n)$. 
 
 		The function $s_b$ is \emph{subadditive}: $s_b(m+n) \le s_b(m) + s_b(n)$
 		for all positive integers $m$ and $n$. Equality
 		holds if no carries occur in the digitwise addition of $m$ and $n$.
-		Otherwise, each carry reduces the digital sum by $(b-1)$.
+		Otherwise, each carry reduces the digital sum by $b-1$.
 		The function $c_b$ is likewise subadditive.
 
 		For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
@@ -135,7 +135,7 @@
 		Note that the final digit $d_0$ of $2^{n}$ cannot be zero,
 		since $2^n$ is not divisible by $10$.
 
-		If $2^{n} > 10$, then $2^{n}$ is divisible by 16; so
+		If $2^{n} > 10$, then $2^{n}$ is divisible by $16$; so
 		$2^{n} \bmod 10^{4}$, the number formed by the last four digits of $2^{n}$, is
 		also divisible by $16$. If the first three of these digits were zero, then $2^{n}
 		\bmod 10^{4}$ would be less than $10$, which is impossible. 
@@ -168,27 +168,40 @@
 		\end{theorem}
 
 		\begin{proof}
-			The proof is by induction on $k$. The case $k = 1$ is trivial, so let us assume
-			that $k \ge 2$. 
-			By the division algorithm, there exist integers $q$ and $r$ such that
+			We argue by induction on $k$.
+			The case $k=1$ is immediate, since any positive integer
+			has at least one nonzero digit.
+
+			Assume now that $k \ge 2$, and that the statement holds for $k-1$.
+			Let $n$ be a positive integer divisible by $2^{e(k)}$ but not by $10$.
+			Apply the division algorithm to write
 			\[
-				n = 10^{e(k-1)} q + r,
+				n = 10^{e(k-1)} q + r, \qquad 0 \le r < 10^{e(k-1)},
 			\]
-			where $q \ge 0$ and $0 \le r < 10^{e(k-1)}$.
-			
+			for integers $q$, $r$.
 
-			Since $n \ge 2^{e(k)} > 10^{e(k-1)}$, the quotient $q$ is at least $1$.
+			Because $n \ge 2^{e(k)} > 10^{e(k-1)}$ by hypothesis,
+			the quotient satisfies $q \ge 1$.
 
-			Since $n$ and $10^{e(k-1)}$ are divisible by $2^{e(k-1)}$, 
-			the remainder $r$ is also divisible by $2^{e(k-1)}$. 
-			But $r$ is not divisible by $10$,
-			so $c_{10}(r) \ge k - 1$, by the induction hypothesis.
+			Next, both $n$ and $10^{e(k-1)}$ are divisible by $2^{e(k-1)}$,
+			hence their difference
+			\[
+				r = n - 10^{e(k-1)} q
+			\]
+			is also divisible by $2^{e(k-1)}$.
 
-			Note that $c_{10}(n) = c_{10}(q) + c_{10}(r)$, since the digit expansion of $n$
-			is the concatenation of the digit expansions of $q$ and $r$, possibly with
-			leading zeros.
+			Moreover, $r$ is not divisible by $10$, since $n$ is not divisible by $10$.
 
-			Therefore, $c_{10}(n) \ge 1 + (k - 1) = k$.
+			Therefore, $c_{10}(r) \ge k - 1$ by the induction hypothesis.
+
+			Finally, the decimal expansion of $n$ is obtained by concatenating
+			the decimal expansion of $q$ with the (possibly zero-padded)
+			expansion of $r$. Thus,
+			\[
+				c_{10}(n) = c_{10}(q) + c_{10}(r) \ge 1 + (k - 1) = k.
+			\]
+			This completes the proof.
+
 		\end{proof}
 
 		\begin{corollary}
@@ -231,36 +244,51 @@
 		\end{theorem}
 
 		\begin{proof}
-			The proof is by induction on $k$. The case $k = 1$ is trivial, so let us assume
-			that $k \ge 2$. By the division algorithm, there exist integers 
-			$q$ and $r$ such that
+			We argue by induction on $k$. 
+			The case $k=1$ is immediate, since any positive integer
+			has at least one nonzero digit.
+
+			Assume now that $k \ge 2$, and that the statement holds for $k-1$.
+			Let $n$ be a positive integer divisible by $p^{e(k)}$ but not by $b$.
+			Apply the division algorithm to write
 			\[
-				n = b^{e(k-1)}q + r,
+				n = b^{e(k-1)} q + r, \qquad 0 \le r < b^{e(k-1)},
 			\]
-			where $q \ge 0$ and $0 \le r < b^{e(k-1)}$.
+			for integers $q$, $r$.
 
-			Since $n \ge p^{e(k)}> b^{e(k-1)}$, the quotient $q$ is at least $1$.
+			Because $n \ge p^{e(k)} > b^{e(k-1)}$ by hypothesis,
+			the quotient satisfies $q \ge 1$.
 
-			Since $n$ and $b^{e(k-1)}$ are divisible by $p^{e(k-1)}$, 
-			the remainder $r$ is also divisible by $p^{e(k-1)}$. 
-			But $r$ is not divisible by $b$, 
-			so $c_{b}(r) \ge k - 1$, by the induction hypothesis.
+			Next, both $n$ and $b^{e(k-1)}$ are divisible by $p^{e(k-1)}$,
+			hence their difference
+			\[
+				r = n - b^{e(k-1)} q
+			\]
+			is also divisible by $p^{e(k-1)}$.
 
-			Note that $c_{b}(n) = c_{b}(q) + c_{b}(r)$, since the digit expansion of $n$
-			is the concatenation of the digit expansions of $q$ and $r$, possibly with
-			leading zeros.
+			Moreover, $r$ is not divisible by $b$, since $n$ is not divisible by $b$.
 
-			Therefore, $c_{b}(n) \ge 1 + (k - 1) = k$.
+			Therefore, $c_{b}(r) \ge k - 1$ by the induction hypothesis.
+
+			Finally, the base-$b$ expansion of $n$ is obtained by concatenating
+			the base-$b$ expansion of $q$ with the (possibly zero-padded)
+			expansion of $r$. Thus,
+			\[
+				c_{b}(n) = c_{b}(q) + c_{b}(r) \ge 1 + (k - 1) = k.
+			\]
+			This completes the proof.
+
 		\end{proof}
 
-		It is desirable to relax the condition that $b \nmid n$,
+		It is desirable to relax the condition that $b$ does not divide $n$,
 		since multiplying by a factor of the form $b^r$ does not change the number of nonzero digits
 		of $n$ in base $b$. To facilitate this, we introduce the following notation.
 		Let $b \ge 2$ be an integer with distinct prime divisors $p$ and $q$.
 		Define the function $\xi = \xi_{b,p,q}$ by
-			\[
+			\begin{equation}
 				\xi(n) = \nu_{p}(n) - \nu_{q}(n) \frac{\nu_{p}(b)}{\nu_{q}(b)}.
-			\]
+				\label{xi-notation}
+			\end{equation}
 		One easily verifies that $\xi(b^r u) = \xi(u)$ for all integers $r \ge 0$ and $u \ge 1$.
 		Intuitively, $\xi$ is a modified version of $\nu_p$
 		that is insensitive to trailing zeros in the base-$b$ expansion of its argument.
@@ -331,10 +359,10 @@
 			the conclusion follows.
 		\end{proof}
 
-		In 2025, Jaiswal\cite{jaiswal2025} proved that if $a \ge 2$ and $b \ge 2$ are positive integers,
+		In 2025, S. Jaiswal (personal communication) proved that if $a \ge 2$ and $b \ge 2$ are positive integers,
 		$a$ divides $b$, and if $b$ has at least one prime divisor that does not divide $a$,
 		then \[
-			c_{b}(a^n) > \frac{\log n}{\log \left(2\log b / \log a\right)}
+			c_{b}(a^n) > \frac{\log n}{\log \left(2\log b\, / \log a\right)}
 		\]
 		for $n$ sufficiently large.
 
@@ -507,7 +535,7 @@
 		A rational integer has degree $1$ and height equal to its absolute value.
 
 		Our proof relies on a version of Baker's theorem on linear forms in logarithms, 
-		which we use as a black box.
+		which we state without proof.
 
 		\begin{theorem} \cite[p. 23]{baker1975}
 			Let $\alpha_1, \ldots, \alpha_n$ be nonzero algebraic numbers with degrees
@@ -554,7 +582,7 @@
 			\[
 				\nu_p(a) \nu_q(b) > \nu_q(a) \nu_p(b).
 			\]
-			Hence $\xi(a)>0$ for the function $\xi=\xi_{b,p,q}$ defined in Section 3.
+			Hence $\xi(a)>0$ for the function $\xi=\xi_{b,p,q}$ defined in Equation \ref{xi-notation}.
 
 			Because $\nu_p(u) \ge \xi(u) = \xi(a^n) = n \xi(a)$, the integer $u$ is 
 			divisible by $p^{\lceil n\xi(a)\rceil}$. Therefore
@@ -700,10 +728,6 @@ Cambridge University Press, Cambridge, 1975.
 Dickson, L.\ E.,
 \textit{History of the Theory of Numbers}, Vol.~1,
 Carnegie Institution of Washington, 1919.
-
-\bibitem{jaiswal2025}
-Jaiswal, S.,
-Personal communication, 2025.
 
 \bibitem{knuth1997}
 Knuth, D.\ E.,

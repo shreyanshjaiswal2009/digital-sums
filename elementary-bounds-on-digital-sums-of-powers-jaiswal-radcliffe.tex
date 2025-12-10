@@ -69,7 +69,7 @@ since $2^{n}$ has $\lfloor n \log_{10}2\rfloor + 1$ decimal digits,
 and the digits seem to be approximately uniformly distributed among
 $0, 1, 2, \ldots, 9$.
 However, this stronger conjecture remains to be proved.
-See Figure \ref{fig:s10_scatter}.
+See Figure~\ref{fig:s10_scatter}.
 
 \begin{figure}
 	\centering
@@ -79,7 +79,7 @@ See Figure \ref{fig:s10_scatter}.
 	\label{fig:s10_scatter}
 \end{figure}
 
-We prove in Section \ref{sec:powers-of-two} that the digital
+We prove in Section~\ref{sec:powers-of-two} that the digital
 sum of $2^n$ is greater than $\log_4 n$ for all $n \ge 1$.
 But first, we introduce some notation.
 
@@ -174,7 +174,8 @@ then $2^{n} \bmod 10^{14}$ would be less than $10^{4}$, which is impossible.
 So at least one of the digits $d_4, d_5, \ldots, d_{13}$ is nonzero.
 
 We can continue in this way, finding longer and longer non-overlapping blocks
-of digits, each containing at least one nonzero digit, as illustrated in Figure \ref{fig-blocks}.
+of digits, each containing at least one nonzero digit, as illustrated in 
+Figure~\ref{fig-blocks}.
 This proves that $c_{10}(2^n)$ tends to infinity as $n \to \infty$.
 
 \begin{figure}
@@ -260,14 +261,14 @@ Let us formalize this argument.
 	But $a^n$ is not divisible by $10$.
 
 	Therefore,
-	$c_{10}(a^n) \ge k \ge \log_4(n)$, by Theorem \ref{base-ten-lower-bound}.
+	$c_{10}(a^n) \ge k \ge \log_4(n)$, by Theorem~\ref{base-ten-lower-bound}.
 \end{proof}
 
 \section{Generalizing to other bases}
 
 Before extending the arguments of the previous section, we first situate
 our results in the broader context of earlier work on digital sums of powers.
-In a foundational paper from 1973, Senge and Straus~\cite[Theorem 3]{senge-straus1973}
+In 1973, Senge and Straus~\cite[Theorem 3]{senge-straus1973}
 showed that for integers $a \ge 1$ and $b \ge 2$,
 \[
 	\lim_{n \to \infty} c_b(a^n) = \infty
@@ -289,9 +290,9 @@ This bound is extremely general but grows more slowly than logarithmic.
 In this section we prove a logarithmic lower bound for $c_b(a^n)$ under
 a set of hypotheses that are stronger than Stewart's but still hold in
 many natural situations.  Our approach proceeds in two steps:
-first we establish a structural digit-sum bound for integers forced
-to be divisible by powers of $a$ but not by $b$, and then we apply it to $a^n$
-itself under an additional irrationality condition.
+first we establish a structural digit-sum bound for integers that are 
+divisible by powers of $a$ but not by $b$, and then we apply it to $a^n$
+itself under an additional condition.
 The first step (Theorem~\ref{thm:multiples-of-powers} below)
 generalizes the corresponding base-$10$ argument from the previous section.
 
@@ -304,8 +305,8 @@ generalizes the corresponding base-$10$ argument from the previous section.
 \end{theorem}
 
 \begin{proof}
-	Follow the proof of Theorem \ref{base-ten-lower-bound}, but replace $2$
-	with $a$ where appropriate, and replace $10$ with $b$.
+	Follow the proof of Theorem~\ref{base-ten-lower-bound}, but replace $2$
+	with $a$ where needed, and replace $10$ with $b$.
 \end{proof}
 
 \begin{theorem}
@@ -326,7 +327,7 @@ generalizes the corresponding base-$10$ argument from the previous section.
 	define $(e_k)$ by $e_1 = 1$ and $e_k = \lceil r e_{k-1} \rceil$
 	for $k \ge 2$.
 	It is routine to verify that $(e_k)$ satisfies the conditions of
-	Theorem \ref{thm:multiples-of-powers}.
+	Theorem~\ref{thm:multiples-of-powers}.
 
 	Then,
 	\begin{align*}
@@ -353,7 +354,7 @@ generalizes the corresponding base-$10$ argument from the previous section.
 		n \ge \frac{r^k}{r-1}.
 	\]
 	Therefore $n > e_k$ by \eqref{eq:ek-estimate}, hence
-	$c_b(N) \ge k$ by Theorem \ref{thm:multiples-of-powers}.
+	$c_b(N) \ge k$ by Theorem~\ref{thm:multiples-of-powers}.
 
 	Choose $C$ so that $0 < C < (\log r)^{-1}$. Then
 	\[
@@ -381,7 +382,8 @@ divide $a^n$.
 		\nu_p(a) \nu_q(b) - \nu_q(a) \nu_p(b) > 0.
 		\label{eq:nudiff}
 	\end{equation}
-	In particular, $\nu_p(a) \ge 1$ and $\nu_q(b) \ge 1$.
+	Otherwise, $\log a\, / \log b$ would be equal to the common ratio
+	$\nu_p(a)\, / \nu_p(b)$ for any prime divisor $p$ of $b$.
 
 	By comparing the valuations of $a^n$ with respect to $p$ and $q$,
 	we obtain 
@@ -420,11 +422,11 @@ We now come to the main result of this section.
 \begin{proof}
 	Let $a^n = b^r u$, where $b \nmid u$.
 	If $\log d\, / \log b$ is irrational, then $\log a\, / \log b$ is also irrational;
-	so Lemma \ref{lemma-1} implies that there exists a prime factor $p$ of $a$, and $C' > 0$ depending
+	so Lemma~\ref{lemma-1} implies that there exists a prime factor $p$ of $a$, and $C' > 0$ depending
 	only on $a$ and $b$, such that $\nu_p(u) \ge C' n$.
 
 	But $p$ also divides $d$, since $\gcd(p, a/d) = 1$.
-	Therefore, $c_b(u) > C \log n$ for some $C > 0$ by Theorem \ref{thm:cbn}.
+	Therefore, $c_b(u) > C \log n$ for some $C > 0$, by Theorem~\ref{thm:cbn}.
 
 	Finally, $c_b(u) = c_b(a^n)$, since $m$ and $a^n$ have
 	the same digit expansion, apart from trailing zeros.
@@ -517,7 +519,7 @@ but rather to show that simple divisibility arguments
 already imply logarithmic growth.
 
 We conjecture that $s_{b}(n!) \asymp n \log n - n$ and $s_b(\Lambda_n) \asymp n$,
-but this remains to be proved. See Figure \ref{fig:s10_fact_lcm_scatter}.
+but this remains to be proved. See Figure~\ref{fig:s10_fact_lcm_scatter}.
 
 \begin{figure}
 	\centering
@@ -631,7 +633,7 @@ We now prove the main theorem.
 	That is, $d_1, \ldots, d_k$ are the nonzero digits of $a^n$ in base $b$,
 	and $m(1), \ldots, m(k)$ are their positions when the digits are numbered
 	from left (most significant) to right (least significant).
-
+	We may assume that $k \ge 2$.
 
 	Fix $i\in \{1,\dots,k-1\}$. We estimate the ratio $m(i+1)/m(i)$,
 	which will ultimately bound $k$.
@@ -747,7 +749,7 @@ We now prove the main theorem.
 
 	In either case, we have
 	\[
-		\frac{m(i+1)}{m(i)} < C_7 \log n, \qquad C_7 = \max(C_3, C_7).
+		\frac{m(i+1)}{m(i)} < C_8 \log n, \qquad C_8 = \min(C_3, C_7).
 	\]
 
 	Summing the logarithms of these ratios,
@@ -756,7 +758,7 @@ We now prove the main theorem.
 	\]
 	which yields
 	\begin{equation}
-		\log m(k) < (k - 1) (\log \log n + C_8).
+		\log m(k) < (k - 1) (\log \log n + C_9).
 		\label{estimate-3}
 	\end{equation}
 

@@ -7,6 +7,8 @@
 \usepackage{hyperref}
 \usepackage{xurl}
 \usepackage{parskip}
+\usepackage{xlop}
+\usepackage{mathtools}
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}{Corollary}
 \newtheorem{lemma}{Lemma}
@@ -19,656 +21,814 @@
 
 \begin{document}
 
-	\begin{abstract}
-		We prove lower bounds on digital sums of powers, multiples of powers, factorials,
-		and the least common multiple of $\{1,\ldots, n\}$, using only elementary number theory.
-		We conclude with an expository proof of the previously known result that
-		the sum of the base-$b$ digits of $a^{n}$ tends to infinity with $n$ if and only if
-		$\log(a)/\log(b)$ is irrational.
-	\end{abstract}
+\begin{abstract}
+	We prove lower bounds on digital sums of powers, multiples of powers, factorials,
+	and the least common multiple of $\{1,\ldots, n\}$, using only elementary number theory.
+\end{abstract}
 
-	\maketitle
+\maketitle
 
-	\section{Introduction}
+\section{Introduction}
 
-		This expository article establishes lower bounds on digital sums
-		of powers, multiples of powers, factorials, and the least common
-		multiple of $\{1,\ldots, n\}$, using only elementary number theory.
+This expository article establishes lower bounds on digital sums
+of powers, multiples of powers, factorials, and the least common
+multiple of $\{1,\ldots, n\}$, using only elementary number theory.
 
-		We were inspired by the following problem, which was posed and solved
-		by Wac{\l}aw Sierpi{\'n}ski~\cite[Problem 209]{sierpinski1970}:
-		\begin{quote}
-			\emph{Prove that the sum of digits of the number $2^{n}$ (in decimal system)
-			increases to infinity with $n$.}
-		\end{quote}
+We were inspired by the following problem, which was posed and solved
+by Wac{\l}aw Sierpi{\'n}ski~\cite[Problem 209]{sierpinski1970}:
+\begin{quote}
+	\emph{Prove that the sum of digits of the number $2^{n}$ (in decimal system)
+		increases to infinity with $n$.}
+\end{quote}
 
-		The reader is urged to attempt this problem on their own before proceeding.
-		Note that it is not enough to prove that the sum of digits of $2^{n}$ is
-		unbounded, since the sequence is not monotonic.
+The reader is urged to attempt this problem on their own before proceeding.
+Note that it is not enough to prove that the sum of digits of $2^{n}$ is
+unbounded, since the sequence is not monotonic.
 
-		Consider the sequence of powers of $2$ (sequence \href{https://oeis.org/A000079}{A000079} 
-		in the OEIS):
+Consider the sequence of powers of $2$ (sequence \href{https://oeis.org/A000079}{A000079}
+in the OEIS):
 
-		\[
-			1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, \ldots .
-		\]
+\[
+	1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, \ldots .
+\]
 
-		This sequence grows very rapidly. Now, let us define another sequence, by adding
-		the decimal digits of each power of $2$. For example, $16$ becomes $1+6=7$, and $32$
-		becomes $3+2=5$. The first few terms of this new sequence 
-		(\href{https://oeis.org/A001370}{A001370}) are listed below.
+This sequence grows very rapidly. Now, let us define another sequence, by adding
+the decimal digits of each power of $2$. For example, $16$ becomes $1+6=7$, and $32$
+becomes $3+2=5$. The first few terms of this new sequence
+(\href{https://oeis.org/A001370}{A001370}) are listed below.
 
-		\[
-			1, 2, 4, 8, 7, 5, 10, 11, 13, 8, 7, \ldots .
-		\]
+\[
+	1, 2, 4, 8, 7, 5, 10, 11, 13, 8, 7, \ldots .
+\]
 
-		This new sequence grows much more slowly, and it is not monotonic. 
-		Nevertheless, it is reasonable to conjecture that it tends to infinity. 
-		Indeed, one might guess that the sum of the decimal digits of $2^{n}$ 
-		is approximately equal to $4.5 n \log_{10}2$, 
-		since $2^{n}$ has $\lfloor n \log_{10}2\rfloor + 1$ decimal digits, 
-		and the digits seem to be approximately uniformly distributed among 
-		$0, 1, 2, \ldots, 9$. 
-		However, this stronger conjecture remains to be proved. 
-		See Figure \ref{fig:s10_scatter}.
+This new sequence grows much more slowly, and it is not monotonic.
+Nevertheless, it is reasonable to conjecture that it tends to infinity.
+Indeed, one might guess that the sum of the decimal digits of $2^{n}$
+is approximately equal to $4.5 n \log_{10}2$,
+since $2^{n}$ has $\lfloor n \log_{10}2\rfloor + 1$ decimal digits,
+and the digits seem to be approximately uniformly distributed among
+$0, 1, 2, \ldots, 9$.
+However, this stronger conjecture remains to be proved.
+See Figure \ref{fig:s10_scatter}.
 
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.8\linewidth]{s10_scatter.png}
-			\caption{Scatter plot of the digital sum of $2^n$ for $n \le 100$ 
-			together with the conjectured linear approximation.}
-			\label{fig:s10_scatter}
-		\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{s10_scatter.png}
+	\caption{Scatter plot of the digital sum of $2^n$ for $n \le 100$
+		together with the conjectured linear approximation.}
+	\label{fig:s10_scatter}
+\end{figure}
 
-		We prove in Section \ref{sec:powers-of-two} that the digital
-		sum of $2^n$ is greater than $\log_4 n$ for all $n \ge 1$.
-		But first, we introduce some notation.
+We prove in Section \ref{sec:powers-of-two} that the digital
+sum of $2^n$ is greater than $\log_4 n$ for all $n \ge 1$.
+But first, we introduce some notation.
+
+\section{Notation and terminology}
+
+For integers $n \ge 0$ and $b \ge 2$, the \emph{base-$b$ expansion} of $n$
+is the unique representation of the form
+\[
+	n = \sum_{i=0}^{\infty} d_i b^i, \qquad d_i \in \{0, 1, \ldots, b-1\}.
+\]
+The integers $d_i$ are the \emph{base-$b$} digits of $n$; all but finitely
+many of these digits are zero.
+
+For an integer $b \ge 2$, we write $s_{b}(n)$ for the sum of the base-$b$
+digits of $n$, and $c_{b}(n)$ for the number of nonzero digits in that expansion.
+These functions are equivalent up to a constant factor,
+since $c_{b}(n) \le s_{b}(n) \le (b-1) c_{b}(n)$ for all $n$ and $b$;
+so we focus on $c_{b}(n)$.
+
+The function $s_b$ is \emph{subadditive}: $s_b(m+n) \le s_b(m) + s_b(n)$
+for all positive integers $m$ and $n$. Equality
+holds if no carries occur in the digitwise addition of $m$ and $n$.
+Otherwise, each carry reduces the digital sum by $b-1$.
+The function $c_b$ is likewise subadditive.
+
+For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
+prime factorization of $n$. If $p$ does not divide $n$ then $\nu_{p}(n) = 0$.
+The function $\nu_p$ is \emph{completely additive}:
+$\nu_p(mn) = \nu_p(m) + \nu_p(n)$ for all positive integers $m$ and $n$.
+
+Recall that the \emph{floor} of $x$, denoted $\lfloor x \rfloor$,
+is the greatest integer $n$ such that $n \le x$.
+The \emph{ceiling} of $x$, denoted
+$\lceil x \rceil$, is the least integer $n$ such that $n \ge x$.
+
+We use Bachmann-Landau-Knuth notations~\cite{knuth1997} to describe the approximate size of functions.
+Let $f$ and $g$ be real-valued functions defined on a domain $D$,
+usually the set of positive integers.
+
+One writes
+\[
+	f(n) = O(g(n))
+\]
+if there exists a positive real number $C$ such that
+\[
+	|f(n)| \le C g(n) \qquad \text{for all } n \in D.
+\]
+
+The notation
+\[
+	f(n) = o(g(n))
+\]
+means that
+\[
+	\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0.
+\]
+
+In particular, $O(1)$ denotes a bounded function, and $o(1)$ denotes
+a function that tends to 0 as $n \to \infty$.
+
+Finally,
+\[
+	f(n) \asymp g(n)
+\]
+means that there exist positive real numbers $C$ and $C'$ such that
+\[
+	C g(n) < |f(n)| < C' g(n) \qquad \text{for all } n \in D.
+\]
+
+\section{Digital sums of powers of two}
+\label{sec:powers-of-two}
+
+We present an informal proof that $c_{10}(2^{n})$ tends to infinity as $n \to \infty$.
+See \cite{radcliffe2016} for an alternative approach.
+
+Let $n$ be a positive integer, and write the decimal expansion of $2^n$ as
+$2^n = \sum_{i=0}^{\infty} d_i 10^i$, where $d_i \in \{0, \ldots, 9\}$
+and $d_i = 0$ for all but finitely many terms.
+Note that the final digit $d_0$ of $2^{n}$ cannot be zero,
+since $2^n$ is not divisible by $10$.
+
+If $2^{n} > 10$, then $2^{n}$ is divisible by $16$; so
+$2^{n} \bmod 10^{4}$, the number formed by the last four digits of $2^{n}$, is
+also divisible by $16$. If the first three of these digits were zero, then $2^{n}
+	\bmod 10^{4}$ would be less than $10$, which is impossible.
+So at least one of the digits $d_1, d_2, d_3$ is nonzero.
+
+If $2^{n} > 10^4$, then $2^{n}$ is divisible by $2^{14}$; so
+$2^{n} \bmod 10^{14}$, the number formed by the last $14$ digits of $2^{n}$,
+is also divisible by $2^{14}$. If the first $10$ of these digits were zero,
+then $2^{n} \bmod 10^{14}$ would be less than $10^{4}$, which is impossible.
+So at least one of the digits $d_4, d_5, \ldots, d_{13}$ is nonzero.
+
+We can continue in this way, finding longer and longer non-overlapping blocks
+of digits, each containing at least one nonzero digit, as illustrated in Figure \ref{fig-blocks}.
+This proves that $c_{10}(2^n)$ tends to infinity as $n \to \infty$.
+
+\begin{figure}
+	\begin{tabular}{lcrrrrr}
+		$2^0$     & = &   &                                   &            &     & 1 \\
+		$2^4$     & = &   &                                   &            & 1   & 6 \\
+		$2^{14}$  & = &   &                                   & 1          & 638 & 4 \\
+		$2^{47}$  & = &   & 1                                 & 4073748835 & 532 & 8 \\
+		$2^{157}$ & = & 1 & 826877046663628647754606040895353 & 7745699156 & 787 & 2
+	\end{tabular}
+	\caption{Digits of $2^n$ subdivided into blocks.
+		Each block contains at least one nonzero digit.}
+	\label{fig-blocks}
+\end{figure}
+
+Let us formalize this argument.
+
+\begin{theorem}
+	Let $(e(k))_{k\ge1}$ be a sequence of integers such that
+	$e(1) \ge 1$ and $2^{e(k)} > 10^{e(k-1)}$ for all $k \ge 2$.
+	If $n$ is a positive integer that is divisible by $2^{e(k)}$
+	but not divisible by $10$, then $c_{10}(n) \ge k$.
+	\label{base-ten-lower-bound}
+\end{theorem}
+
+\begin{proof}
+	We argue by induction on $k$.
+	The case $k=1$ is immediate, since any positive integer
+	has at least one nonzero digit.
+
+	Assume now that $k \ge 2$, and that the statement holds for $k-1$.
+	Let $n$ be a positive integer divisible by $2^{e(k)}$ but not by $10$.
+	Apply the division algorithm to write
+	\[
+		n = 10^{e(k-1)} q + r, \qquad 0 \le r < 10^{e(k-1)},
+	\]
+	for integers $q$, $r$.
+
+	Because $n \ge 2^{e(k)} > 10^{e(k-1)}$ by hypothesis,
+	the quotient satisfies $q \ge 1$.
+
+	Next, both $n$ and $10^{e(k-1)} q$ are divisible by $2^{e(k-1)}$,
+	hence their difference
+	\[
+		r = n - 10^{e(k-1)} q
+	\]
+	is also divisible by $2^{e(k-1)}$.
+
+	Moreover, $r$ is not divisible by $10$, since $n$ is not divisible by $10$.
+
+	Therefore, $c_{10}(r) \ge k - 1$ by the induction hypothesis.
+
+	Finally, the decimal expansion of $n$ is obtained by concatenating
+	the decimal expansion of $q$ with the (possibly zero-padded)
+	expansion of $r$. Thus,
+	\[
+		c_{10}(n) = c_{10}(q) + c_{10}(r) \ge 1 + (k - 1) = k.
+	\]
+	This completes the proof.
+
+\end{proof}
+
+\begin{corollary}
+	Let $a$ be a positive integer that is divisible by $2$ but not divisible by $10$.
+	Then $c_{10}(a^n) \ge \log_4(n)$ for all $n \ge 1$.
+	In particular,
+	$\lim_{n\to \infty}c_{10}(a^{n}) = \infty$.
+	\label{even-powers-base-ten-limit}
+\end{corollary}
+
+\begin{proof}
+	Let $e(k) = 4^{k-1}$ for $k \ge 1$.
+	This sequence satisfies $e(1) \ge 1$
+	and
+	\[
+		2^{e(k)} > 10^{e(k-1)}
+	\]
+	for all $k \ge 2$.
+
+	Let $n\ge 4$ be a positive integer, and let $k = \lceil \log_4 n \rceil$,
+	so that $4^{k-1} < n \le 4^k$. Then $a^n$ is divisible by $2^n$,
+	so $a^n$ is also divisible by $2^{e(k)}$.
+	But $a^n$ is not divisible by $10$.
+
+	Therefore,
+	$c_{10}(a^n) \ge k \ge \log_4(n)$, by Theorem \ref{base-ten-lower-bound}.
+\end{proof}
+
+\section{Generalizing to other bases}
+
+Before extending the arguments of the previous section, we first situate
+our results in the broader context of earlier work on digital sums of powers.
+In a foundational paper from 1973, Senge and Straus~\cite[Theorem 3]{senge-straus1973}
+showed that for integers $a \ge 1$ and $b \ge 2$,
+\[
+	\lim_{n \to \infty} c_b(a^n) = \infty
+	\quad\Longleftrightarrow\quad
+	\frac{\log a}{\log b} \text{ is irrational}.
+\]
+Their result provides a qualitative criterion for unbounded digit growth,
+but it does not yield any explicit lower bound.
+
+Subsequently, Stewart~\cite[Theorem 2]{stewart1980} obtained the first
+general quantitative estimate.  Under the same hypothesis of irrationality of
+$\log(a)/\log(b)$, he proved that
+\[
+	c_b(a^n) > \frac{\log n}{\log\log n + C} - 1
+\]
+for all $n>4$, where $C$ depends only on $a$ and $b$.
+This bound is extremely general but grows more slowly than logarithmic.
+
+In this section we prove a logarithmic lower bound for $c_b(a^n)$ under
+a set of hypotheses that are stronger than Stewart's but still hold in
+many natural situations.  Our approach proceeds in two steps:
+first we establish a structural digit-sum bound for integers forced
+to be divisible by powers of $a$ but not by $b$, and then we apply it to $a^n$
+itself under an additional irrationality condition.
+The first step (Theorem~\ref{thm:multiples-of-powers} below)
+generalizes the corresponding base-$10$ argument from the previous section.
+
+\begin{theorem}
+	Let $a, b$ be integers such that $2 \le a < b$ and $a$ divides $b$.
+	Let $(e(k))$ be a sequence of integers such that $e(1) \ge 1$ and
+	$a^{e(k)} \ge b^{e(k-1)}$ for all $k \ge 2$.
+	If $a^{e(k)}$ divides $n$ and $b \nmid n$, then $c_b(n) \ge k$.
+	\label{thm:multiples-of-powers}
+\end{theorem}
+
+\begin{proof}
+	Follow the proof of Theorem \ref{base-ten-lower-bound}, but replace $2$
+	with $a$ where appropriate, and replace $10$ with $b$.
+\end{proof}
+
+\begin{theorem}
+	Let $a, b$ be integers such that $2 \le a < b$ and $a$ divides $b$.
+	Suppose that $N$ is divisible by $a^n$ but not $b$. Then
+	there exists $C > 0$, depending only on $a$ and $b$, such that
+	\[
+		c_b(N) > C \log n
+	\]
+	for $n$ sufficiently large.
+	Indeed, we can choose any $0 < C < (\log(\log b / \log a))^{-1}$.
+	\label{thm:cbn}
+\end{theorem}
+
+\begin{proof}
+
+	Let $r = \log b\, / \log a$, and
+	define $(e_k)$ by $e_1 = 1$ and $e_k = \lceil r e_{k-1} \rceil$
+	for $k \ge 2$.
+	It is routine to verify that $(e_k)$ satisfies the conditions of
+	Theorem \ref{thm:multiples-of-powers}.
+
+	Then,
+	\begin{align*}
+		e_2 & < r + 1,             \\
+		e_3 & < r^2 + r + 1,       \\
+		e_4 & < r^3 + r^2 + r + 1, \\
+	\end{align*}
+	and for all $k \ge 1$,
+	\begin{equation}
+		\label{eq:ek-estimate}
+		e_k < \sum_{i=0}^{k-1} r^{i}
+		< \frac{r^k}{r - 1}.
+	\end{equation}
+
+	Now suppose that $n$ is an integer greater than $\displaystyle\frac{r}{r-1}$, and let
+	\[
+		k = \left\lfloor \frac{\log((r-1)n)}{\log r} \right\rfloor.
+	\]
+	Then \[
+		1 \le k \le \frac{\log((r-1) n)}{\log r},
+	\]
+	which implies that
+	\[
+		n \ge \frac{r^k}{r-1}.
+	\]
+	Therefore $n > e_k$ by \eqref{eq:ek-estimate}, hence
+	$c_b(N) \ge k$ by Theorem \ref{thm:multiples-of-powers}.
+
+	Choose $C$ so that $0 < C < (\log r)^{-1}$. Then
+	\[
+		\left\lfloor \frac{\log((r-1)n)}{\log r} \right\rfloor
+		> C \log n
+	\]
+	for $n$ sufficiently large, which implies that $c_b(N) > C \log n$.
+\end{proof}
+
+The following lemma allows us to relax the condition that $b$ does not
+divide $a^n$.
+
+\begin{lemma}
+	\label{lemma-1}
+	Let $a, b \ge 2$ be integers such that $\log a\, / \log b$ is irrational.
+	Suppose that $a^n = b^r u$.
+	Then there exists a prime factor $p$ of $a$, and $C > 0$ depending
+	only on $a$ and $b$, such that $\nu_p(u) \ge Cn$.
+\end{lemma}
+
+\begin{proof}
+	Since $\log a\, / \log b$ is irrational, there exist primes $p$ and $q$
+	such that
+	\begin{equation}
+		\nu_p(a) \nu_q(b) - \nu_q(a) \nu_p(b) > 0.
+		\label{eq:nudiff}
+	\end{equation}
+	In particular, $\nu_p(a) \ge 1$ and $\nu_q(b) \ge 1$.
+
+	By comparing the valuations of $a^n$ with respect to $p$ and $q$,
+	we obtain 
+	\begin{equation}
+		n \nu_p(a) = r \nu_p(b) + \nu_p(u)
+		\label{eq:nup}
+	\end{equation}
+	and
+	\begin{equation}
+		n \nu_q(a) \ge r \nu_q(b).
+		\label{eq:nuq}
+	\end{equation}
+
+	Combining \eqref{eq:nup} and \eqref{eq:nuq} yields
+	\begin{equation}
+		\label{eq:nupq}
+			\nu_p(u) \ge n \nu_p(a) - n \frac{\nu_q(a)}{\nu_q(b)} \nu_p(b) \\
+			         = C n,
+	\end{equation}
+	where \[
+		C = \frac{\nu_p(a) \nu_q(b) - \nu_q(a) \nu_p(b)}{\nu_q(b)}.
+	\]
+	Finally, $C > 0$ by \eqref{eq:nudiff}.
+\end{proof}
+
+We now come to the main result of this section.
+
+\begin{theorem}
+	Let $a \ge 2$ and $b \ge 2$ be integers. Let $d$ be the smallest factor of $a$
+	such that $\gcd(a/d, b) = 1$, and suppose that $\log(d) / \log(b)$ is irrational.
+	Then $c_{b}(a^{n}) > C \log n$ for all $n \ge 1$, where $C > 0$ depends
+	only on $a$ and $b$.
+	\label{general-digit-sum}
+\end{theorem}
+
+\begin{proof}
+	Let $a^n = b^r u$, where $b \nmid u$.
+	If $\log d\, / \log b$ is irrational, then $\log a\, / \log b$ is also irrational;
+	so Lemma \ref{lemma-1} implies that there exists a prime factor $p$ of $a$, and $C' > 0$ depending
+	only on $a$ and $b$, such that $\nu_p(u) \ge C' n$.
+
+	But $p$ also divides $d$, since $\gcd(p, a/d) = 1$.
+	Therefore, $c_b(u) > C \log n$ for some $C > 0$ by Theorem \ref{thm:cbn}.
+
+	Finally, $c_b(u) = c_b(a^n)$, since $m$ and $a^n$ have
+	the same digit expansion, apart from trailing zeros.
+\end{proof}
+
+\section{Digital sums of factorials and LCMs}
+
+The results of the previous section showed how information about the
+prime-power divisibility of an integer can force its base-$b$ digital sum
+to grow at least logarithmically.  Although we now turn to a different
+family of integers, namely $n!$ and the least common multiple
+$\Lambda_n = \lcm(1,\dots,n)$, the same guiding principle remains:
+multiplicative structure can impose strong, and often very elementary,
+constraints on possible base-$b$ representations.
+
+In contrast with the situation for $a^n$, where prime-power divisibility
+played a central role, the key structural feature for factorials and LCMs
+is that both $n!$ and $\Lambda_n$ are divisible by large integers of the
+form $b^r - 1$.
+This observation leads immediately to logarithmic lower bounds on their
+digital sums, provided one has an effective way to bound the digital sum of
+a multiple of $b^r - 1$.
+
+The following lemma, originally proved by Stolarsky~\cite{stolarsky1980}
+for base $2$ and extended to general bases by Balog and
+Dartyge~\cite{balog2012}, supplies exactly such a tool.
+
+\begin{lemma}
+	Let $m, r \ge 1$ and $b \ge 2$ be integers.
+	If $m$ is divisible by $b^r - 1$,
+	then $s_b(m) \ge (b-1)r$.
+\end{lemma}
+
+\begin{proof}
+	Write the base-$b$ expansion of $m$ as a concatenation of $r$-digit blocks,
+	so that
+	\[
+		m = \sum_{i=0}^{k-1} B_i b^{ri}, \qquad 0 \le B_i < b^r, \qquad B_{k-1} \ge 1.
+	\]
+
+	Define the \emph{block-sum} operator $G$ by
+	\[
+		G(m) = \sum_{i=0}^{k-1} B_i.
+	\]
+	Observe that
+	$G(m) \equiv m \pmod{b^r - 1}$, since $b^r \equiv 1 \pmod{b^r - 1}$.
+	Also, $G(m) < m$ for $m \ge b^r$, and $G(m) = m$ for $0 \le m < b^r$.
+
+	Iterate $G$ on $m$: define $m_0 = m$ and $m_{t+1} = G(m_t)$.
+	By the observations above, $(m_t)$ is a sequence of
+	positive multiples of $b^r - 1$, which is strictly decreasing
+	while its terms exceed $b^r - 1$. Therefore, the sequence must
+	eventually reach $b^r - 1$, which is the unique positive multiple of $b^r - 1$
+	that is less than $b^r$.
+
+	Since $s_b$ is subadditive,
+	\[
+		s_b(G(m)) \le \sum_{i=0}^{k-1} s_b(B_i) = s_b(m).
+	\]
+
+	Therefore,
+	\[
+		s_b(m) \ge s_b(b^r - 1) = (b-1)r.
+	\]
+\end{proof}
+
+This lemma has an immediate consequence for factorials and LCMs.
+If $n \ge b^r - 1$, then both $n!$ and $\Lambda_n$ are divisible by $b^r - 1$,
+and hence
+\[
+	s_b(n!) \ge (b-1)r, \qquad s_b(\Lambda_n) \ge (b-1)r.
+\]
+Since one may choose $r = \lfloor \log_b (n+1) \rfloor$, this yields
+lower bounds of the form
+\[
+	s_b(n!) > C \log n, \qquad s_b(\Lambda_n) > C \log n
+\]
+for some constant $C > 0$ depending only on $b$.
+
+Stronger bounds are known.
+In 2015, Sanna~\cite{sanna2015} used this lemma,
+together with more advanced methods, to prove that
+\[
+	s_b(n!) > C \log n \log \log \log n
+\]
+for all integers $n > e^{e}$ and all $b \ge 2$, where $C$ depends only on $b$.
+The same estimate holds for $s_b(\Lambda_n)$.
+Our interest here is not to compete with the best known results,
+but rather to show that simple divisibility arguments
+already imply logarithmic growth.
+
+We conjecture that $s_{b}(n!) \asymp n \log n - n$ and $s_b(\Lambda_n) \asymp n$,
+but this remains to be proved. See Figure \ref{fig:s10_fact_lcm_scatter}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{lcm_fact_scatter.png}
+	\caption{Scatter plot of the digital sums of $n!$ and $\Lambda_n$
+		for $n \le 100$,
+		together with their conjectured approximations.}
+	\label{fig:s10_fact_lcm_scatter}
+\end{figure}
+
+\section{Digital sums of powers: the general case}
+\label{general-case}
+
+In this final section, we prove that the number of nonzero digits in the base-$b$
+expansion of $a^n$ tends to infinity as $n \to \infty$, provided that $\log(b)/\log(a)$
+is irrational. This result appears in earlier work of Senge and Straus \cite{senge-straus1973}
+and Stewart \cite{stewart1980}, but we present an argument that we hope is more accessible.
+
+The irrationality condition is necessary. Indeed, if $\log(a)/\log(b) = r/s \in \mathbb{Q}$, then
+\[
+	a^{ns} = b^{nr}
+\]
+for every integer $n$, so $a^{ns}$ has only one nonzero digit in base $b$.
+
+We may assume without loss of generality that $a < b$. If not, replace
+$b$ with $b^r$, where $b^r > a$. Since $c_{b^r}(n) \ge c_{b}(n) / r$,
+this replacement does not affect the order of growth.
+
+Recall that a nonzero algebraic number $\alpha \in \mathbb{C}$ is a root of a unique irreducible
+integer polynomial $P$ with positive leading coefficient and coprime coefficients.
+The \emph{degree} of $\alpha$ is equal to the degree of $P$, and the \emph{height}
+of $\alpha$ is the maximum of the absolute values of the cofficients of $P$.
+A rational integer has degree $1$ and height equal to its absolute value.
+
+Our proof relies on a version of Baker's theorem on linear forms in logarithms,
+which we state without proof.
+
+\begin{theorem} \cite[p. 23]{baker1975}
+	Let $\alpha_1, \ldots, \alpha_n$ be nonzero algebraic numbers with degrees
+	at most $d$. Suppose that $\alpha_1, \ldots, \alpha_{n-1}$ and $\alpha_n$
+	have heights at most $A' \ge 4$ and $A \ge 4$ respectively.
+	Let $\beta_1, \ldots, \beta_n$ be integers of absolute value at most $B \ge 2$.
+	If
+	\[
+		\Lambda = \beta_1 \log \alpha_1 + \cdots + \beta_n \alpha_n \ne 0,
+	\]
+	there exists $C > 1$, depending only on $n$, $d$, and $A'$,
+	such that
+	\[
+		|\Lambda| > C^{-\log A \log B}.
+	\]
+	See \cite{matveev2000} for an explicit lower bound.
+	\label{baker}
+\end{theorem}
+
+
+Baker's theorem gives effective lower bounds on linear forms in logarithms
+of algebraic numbers. In our context, it guarantees that the expression in
+\eqref{linear-form} below cannot be too small, which limits how well powers of $a$
+can be approximated by powers of $b$.
+
+The next lemma deals with the possibility that some power of $a$ might be divisible by $b$.
+
+\begin{lemma}
+	Let $a, b \ge 2$ be integers with $\log(a)/\log(b)$ irrational.
+	Then there exist $C$ and $C'$, depending only on $a$ and $b$,
+	such that whenever
+	\[
+		a^n = b^r u,
+	\]
+	we have
+	\[
+		C n \le \log u \le C' n.
+	\]
+	In other words, $\log u \asymp n$.
+	\label{lemma}
+\end{lemma}
+
+\begin{proof}
+	By Lemma~\ref{lemma-1}, there exists a prime factor $p$ of $a$,
+	and $C_1 > 0$ depending only on $a$ and $b$, such that 
+	$\nu_p(u) > C_1 \log n$ for all $n$.
+	Therefore, $u \ge p^{C_1 n}$ and $\log u \ge Cn$ for $C = C_1 \log p$.
+	On the other hand, $\log u \le C' n$ for $C' = \log a$, since $u \le a^n$.
+\end{proof}
+
+We now prove the main theorem.
+
+\begin{theorem}
+	Let $a, b \ge 2$ be integers with $a < b$, and suppose that 
+	$\log(a)/\log(b)$ is irrational.
+	Then there exists $C > 0$, depending only on $a$ and $b$,
+	such that
+	\[
+		c_{b}(a^n) > \frac{\log n}{\log \log n + C}
+	\]
+	holds for all sufficiently large $n$.
+\end{theorem}
+
+\begin{proof}
+	Let
+	\[
+		a^n = b^m \left(d_1 b^{-m(1)} + \cdots + d_k b^{-m(k)}\right),
+	\]
+	where $m = \lceil \log_b a^n \rceil$, $k = c_{b}(a^n)$,
+	$d_i \in \{1, \ldots, b-1\}$,
+	and
+	\[
+		1 = m(1) < \cdots < m(k) \le m.
+	\]
+	That is, $d_1, \ldots, d_k$ are the nonzero digits of $a^n$ in base $b$,
+	and $m(1), \ldots, m(k)$ are their positions when the digits are numbered
+	from left (most significant) to right (least significant).
+
+
+	Fix $i\in \{1,\dots,k-1\}$. We estimate the ratio $m(i+1)/m(i)$,
+	which will ultimately bound $k$.
+
+	Define
+	\begin{align*}
+		q & = b^{m(i)} (d_1 b^{-m(1)} + \cdots + d_i b^{-m(i)}),  \\
+		r & = b^m (d_{i+1} b^{-m(i+1)} + \cdots + d_k b^{-m(k)}),
+	\end{align*}
+	so that
+	\[
+		a^n = b^{m - m(i)} q + r.
+	\]
+
+	From the base-$b$ expansion we obtain the bounds
+	\begin{align*}
+		b^{m-1}      & \le a^n \le b^m,            \\
+		b^{m(i)-1}   & \le q   \le b^{m(i)},       \\
+		b^{m-m(i+1)} & \le r   \le b^{m-m(i+1)+1}.
+	\end{align*}
+
+	Consequently,
+	\begin{equation}
+		b^{-m(i+1)} < a^{-n} r < b^{-m(i+1)+2},
+	\end{equation}
+
+	which implies that
+	\begin{equation}
+		\frac{m(i+1) - 2}{m(i)} \le
+		\frac{-\log(a^{-n}r)}{\log q} \le
+		\frac{m(i+1)}{m(i) - 1}
+	\end{equation}
+	provided that $q \ge 2$ and $m(i) \ge 2$.
+
+	If $m(i) \ge 3$ (and $m(i+1) \ge 4$) then
+	\begin{equation}
+		\frac{m(i+1)-2}{m(i)} \ge \frac12\, \frac{m(i+1)}{m(i)},
+		\qquad
+		\frac{m(m+1)}{m(i)-1} \le \frac32\, \frac{m(i+1)}{m(i)},
+	\end{equation}
+	hence
+	\begin{equation}
+		\frac12\, \frac{m(i+1)}{m(i)} \le
+		\frac{-\log(a^{-n}r)}{\log q} \le
+		\frac32\, \frac{m(i+1)}{m(i)}.
+		\label{estimate-1}
+	\end{equation}
+
+	Now set
+	\begin{equation}
+		\Lambda = \log(a^{-n} b^{m - m(i)} q) = -n \log a + (m - m(i)) \log b + \log q.
+		\label{linear-form}
+	\end{equation}
+	Then (since $a^{-n} r < 1/2$)
+	\[
+		|\Lambda| = -\log(1 - a^{-n} r) < 2 a^{-n} r.
+	\]
+
+	We apply Baker's theorem to the linear form in \eqref{linear-form}.
+	There are two cases, depending on the size of $q$.
+
+	{\bf Case 1:} $q < b^2$, or equivalently, $m(i) \le 2$.
+
+	In this case, we can apply Baker's theorem with 
+	$A = b^2$ and $B = n$ to obtain
+	\[
+		|\Lambda| > C_1^{-\log n} = n^{-C_2}
+	\]
+	for some constant $C_2 > 0$ depending only on $a$ and $b$.
+	Thus,
+	\[
+		a^{-n} r > n^{-C_2},
+	\]
+	and hence, for $n$ sufficiently large,
+	\[
+		b^{-m(i+1)+2} > n^{-C_2},
+	\]
+	which implies that
+	\[
+		m(i+1) < C_3 \log n
+	\]
+	for some constant $C_{3}>0$ depending only on $a$ and $b$.
 	
-	\section{Notation}
-
-		For an integer $b \ge 2$, we write $s_{b}(n)$ for the sum of the base-$b$
-		digits of $n$, and $c_{b}(n)$ for the number of nonzero digits in that expansion.
-		These functions are equivalent up to a constant factor, 
-		since $c_{b}(n) \le s_{b}(n) \le (b-1) c_{b}(n)$ for all $n$ and $b$; 
-		so we focus on $c_{b}(n)$. 
-
-		The function $s_b$ is \emph{subadditive}: $s_b(m+n) \le s_b(m) + s_b(n)$
-		for all positive integers $m$ and $n$. Equality
-		holds if no carries occur in the digitwise addition of $m$ and $n$.
-		Otherwise, each carry reduces the digital sum by $b-1$.
-		The function $c_b$ is likewise subadditive.
-
-		For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
-		prime factorization of $n$. If $p$ does not divide $n$ then $\nu_{p}(n) = 0$.
-
-		We use Bachmann-Landau notation~\cite{knuth1997} to describe the approximate size of functions.
-		Let $f$ and $g$ be real-valued functions defined on a domain $D$,
-		usually the set of positive integers.
-
-		One writes
-		\[
-			f(n) = O(g(n))
-		\]
-		if there exists a positive real number $C$ such that
-		\[
-			|f(n)| \le C g(n) \qquad \text{for all } n \in D.
-		\]
-
-		The notation
-		\[
-			f(n) = o(g(n))
-		\]
-		means that
-		\[
-			\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0.
-		\]
-		
-		In particular, $O(1)$ denotes a bounded function, and $o(1)$ denotes
-		a function that tends to 0 as $n \to \infty$.
-
-		Finally, 
-		\[
-			f(n) = \Theta(g(n))
-		\]
-		means that there exist positive real numbers $C$ and $C'$ such that
-		\[
-			C g(n) < |f(n)| < C' g(n) \qquad \text{for all } n \in D.
-		\]
-
-	\section{Digital sums of powers of two}
-		\label{sec:powers-of-two}
-
-		We present an informal proof that $c_{10}(2^{n})$ tends to infinity as $n \to \infty$.
-		See \cite{radcliffe2016} for an alternative approach.
-
-		Let $n$ be a positive integer, and write the decimal expansion of $2^n$ as
-		$2^n = \sum_{i=0}^{\infty} d_i 10^i$, where $d_i \in \{0, \ldots, 9\}$
-		and $d_i = 0$ for all but finitely many terms. 
-		Note that the final digit $d_0$ of $2^{n}$ cannot be zero,
-		since $2^n$ is not divisible by $10$.
-
-		If $2^{n} > 10$, then $2^{n}$ is divisible by $16$; so
-		$2^{n} \bmod 10^{4}$, the number formed by the last four digits of $2^{n}$, is
-		also divisible by $16$. If the first three of these digits were zero, then $2^{n}
-		\bmod 10^{4}$ would be less than $10$, which is impossible. 
-		So at least one of the digits $d_1, d_2, d_3$ is nonzero.
-
-		If $2^{n} > 10^4$, then $2^{n}$ is divisible by $2^{14}$; so
-		$2^{n} \bmod 10^{14}$, the number formed by the last $14$ digits of $2^{n}$,
-		is also divisible by $2^{14}$. If the first $10$ of these digits were zero,
-		then $2^{n} \bmod 10^{14}$ would be less than $10^{4}$, which is impossible.
-		So at least one of the digits $d_4, d_5, \ldots, d_{13}$ is nonzero.
-
-		We can continue in this way, finding longer and longer non-overlapping blocks
-		of digits, each containing at least one nonzero digit, as illustrated in Figure \ref{fig-blocks}.
-		This proves that $c_{10}(2^n)$ tends to infinity as $n \to \infty$.
-  
-		\begin{figure}
-			\begin{tabular}{lcrrrrr}
-				$2^0$     & = &   &                                   &            &     & 1 \\
-				$2^4$     & = &   &                                   &            &   1 & 6 \\
-				$2^{14}$  & = &   &                                   &          1 & 638 & 4 \\
-				$2^{47}$  & = &   &                                 1 & 4073748835 & 532 & 8 \\
-				$2^{157}$ & = & 1 & 826877046663628647754606040895353 & 7745699156 & 787 & 2
-			\end{tabular}
-			\caption{Digits of $2^n$ subdivided into blocks.
-			Each block contains at least one nonzero digit.}
-			\label{fig-blocks}
-		\end{figure}
-
-		Let us formalize this argument.
-
-		\begin{theorem}
-			Let $(e(k))_{k\ge1}$ be a sequence of integers such that 
-			$e(1) \ge 1$ and $2^{e(k)} > 10^{e(k-1)}$ for all $k \ge 2$. 
-			If $n$ is a positive integer that is divisible by $2^{e(k)}$ 
-			but not divisible by $10$, then $c_{10}(n) \ge k$.
-			\label{base-ten-lower-bound}
-		\end{theorem}
-
-		\begin{proof}
-			We argue by induction on $k$.
-			The case $k=1$ is immediate, since any positive integer
-			has at least one nonzero digit.
-
-			Assume now that $k \ge 2$, and that the statement holds for $k-1$.
-			Let $n$ be a positive integer divisible by $2^{e(k)}$ but not by $10$.
-			Apply the division algorithm to write
-			\[
-				n = 10^{e(k-1)} q + r, \qquad 0 \le r < 10^{e(k-1)},
-			\]
-			for integers $q$, $r$.
-
-			Because $n \ge 2^{e(k)} > 10^{e(k-1)}$ by hypothesis,
-			the quotient satisfies $q \ge 1$.
-
-			Next, both $n$ and $10^{e(k-1)} q$ are divisible by $2^{e(k-1)}$,
-			hence their difference
-			\[
-				r = n - 10^{e(k-1)} q
-			\]
-			is also divisible by $2^{e(k-1)}$.
-
-			Moreover, $r$ is not divisible by $10$, since $n$ is not divisible by $10$.
-
-			Therefore, $c_{10}(r) \ge k - 1$ by the induction hypothesis.
-
-			Finally, the decimal expansion of $n$ is obtained by concatenating
-			the decimal expansion of $q$ with the (possibly zero-padded)
-			expansion of $r$. Thus,
-			\[
-				c_{10}(n) = c_{10}(q) + c_{10}(r) \ge 1 + (k - 1) = k.
-			\]
-			This completes the proof.
-
-		\end{proof}
-
-		\begin{corollary}
-			Let $a$ be a positive integer that is divisible by $2$ but not divisible by $10$.
-			Then $c_{10}(a^n) \ge \log_4(n)$ for all $n \ge 1$.
-			In particular,
-			$\lim_{n\to \infty}c_{10}(a^{n}) = \infty$.
-				\label{even-powers-base-ten-limit}
-			\end{corollary}
-
-		\begin{proof}
-			Let $e(k) = 4^{k-1}$ for $k \ge 1$. 
-			This sequence satisfies $e(1) \ge 1$
-			and 
-			\[
-				2^{e(k)} > 10^{e(k-1)}
-			\]
-			for all $k \ge 2$.
-			
-			Let $n\ge 4$ be a positive integer, and let $k = \lceil \log_4 n \rceil$,
-			so that $4^{k-1} < n \le 4^k$. Then $a^n$ is divisible by $2^n$,
-			so $a^n$ is also divisible by $2^{e(k)}$.
-			But $a^n$ is not divisible by $10$.
-			
-			Therefore,
-			$c_{10}(a^n) \ge k \ge \log_4(n)$, by Theorem \ref{base-ten-lower-bound}.
-		\end{proof}
-
-	\section{Generalizing to other bases}
-
-		Our proofs rely only on divisibility properties and therefore extend naturally
-		to other bases.
-
-		\begin{theorem}
-			Let $b \ge 2$ be an integer that is not a power of a prime, and let $p$ be a
-			prime divisor of $b$. Let $(e(k))_{k\ge1}$ be a sequence of integers such
-			that $e(1) \ge 1$ and $p^{e(k)} > b^{e(k-1)}$ for all $k \ge 2$. 
-			If $\nu_p(n) \ge e(k)$ and $b \nmid n$, then $c_{b}(n) \ge k$.
-			\label{general-powers-lower-bound}
-		\end{theorem}
-
-		\begin{proof}
-			Follow the proof of Theorem \ref{base-ten-lower-bound}, but replace $2$ with $p$
-			where appropriate, and replace $10$ with $b$.
-		\end{proof}
-
-		It is desirable to relax the condition that $b$ does not divide $n$,
-		since multiplying by a factor of the form $b^r$ does not change the number of nonzero digits
-		of $n$ in base $b$. To facilitate this, we introduce the following notation.
-		Let $b \ge 2$ be an integer with distinct prime divisors $p$ and $q$.
-		Define the function $\xi = \xi_{b,p,q}$ by
-			\begin{equation}
-				\xi(n) = \nu_{p}(n) - \nu_{q}(n) \frac{\nu_{p}(b)}{\nu_{q}(b)}.
-				\label{xi-notation}
-			\end{equation}
-		One easily verifies that $\xi(b^r u) = \xi(u)$ for all integers $r \ge 0$ and $u \ge 1$.
-		Intuitively, $\xi$ is a modified version of $\nu_p$
-		that is insensitive to trailing zeros in the base-$b$ expansion of its argument.
-
-		\begin{theorem}
-			Let $b \ge 2$ be an integer that is not a power of a prime, let $p$ and $q$
-			be distinct prime divisors of $b$, and let 
-			$(e(k))_{k\ge1}$ be defined as in Theorem \ref{general-powers-lower-bound}.
-			If $\xi(n) \ge e(k)$, then $c_{b}(n) \ge k$. 
-			\label{phi-lower-bound}
-		\end{theorem}
-
-		\begin{proof}
-			Write $n$ as $b^{r} u$, where $u$ is not divisible by $b$. 
-			Note that $\xi(n) = \xi(u)$. 
-			Since $\nu_{p}(u) \ge \xi(u) \ge e(k)$
-			and $b \nmid u$, Theorem \ref{general-powers-lower-bound} implies that
-			$c_{b}(u) \ge k$. But $c_{b}(u) = c_{b}(n)$, since $u$ and $n$ have the same
-			digits in base $b$, apart from trailing zeros. Therefore, $c_{b}(n) \ge k$.
-		\end{proof}
-
-		\begin{theorem}
-			Let $a \ge 2$ and $b \ge 2$ be integers. Let $d$ be the smallest factor of $a$
-			such that $\gcd(a/d, b) = 1$, and suppose that $\log(d) / \log(b)$ is irrational.
-			Then $c_{b}(a^{n}) > C \log n$ for all $n \ge 1$, where $C > 0$ depends
-			only on $a$ and $b$.
-			\label{general-digit-sum}
-		\end{theorem}
-
-		\begin{proof}
-			Let $p_1^{e_1} \cdots p_t^{e_t}$ be the prime factorization of $b$.
-			Then
-			\[
-				d = p_1^{f_1} \cdots p_t^{f_t},
-			\]
-			where $f_i = \nu_{p_i}(a)$.
-			Note that some of the $f_i$ may be zero.
-			If 
-			\[
-				\frac{f_1}{e_1} = \cdots = \frac{f_t}{e_t}
-			\]
-			then $\log(d) / \log(b) = f_1/e_1$, which is rational.
-			Therefore, if $\log(d) / \log(b)$ is irrational, then the ratios
-			$f_i/e_i$ are not all equal, which implies that $b$ has two prime
-			factors $p = p_i$ and $q = p_j$ such that
-			\[
-				\frac{f_i}{e_i} > \frac{f_j}{e_j},
-			\]
-			and so $\xi(a) > 0$.
-
-			Let $r = \lceil \log_p b \rceil$, 
-			and let $e(k) = r^{k-1}$ for $k \ge 1$.
-			This sequence satisfies $e(1) \ge 1$ and
-			\[
-				p^{e(k)} > b^{e(k-1)}
-			\]
-			for all $k \ge 2$.
-			
-			Let $n$ be a positive integer, and let $k = \lceil \log_r \xi(a^n) \rceil$,
-			so that
-				$r^{k-1} < \xi(a^n) \le r^k$.
-			Then $\xi(a^n) > e(k)$, so Theorem \ref{phi-lower-bound} implies that $c_{b}(a^n) \ge k$.
-			But $\xi(a^n) = n \xi(a)$, hence $k = \Theta(\log n)$, and
-			the conclusion follows.
-		\end{proof}
-
-		It is straightforward to determine an explicit value for $C$, although
-		we have not done so here. One can show that if $a, b \ge 2$ are integers,
-		$a$ divides $b$, and if $b$ has at least one prime divisor that does not divide $a$,
-		then
-		\[
-			c_{b}(a^n) > \frac{\log n}{\log \left(2\log b\, / \log a\right)}
-		\]
-		for $n$ sufficiently large.
-
-		In 1973, Senge and Straus~\cite[Theorem 3]{senge-straus1973}
-		proved that if $a \ge 1$ and $b \ge 2$ are positive integers, then
-		$\lim_{n \to \infty}c_{b}(a^{n}) = \infty$ if and only if
-		$\log(a) / \log(b)$ is irrational. However, they did not demonstrate a lower bound. 
-		In 1980, Stewart~\cite[Theorem 2]{stewart1980} proved that
-		if $\log(a)/\log(b)$ is irrational, then
-		\[
-			c_{b}(a^{n}) > \frac{\log n}{\log \log n + C} - 1
-		\]
-		for $n > 4$, where $C$ depends on $a$ and $b$ alone.
-		Theorem \ref{general-digit-sum} achieves a stronger bound, 
-		but with stricter conditions on $a$ and $b$.
-		We replicate Stewart's result in Section \ref{general-case}.
-
-	\section{Digital sums of factorials and LCMs}
-
-		In this section, we demonstrate a logarithmic lower bound
-		for digital sums of factorials, and also for the digital sum
-		of $\Lambda_n := \lcm(1, 2, \ldots, n)$.
-
-		We need the following elementary result, which is due to
-		Stolarsky~\cite{stolarsky1980} for base two,
-		and generalized to all bases by Balog and Dartyge~\cite{balog2012}.
-
-		\begin{theorem}
-			Let $m, r \ge 1$ and $b \ge 2$ be integers.
-			If $m$ is divisible by $b^r - 1$,
-			then $s_b(m) \ge (b-1)r$.
-		\end{theorem}
-
-		\begin{proof}
-			Write the base-$b$ expansion of $m$ as a concatenation of $r$-digit blocks,
-			so that
-			\[
-				m = \sum_{i=0}^{k-1} B_i b^{ri}, \qquad 0 \le B_i < b^r, \qquad B_{k-1} \ge 1.
-			\]
-
-			Define the \emph{block-sum} operator $G$ by
-			\[
-				G(m) = \sum_{i=0}^{k-1} B_i.
-			\]
-			Observe that
-			$G(m) \equiv m \pmod{b^r - 1}$, since $b^r \equiv 1 \pmod{b^r - 1}$.
-			Also, $G(m) < m$ for $m \ge b^r$, and $G(m) = m$ for $0 \le m < b^r$.
-
-			Iterate $G$ on $m$: define $m_0 = m$ and $m_{t+1} = G(m_t)$.
-			By the observations above, $(m_t)$ is a sequence of
-			positive multiples of $b^r - 1$, which is strictly decreasing
-			while its terms exceed $b^r - 1$. Therefore, the sequence must
-			eventually reach $b^r - 1$, which is the unique positive multiple of $b^r - 1$
-			that is less than $b^r$.
-
-			Since $s_b$ is subadditive,
-			\[
-				s_b(G(m)) \le \sum_{i=0}^{k-1} s_b(B_i) = s_b(m).
-			\]
-
-			Therefore,
-			\[
-				s_b(m) \ge s_b(b^r - 1) = (b-1)r.
-			\]
-		\end{proof}
-
-		This result implies lower bounds of the form $s_b(n!) > C \log n$
-		and $s_b(\Lambda_n) > C \log n$ for some $C > 0$, depending only on $b$.
-		For if $n \ge b^r - 1$, then $n!$ and $\Lambda_n$ are divisible by $b^r - 1$,
-		hence $s_b(n!) \ge (b-1)r$ and $s_b(\Lambda_n) \ge (b-1)r$.
-
-		Stronger bounds are known.
-		In 2015, Sanna~\cite{sanna2015} proved that 
-		\[
-			s_{b}(n!) > C \log n \log \log \log n
-		\]
-		for every integer $n > e^{e}$ and every $b \ge 2$, where $C$ is a constant 
-		depending only on $b$,
-		and they established the same lower bound for $s_{b}(\Lambda_n)$.
-
-	\section{Digital sums of powers: the general case}
-		\label{general-case}
-
-		In this final section, we prove that the number of nonzero digits in the base-$b$
-		expansion of $a^n$ tends to infinity as $n \to \infty$, provided that $\log(b)/\log(a)$
-		is irrational. This result appears in earlier work of Senge and Straus \cite{senge-straus1973}
-		and Stewart \cite{stewart1980}, but we present an argument that we hope is more accessible.
-
-		The irrationality condition is necessary. Indeed, if $\log(a)/\log(b) = r/s \in \mathbb{Q}$, then
-		\[
-			a^{ns} = b^{nr}
-		\]
-		for every integer $n$, so $a^{ns}$ has only one nonzero digit in base $b$.
-
-		Recall that a nonzero algebraic number $\alpha \in \mathbb{C}$ is a root of a unique irreducible 
-		integer polynomial $P$ with positive leading coefficient and coprime coefficients.
-		The \emph{degree} of $\alpha$ is equal to the degree of $P$, and the \emph{height} 
-		of $\alpha$ is the maximum of the absolute values of the cofficients of $P$. 
-		A rational integer has degree $1$ and height equal to its absolute value.
-
-		Our proof relies on a version of Baker's theorem on linear forms in logarithms, 
-		which we state without proof.
-
-		\begin{theorem} \cite[p. 23]{baker1975}
-			Let $\alpha_1, \ldots, \alpha_n$ be nonzero algebraic numbers with degrees
-			at most $d$. Suppose that $\alpha_1, \ldots, \alpha_{n-1}$ and $\alpha_n$
-			have heights at most $A' \ge 4$ and $A \ge 4$ respectively. 
-			Let $\beta_1, \ldots, \beta_n$ be integers of absolute value at most $B \ge 2$.
-			If
-			\[
-				\Lambda = \beta_1 \log \alpha_1 + \cdots + \beta_n \alpha_n \ne 0,
-			\]
-			there exists $C > 1$, depending only on $n$, $d$, and $A'$,
-			such that 
-			\[
-				|\Lambda| > C^{-\log A \log B}.
-			\]
-			See \cite{matveev2000} for an explicit lower bound.
-			\label{baker}
-		\end{theorem}
-
-		Baker's theorem gives effective lower bounds on linear forms in logarithms
-		of algebraic numbers. In our context, it guarantees that the expression in
-		\eqref{linear-form} below cannot be too small, which limits how well powers of $a$
-		can be approximated by powers of $b$.
-
-		The next lemma deals with the possibility that some power of $a$ might be divisible by $b$.
-		
-		\begin{lemma}
-			Let $a, b \ge 2$ be integers with $\log(a)/\log(b)$ irrational.
-			Then there exist $C$ and $C'$, depending only on $a$ and $b$, 
-			such that whenever
-			\[
-				a^n = b^r u,
-			\]
-			we have 
-			\[
-				C n \le \log u \le C' n.
-			\]
-			In other words, $\log u = \Theta(n)$.
-			\label{lemma}
-		\end{lemma}
-
-		\begin{proof}
-			Since $\log(a)/\log(b)$ is irrational, we can choose primes $p, q$ such that
-			\[
-				\nu_p(a) \nu_q(b) > \nu_q(a) \nu_p(b).
-			\]
-			Hence $\xi(a)>0$ for the function $\xi=\xi_{b,p,q}$ defined in Equation \eqref{xi-notation}.
-
-			Because $\nu_p(u) \ge \xi(u) = \xi(a^n) = n \xi(a)$, the integer $u$ is 
-			divisible by $p^{\lceil n\xi(a)\rceil}$. Therefore
-			\[
-				\log u \ge Cn, \qquad C = \xi(a) \log p > 0.
-			\]
-
-			On the other hand, $\log u \le C' n$ for $C' = \log a$, since $u \le a^n$.
-		\end{proof}
-
-		We now prove the main theorem.
-
-		\begin{theorem} 
-			Let $a, b \ge 2$ be integers, and suppose that $\log(a)/\log(b)$ is irrational.
-			Then for all sufficiently large $n$,
-			\[
-				c_{b}(a^n) > \frac{\log n}{\log \log n + C}
-			\]
-			for some $C > 0$ depending only on $a$ and $b$.
-		\end{theorem}
-
-		\begin{proof}
-			Let
-			\[
-				a^n = b^m \left(d_1 b^{-m(1)} + \cdots + d_k b^{-m(k)}\right),
-			\]
-			where $m = \lceil \log_b a^n \rceil$, $k = c_{b}(a^n)$, 
-			$d_i \in \{1, \ldots, b-1\}$,
-			and
-			\[
-				1 = m(1) < \cdots < m(k) \le m.
-			\]
-			That is, $d_1, \ldots, d_k$ are the nonzero digits of $a^n$ in base $b$,
-			and $m(1), \ldots, m(k)$ are their positions when the digits are numbered 
-			from left (most significant) to right (least significant).
-			Assume that $k \ge 2$.
-
-			Fix $i\in \{1,\dots,k-1\}$. We estimate the ratio $m(i+1)/m(i)$, 
-			which will ultimately bound $k$.
-
-			Define
-			\begin{align*}
-				q &= b^{m(i)} (d_1 b^{-m(1)} + \cdots + d_i b^{-m(i)}), \\
-				r &= b^m (d_{i+1} b^{-m(i+1)} + \cdots + d_k b^{-m(k)}),
-			\end{align*}
-			so that
-			\[
-				a^n = b^{m - m(i)} q + r.
-			\]
-
-			From the base-$b$ expansion we obtain the bounds
-			\begin{align*}
-			    b^{m-1}      &\le a^n \le b^m, \\
-                b^{m(i)-1}   &\le q   \le b^{m(i)}, \\
-				b^{m-m(i+1)} &\le r   \le b^{m-m(i+1)+1}.
-			\end{align*}
-
-			These imply the approximation
-			\begin{equation}
-				\frac{-\log(a^{-n} r)}{\log(q)} = \frac{m(i+1)}{m(i)} + O(1).
-				\label{estimate-1}
-			\end{equation}
-
-			Now set
-			\begin{equation}
-			   \Lambda = \log(a^{-n} b^{m - m(i)} q) = -n \log a + (m - m(i)) \log b + \log q.
-			   \label{linear-form}
-			\end{equation}
-			Then (since $a^{-n} r < 1/2$)
-			\[
-				|\Lambda| = -\log(1 - a^{-n} r) < 2 a^{-n} r.
-			\]
-			By Theorem \ref{baker}, 
-			\[
-				|\Lambda| > C^{-\log q \log n}
-			\]
-			for some $C>1$ depending only on $a$ and $b$. Thus, 
-			\[
-				a^{-n} r > C^{-\log q \log n},
-			\]
-			and hence, for $n$ sufficiently large,
-			\begin{equation}
-				\frac{-\log(a^{-n} r)}{\log(q)} < C \log n
-				\label{estimate-2}
-			\end{equation}
-			for some $C > 0$ depending only on $a$ and $b$.
-
-			Combining \eqref{estimate-1} and \eqref{estimate-2} gives
-			\[
-				\frac{m(i+1)}{m(i)} < C \log n.
-				\label{m-ratio}
-			\]
-
-			Summing the logarithms of these ratios,
-			\[
-				\log m(k) = \sum_{i=1}^{k-1} \log \left(\frac{m(i+1)}{m(i)}\right)		          
-			\]
-			which yields
-			\begin{equation}
-			   \log m(k) < (k - 1) (\log \log n + C).
-			   \label{estimate-3}
-			\end{equation}
-
-			Write $a^n$ as $b^{m-m(k)} u$, where 
-			\[
-				b^{m(k)-1} < u < b^{m(k)}.
-			\]
-
-			Thus $m(k) = \Theta(\log(u))$, and $\log(u) = \Theta(n)$ by Lemma~\ref{lemma}, so
-			\begin{equation}
-				\log m(k) = \log n + O(1).
-				\label{log-mk}
-			\end{equation}
-			Therefore, \eqref{estimate-3} and \eqref{log-mk} imply that
-			\[
-				k > \frac{\log n}{\log \log n + C}
-			\]
-			for all sufficiently large $n$, as required.		
-		\end{proof}
+	Since $m(i) \ge 1$, we also have
+	\[
+		\frac{m(i+1)}{m(i)} < C_3 \log n.
+	\]
+
+	{\bf Case 2:} $q > b^2$, or equivalently, $m(i) \ge 3$.
+
+	In this case, we can apply Baker's theorem with 
+	$A = q$ and $B = n$ to obtain
+	\[
+		|\Lambda| > C_4^{-\log q \log n}
+	\]
+	for some $C_4>1$ depending only on $a$ and $b$. Thus,
+	\[
+		a^{-n} r > C_4^{-\log q \log n},
+	\]
+	and hence, for $n$ sufficiently large,
+	\begin{equation}
+		\frac{-\log(a^{-n} r)}{\log(q)} < C_5 \log n
+		\label{estimate-2}
+	\end{equation}
+	for some $C_5 > 0$ depending only on $a$ and $b$.
+
+	Combining \eqref{estimate-1} and \eqref{estimate-2} gives
+	\[
+		\frac{m(i+1)}{m(i)} < C_6 \log n.
+		\label{m-ratio}
+	\]
+	for some $C_6 > 0$ depending only on $a$ and $b$.
+
+	In either case, we have
+	\[
+		\frac{m(i+1)}{m(i)} < C_7 \log n, \qquad C_7 = \max(C_3, C_7).
+	\]
+
+	Summing the logarithms of these ratios,
+	\[
+		\log m(k) = \sum_{i=1}^{k-1} \log \left(\frac{m(i+1)}{m(i)}\right)
+	\]
+	which yields
+	\begin{equation}
+		\log m(k) < (k - 1) (\log \log n + C_8).
+		\label{estimate-3}
+	\end{equation}
+
+	Write $a^n$ as $b^{m-m(k)} u$, where
+	\[
+		b^{m(k)-1} < u < b^{m(k)}.
+	\]
+
+	Thus $m(k) \asymp \log(u)$, and $\log(u) \asymp n$ by Lemma~\ref{lemma}, so
+	\begin{equation}
+		\log m(k) = \log n + O(1).
+		\label{log-mk}
+	\end{equation}
+	Therefore, \eqref{estimate-3} and \eqref{log-mk} imply that
+	\[
+		k > \frac{\log n}{\log \log n + C}
+	\]
+	for all sufficiently large $n$, as required.
+\end{proof}
 
 \begin{thebibliography}{99}
 
-\bibitem{balog2012}
-Balog, A. and Dartyge, C.,
-``On the sum of the digits of multiples.''
-\textit{Moscow Journal of Combinatorics and Number Theory},
-\textbf{2} (2012), pp. 3--15.
+	\bibitem{balog2012}
+	Balog, A. and Dartyge, C.,
+	``On the sum of the digits of multiples.''
+	\textit{Moscow Journal of Combinatorics and Number Theory},
+	\textbf{2} (2012), pp. 3--15.
 
-\bibitem{baker1975}
-Baker, A.,
-\textit{Transcendental Number Theory},
-Cambridge University Press, Cambridge, 1975.
+	\bibitem{baker1975}
+	Baker, A.,
+	\textit{Transcendental Number Theory},
+	Cambridge University Press, Cambridge, 1975.
 
-\bibitem{knuth1997}
-Knuth, D.\ E.,
-\textit{The Art of Computer Programming: Fundamental Algorithms}, Volume 1, 
-Addison-Wesley Professional, 1997.
+	\bibitem{knuth1997}
+	Knuth, D.\ E.,
+	\textit{The Art of Computer Programming: Fundamental Algorithms}, Volume 1,
+	Addison-Wesley Professional, 1997.
 
-\bibitem{matveev2000}
-Matveev, E.\ M.,
-``An explicit lower bound for a homogeneous rational linear form in the logarithms of algebraic numbers. II.''
-\textit{Izvestiya: Mathematics} \textbf{64.6} (2000), pp. 1217--1269.
+	\bibitem{matveev2000}
+	Matveev, E.\ M.,
+	``An explicit lower bound for a homogeneous rational linear form in the logarithms of algebraic numbers. II.''
+	\textit{Izvestiya: Mathematics} \textbf{64.6} (2000), pp. 1217--1269.
 
-\bibitem{radcliffe2016}
-Radcliffe, D., 
-``The growth of digital sums of powers of 2,''
-arXiv preprint arXiv:2401.12345 (2016).
+	\bibitem{radcliffe2016}
+	Radcliffe, D.,
+	``The growth of digital sums of powers of 2,''
+	arXiv preprint arXiv:1605.02839 (2016).
 
-\bibitem{sanna2015}
-Sanna, C.,
-``On the sum of digits of the factorial,''
-\textit{J. Number Theory} \textbf{147} (2015), pp. 836--841.
+	\bibitem{sanna2015}
+	Sanna, C.,
+	``On the sum of digits of the factorial,''
+	\textit{J. Number Theory} \textbf{147} (2015), pp. 836--841.
 
-\bibitem{senge-straus1973}
-Senge, H.\ G. and Straus, E.\ G.,
-``PV-numbers and sets of multiplicity,''
-\textit{Period. Math. Hungar.} \textbf{3} (1973), no.~1, pp. 93--100.
+	\bibitem{senge-straus1973}
+	Senge, H.\ G. and Straus, E.\ G.,
+	``PV-numbers and sets of multiplicity,''
+	\textit{Period. Math. Hungar.} \textbf{3} (1973), no.~1, pp. 93--100.
 
-\bibitem{sierpinski1970}
-Sierpi{\'n}ski, W.,
-\textit{250 Problems in Elementary Number Theory},
-American Elsevier Publishing Company, New York, 1970.
+	\bibitem{sierpinski1970}
+	Sierpi{\'n}ski, W.,
+	\textit{250 Problems in Elementary Number Theory},
+	American Elsevier Publishing Company, New York, 1970.
 
-\bibitem{stewart1980}
-Stewart, C.\ L.,
-``On the representation of an integer in two different bases,''
-\textit{J. Reine Angew. Math.} \textbf{319} (1980), pp. 63--72.
+	\bibitem{stewart1980}
+	Stewart, C.\ L.,
+	``On the representation of an integer in two different bases,''
+	\textit{J. Reine Angew. Math.} \textbf{319} (1980), pp. 63--72.
 
-\bibitem{stolarsky1980}
-Stolarsky, K.\ B.,
-``Integers whose multiples have anomalous digital frequencies,''
-\textit{Acta Arith} \textbf{38.2} (1980), pp. 117-128.
+	\bibitem{stolarsky1980}
+	Stolarsky, K.\ B.,
+	``Integers whose multiples have anomalous digital frequencies,''
+	\textit{Acta Arith} \textbf{38.2} (1980), pp. 117-128.
 \end{thebibliography}
 
 \end{document}

@@ -518,7 +518,7 @@ Our interest here is not to compete with the best known results,
 but rather to show that simple divisibility arguments
 already imply logarithmic growth.
 
-We conjecture that $s_{b}(n!) \asymp n \log n - n$ and $s_b(\Lambda_n) \asymp n$,
+We conjecture that $s_{b}(n!) \asymp n \log n$ and $s_b(\Lambda_n) \asymp n$,
 but this remains to be proved. See Figure~\ref{fig:s10_fact_lcm_scatter}.
 
 \begin{figure}
@@ -700,26 +700,26 @@ We now prove the main theorem.
 	In this case, we can apply Baker's theorem with 
 	$A = b^2$ and $B = n$ to obtain
 	\[
-		|\Lambda| > C_1^{-\log n} = n^{-C_2}
+		|\Lambda| > C_1^{-\log n}
 	\]
-	for some constant $C_2 > 0$ depending only on $a$ and $b$.
+	for some constant $C_1 > 1$ depending only on $a$ and $b$.
 	Thus,
 	\[
-		a^{-n} r > n^{-C_2},
+		a^{-n} r > n^{-C_1},
 	\]
 	and hence, for $n$ sufficiently large,
 	\[
-		b^{-m(i+1)+2} > n^{-C_2},
+		b^{-m(i+1)+2} > n^{-C_1},
 	\]
 	which implies that
 	\[
-		m(i+1) < C_3 \log n
+		m(i+1) < C_2 \log n
 	\]
-	for some constant $C_{3}>0$ depending only on $a$ and $b$.
+	for some constant $C_{2}>0$ depending only on $a$ and $b$.
 	
 	Since $m(i) \ge 1$, we also have
 	\[
-		\frac{m(i+1)}{m(i)} < C_3 \log n.
+		\frac{m(i+1)}{m(i)} < C_2 \log n.
 	\]
 
 	{\bf Case 2:} $q > b^2$, or equivalently, $m(i) \ge 3$.
@@ -727,29 +727,29 @@ We now prove the main theorem.
 	In this case, we can apply Baker's theorem with 
 	$A = q$ and $B = n$ to obtain
 	\[
-		|\Lambda| > C_4^{-\log q \log n}
+		|\Lambda| > C_3^{-\log q \log n}
 	\]
-	for some $C_4>1$ depending only on $a$ and $b$. Thus,
+	for some $C_3>1$ depending only on $a$ and $b$. Thus,
 	\[
-		a^{-n} r > C_4^{-\log q \log n},
+		a^{-n} r > C_3^{-\log q \log n},
 	\]
 	and hence, for $n$ sufficiently large,
 	\begin{equation}
-		\frac{-\log(a^{-n} r)}{\log(q)} < C_5 \log n
+		\frac{-\log(a^{-n} r)}{\log(q)} < C_4 \log n
 		\label{estimate-2}
 	\end{equation}
-	for some $C_5 > 0$ depending only on $a$ and $b$.
+	for some $C_4 > 0$ depending only on $a$ and $b$.
 
 	Combining \eqref{estimate-1} and \eqref{estimate-2} gives
 	\[
-		\frac{m(i+1)}{m(i)} < C_6 \log n.
+		\frac{m(i+1)}{m(i)} < C_5 \log n.
 		\label{m-ratio}
 	\]
-	for some $C_6 > 0$ depending only on $a$ and $b$.
+	for some $C_5 > 0$ depending only on $a$ and $b$.
 
 	In either case, we have
 	\[
-		\frac{m(i+1)}{m(i)} < C_8 \log n, \qquad C_8 = \min(C_3, C_7).
+		\frac{m(i+1)}{m(i)} < C_6 \log n, \qquad C_6 = \min(C_2, C_5).
 	\]
 
 	Summing the logarithms of these ratios,
@@ -758,7 +758,7 @@ We now prove the main theorem.
 	\]
 	which yields
 	\begin{equation}
-		\log m(k) < (k - 1) (\log \log n + C_9).
+		\log m(k) < (k - 1) (\log \log n + C_7).
 		\label{estimate-3}
 	\end{equation}
 

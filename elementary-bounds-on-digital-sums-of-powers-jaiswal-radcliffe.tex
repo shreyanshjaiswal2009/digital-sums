@@ -378,32 +378,28 @@ divide $N$.
 \begin{proof}
 	Since $\log a\, / \log b$ is irrational, there exist primes $p$ and $q$
 	such that
-	\begin{equation}
+	\begin{equation} \label{eq:nudiff}
 		\nu_p(a) \nu_q(b) - \nu_q(a) \nu_p(b) > 0.
-		\label{eq:nudiff}
 	\end{equation}
 	Otherwise, $\log a\, / \log b$ would be equal to the common ratio
 	$\nu_p(a)\, / \nu_p(b)$ for any prime divisor $p$ of $b$.
 
 	By comparing the valuations of $a^n$ with respect to $p$ and $q$,
 	we obtain 
-	\begin{equation}
+	\begin{equation} \label{eq:nup}
 		n \nu_p(a) = r \nu_p(b) + \nu_p(u)
-		\label{eq:nup}
 	\end{equation}
 	and
-	\begin{equation}
+	\begin{equation} \label{eq:nuq}
 		n \nu_q(a) \ge r \nu_q(b).
-		\label{eq:nuq}
 	\end{equation}
 
 	Combining \eqref{eq:nup} and \eqref{eq:nuq} yields
-	\begin{equation}
-		\label{eq:nupq}
-			\nu_p(u) \ge n \nu_p(a) - n \frac{\nu_q(a)}{\nu_q(b)} \nu_p(b) \\
-			         = C n,
+	\begin{equation} \label{eq:nupq}
+		\nu_p(u) \ge n \nu_p(a) - n \frac{\nu_q(a)}{\nu_q(b)} \nu_p(b) = C n,
 	\end{equation}
-	where \[
+	where 
+	\[
 		C = \frac{\nu_p(a) \nu_q(b) - \nu_q(a) \nu_p(b)}{\nu_q(b)}.
 	\]
 	Finally, $C > 0$ by \eqref{eq:nudiff}.
@@ -454,7 +450,7 @@ The following lemma, originally proved by Stolarsky~\cite{stolarsky1980}
 for base $2$ and extended to general bases by Balog and
 Dartyge~\cite{balog2012}, supplies exactly such a tool.
 
-\begin{lemma}
+\begin{lemma} \label{lemma-balog}
 	Let $m, r \ge 1$ and $b \ge 2$ be integers.
 	If $m$ is divisible by $b^r - 1$,
 	then $s_b(m) \ge (b-1)r$.
@@ -493,7 +489,7 @@ Dartyge~\cite{balog2012}, supplies exactly such a tool.
 	\]
 \end{proof}
 
-This lemma has an immediate consequence for factorials and LCMs.
+This lemma has an immediate consequence for factorials and least common multiples.
 If $n \ge b^r - 1$, then both $n!$ and $\Lambda_n$ are divisible by $b^r - 1$,
 and hence
 \[
@@ -506,8 +502,8 @@ lower bounds of the form
 \]
 for some constant $C > 0$ depending only on $b$.
 
-Stronger bounds are known.
-In 2015, Sanna~\cite{sanna2015} used this lemma,
+Luca~\cite{luca2002} proved the same result using similar methods.
+In 2015, Sanna~\cite{sanna2015} used the lemma above,
 together with more advanced methods, to prove that
 \[
 	s_b(n!) > C \log n \log \log \log n
@@ -656,36 +652,34 @@ We now prove the main theorem.
 	\end{align*}
 
 	Consequently,
-	\begin{equation}
+	\[
 		b^{-m(i+1)} < a^{-n} r < b^{-m(i+1)+2},
-	\end{equation}
+	\]
 
 	which implies that
-	\begin{equation}
+	\[
 		\frac{m(i+1) - 2}{m(i)} \le
 		\frac{-\log(a^{-n}r)}{\log q} \le
 		\frac{m(i+1)}{m(i) - 1}
-	\end{equation}
+	\]
 	provided that $q \ge 2$ and $m(i) \ge 2$.
 
 	If $m(i) \ge 3$ (and $m(i+1) \ge 4$) then
-	\begin{equation}
+	\[
 		\frac{m(i+1)-2}{m(i)} \ge \frac12\, \frac{m(i+1)}{m(i)},
 		\qquad
 		\frac{m(m+1)}{m(i)-1} \le \frac32\, \frac{m(i+1)}{m(i)},
-	\end{equation}
+	\]
 	hence
-	\begin{equation}
+	\begin{equation} \label{estimate-1}
 		\frac12\, \frac{m(i+1)}{m(i)} \le
 		\frac{-\log(a^{-n}r)}{\log q} \le
 		\frac32\, \frac{m(i+1)}{m(i)}.
-		\label{estimate-1}
 	\end{equation}
 
 	Now set
-	\begin{equation}
+	\begin{equation} \label{linear-form}
 		\Lambda = \log(a^{-n} b^{m - m(i)} q) = -n \log a + (m - m(i)) \log b + \log q.
-		\label{linear-form}
 	\end{equation}
 	Then (since $a^{-n} r < 1/2$)
 	\[
@@ -705,11 +699,11 @@ We now prove the main theorem.
 	for some constant $C_1 > 1$ depending only on $a$ and $b$.
 	Thus,
 	\[
-		a^{-n} r > n^{-C_1},
+		2 a^{-n} r > n^{-C_1},
 	\]
 	and hence, for $n$ sufficiently large,
 	\[
-		b^{-m(i+1)+2} > n^{-C_1},
+		2 b^{-m(i+1)+2} > n^{-C_1},
 	\]
 	which implies that
 	\[
@@ -731,12 +725,11 @@ We now prove the main theorem.
 	\]
 	for some $C_3>1$ depending only on $a$ and $b$. Thus,
 	\[
-		a^{-n} r > C_3^{-\log q \log n},
+		2 a^{-n} r > C_3^{-\log q \log n},
 	\]
 	and hence, for $n$ sufficiently large,
-	\begin{equation}
+	\begin{equation} \label{estimate-2}
 		\frac{-\log(a^{-n} r)}{\log(q)} < C_4 \log n
-		\label{estimate-2}
 	\end{equation}
 	for some $C_4 > 0$ depending only on $a$ and $b$.
 
@@ -757,9 +750,8 @@ We now prove the main theorem.
 		\log m(k) = \sum_{i=1}^{k-1} \log \left(\frac{m(i+1)}{m(i)}\right)
 	\]
 	which yields
-	\begin{equation}
+	\begin{equation} \label{estimate-3}
 		\log m(k) < (k - 1) (\log \log n + C_7).
-		\label{estimate-3}
 	\end{equation}
 
 	Write $a^n$ as $b^{m-m(k)} u$, where
@@ -768,9 +760,8 @@ We now prove the main theorem.
 	\]
 
 	Thus $m(k) \asymp \log(u)$, and $\log(u) \asymp n$ by Lemma~\ref{lemma}, so
-	\begin{equation}
+	\begin{equation} \label{log-mk}
 		\log m(k) = \log n + O(1).
-		\label{log-mk}
 	\end{equation}
 	Therefore, \eqref{estimate-3} and \eqref{log-mk} imply that
 	\[
@@ -796,6 +787,11 @@ We now prove the main theorem.
 	Knuth, D.\ E.,
 	\textit{The Art of Computer Programming: Fundamental Algorithms}, Volume 1,
 	Addison-Wesley Professional, 1997.
+
+	\bibitem{luca2002}
+	Luca, F., 
+	``The Number of Non-Zero Digits of n!''
+	\textit{Canadian Mathematical Bulletin} \textbf{45.1}, (2002), pp. 115--118.
 
 	\bibitem{matveev2000}
 	Matveev, E.\ M.,

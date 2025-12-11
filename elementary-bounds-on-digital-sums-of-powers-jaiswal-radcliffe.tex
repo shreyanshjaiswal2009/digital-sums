@@ -85,32 +85,34 @@ But first, we introduce some notation.
 
 \section{Notation and terminology}
 
-For integers $n \ge 0$ and $b \ge 2$, the \emph{base-$b$ expansion} of $n$
+For integers $N \ge 0$ and $b \ge 2$, the \emph{base-$b$ expansion} of $n$
 is the unique representation of the form
 \[
-	n = \sum_{i=0}^{\infty} d_i b^i, \qquad d_i \in \{0, 1, \ldots, b-1\}.
+	N = \sum_{i=0}^{\infty} d_i b^i, \qquad d_i \in \{0, 1, \ldots, b-1\}.
 \]
-The integers $d_i$ are the \emph{base-$b$ digits} of $n$; all but finitely
+The integers $d_i$ are the \emph{base-$b$ digits} of $N$; all but finitely
 many of these digits are zero.
 
-For an integer $b \ge 2$, we write $s_{b}(n)$ for the sum of the base-$b$
-digits of $n$, and $c_{b}(n)$ for the number of nonzero digits in that expansion.
+For an integer $b \ge 2$, we write $s_{b}(N)$ for the sum of the base-$b$
+digits of $N$, and $c_{b}(N)$ for the number of nonzero digits in that expansion.
 These functions are equivalent up to a constant factor,
-since $c_{b}(n) \le s_{b}(n) \le (b-1) c_{b}(n)$ for all $n$ and $b$;
-so we focus on $c_{b}(n)$.
+since $c_{b}(N) \le s_{b}(N) \le (b-1) c_{b}(N)$ for all $N$ and $b$;
+so we focus on $c_{b}(N)$.
 
-The function $s_b$ is \emph{subadditive}: $s_b(m+n) \le s_b(m) + s_b(n)$
-for all positive integers $m$ and $n$. Equality
+The function $s_b$ is \emph{subadditive}: $s_b(M+N) \le s_b(M) + s_b(N)$
+for all nonnegative integers $M$ and $N$. Equality
 holds if no carries occur in the digitwise addition of $m$ and $n$.
 Otherwise, each carry reduces the digital sum by $b-1$.
 The function $c_b$ is likewise subadditive.
 
-For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
-prime factorization of $n$. If $p$ does not divide $n$ then $\nu_{p}(n) = 0$.
+For a prime $p$, the \emph{$p$-adic valuation} of $N$,
+denoted $\nu_{p}(N)$, is the exponent of $p$ in the
+prime factorization of $N$. If $p$ does not divide $N$ then $\nu_{p}(N) = 0$.
 The function $\nu_p$ is \emph{completely additive}:
-$\nu_p(mn) = \nu_p(m) + \nu_p(n)$ for all positive integers $m$ and $n$.
+$\nu_p(MN) = \nu_p(M) + \nu_p(N)$ for all positive integers $M$ and $N$.
 
-Recall that the \emph{floor} of $x$, denoted $\lfloor x \rfloor$,
+Recall that the \emph{floor} of a real number $x$, 
+denoted $\lfloor x \rfloor$,
 is the greatest integer $n$ such that $n \le x$.
 The \emph{ceiling} of $x$, denoted
 $\lceil x \rceil$, is the least integer $n$ such that $n \ge x$.
@@ -194,8 +196,8 @@ Let us formalize this argument.
 \begin{theorem} \label{base-ten-lower-bound}
 	Let $(e_k)_{k\ge1}$ be a sequence of integers such that
 	$e_1 \ge 1$ and $2^{e_k} > 10^{e_{k-1}}$ for all $k \ge 2$.
-	If $n$ is a positive integer that is divisible by $2^{e_k}$
-	but not divisible by $10$, then $c_{10}(n) \ge k$.
+	If $N$ is a positive integer that is divisible by $2^{e_k}$
+	but not divisible by $10$, then $c_{10}(N) \ge k$.
 \end{theorem}
 
 \begin{proof}
@@ -204,32 +206,32 @@ Let us formalize this argument.
 	has at least one nonzero digit.
 
 	Assume now that $k \ge 2$, and that the statement holds for $k-1$.
-	Let $n$ be a positive integer divisible by $2^{e_{k}}$ but not by $10$.
+	%Let $N$ be a positive integer divisible by $2^{e_{k}}$ but not by $10$.
 	Apply the division algorithm to write
 	\[
-		n = 10^{e_{k-1}} q + r, \qquad 0 \le r < 10^{e_{k-1}},
+		N = 10^{e_{k-1}} q + r, \qquad 0 \le r < 10^{e_{k-1}},
 	\]
 	for integers $q$, $r$.
 
-	Because $n \ge 2^{e_k} > 10^{e_{k-1}}$ by hypothesis,
+	Because $N \ge 2^{e_k} > 10^{e_{k-1}}$ by hypothesis,
 	the quotient satisfies $q \ge 1$.
 
-	Next, both $n$ and $10^{e_{k-1}} q$ are divisible by $2^{e_{k-1}}$,
+	Next, both $N$ and $10^{e_{k-1}} q$ are divisible by $2^{e_{k-1}}$,
 	hence their difference
 	\[
-		r = n - 10^{e_{k-1}} q
+		r = N - 10^{e_{k-1}} q
 	\]
 	is also divisible by $2^{e_{k-1}}$.
 
-	Moreover, $r$ is not divisible by $10$, since $n$ is not divisible by $10$.
+	Moreover, $r$ is not divisible by $10$, since $N$ is not divisible by $10$.
 
 	Therefore, $c_{10}(r) \ge k - 1$ by the induction hypothesis.
 
-	Finally, the decimal expansion of $n$ is obtained by concatenating
+	Finally, the decimal expansion of $N$ is obtained by concatenating
 	the decimal expansion of $q$ with the (possibly zero-padded)
 	expansion of $r$. Thus,
 	\[
-		c_{10}(n) = c_{10}(q) + c_{10}(r) \ge 1 + (k - 1) = k.
+		c_{10}(N) = c_{10}(q) + c_{10}(r) \ge 1 + (k - 1) = k.
 	\]
 	This completes the proof.
 
@@ -237,7 +239,7 @@ Let us formalize this argument.
 
 \begin{corollary} \label{even-powers-base-ten-limit}
 	Let $a$ be a positive integer that is divisible by $2$ but not divisible by $10$.
-	Then $c_{10}(a^n) \ge \log_4(n)$ for all $n \ge 1$.
+	Then $c_{10}(a^n) \ge \log_4 n$ for all $n > 1$.
 	In particular,
 	$\lim_{n\to \infty}c_{10}(a^{n}) = \infty$.
 \end{corollary}
@@ -251,16 +253,21 @@ Let us formalize this argument.
 	\]
 	for all $k \ge 2$.
 
-	Let $n\ge 4$ be a positive integer, and let $k = \lceil \log_4 n \rceil$,
+	Let $n > 1$ be a positive integer, and let $k = \lceil \log_4 n \rceil$,
 	so that $4^{k-1} < n \le 4^k$. Then $a^n$ is divisible by $2^n$,
 	so $a^n$ is also divisible by $2^{e_{k}}$.
 	But $a^n$ is not divisible by $10$.
 
 	Therefore,
-	$c_{10}(a^n) \ge k \ge \log_4(n)$, by Theorem~\ref{base-ten-lower-bound}.
+	$c_{10}(a^n) \ge k \ge \log_4 n$, by Theorem~\ref{base-ten-lower-bound}.
 \end{proof}
 
-\section{Generalizing to other bases}
+A similar argument applies if $a$ is divisible by $5$ but not divisible by $10$,
+or more generally if the prime factorization of $a$ contains unequal numbers
+of twos and fives. In the next section, we generalize this insight to
+non-decimal base expansions.
+
+\section{Digital sums of powers in other bases}
 
 Before extending the arguments of the previous section, we first situate
 our results in the broader context of earlier work on digital sums of powers.
@@ -274,7 +281,7 @@ showed that for integers $a \ge 1$ and $b \ge 2$,
 However, their result does not yield any explicit lower bound.
 
 Subsequently, Stewart~\cite[Theorem 2]{stewart1980} proved
-that if $\log a\,/\log b$ is irrational then
+that if $\log(a)/\log(b)$ is irrational then
 \[
 	c_b(a^n) > \frac{\log n}{\log\log n + C} - 1
 \]
@@ -290,7 +297,7 @@ generalizes the corresponding base-$10$ argument from the previous section.
 	Let $a, b$ be integers such that $2 \le a < b$ and $a$ divides $b$.
 	Let $(e_{k})$ be a sequence of integers such that $e_{1} \ge 1$ and
 	$a^{e_{k}} > b^{e_{k-1}}$ for all $k \ge 2$.
-	If $a^{e_{k}}$ divides $n$ and $b \nmid n$, then $c_b(n) \ge k$.
+	If $a^{e_{k}}$ divides $N$ and $b \nmid N$, then $c_b(N) \ge k$.
 \end{theorem}
 
 \begin{proof}
@@ -306,11 +313,11 @@ generalizes the corresponding base-$10$ argument from the previous section.
 		c_b(N) > C \log n
 	\]
 	for $n$ sufficiently large.
-	Indeed, we can choose any $0 < C < (\log(\log b\, / \log a))^{-1}$.
+	Indeed, we can choose any $0 < C < (\log(\log(b) / \log(a)))^{-1}$.
 \end{theorem}
 
 \begin{proof}
-	Let $r = \log b\, / \log a$, and
+	Let $r = \log(b) / \log(a)$, and
 	define $(e_k)$ by $e_1 = 1$ and $e_k = \lceil r e_{k-1} \rceil$
 	for $k \ge 2$.
 	It is routine to verify that $(e_k)$ satisfies the conditions of
@@ -354,34 +361,41 @@ The following lemma allows us to relax the condition that $b$ does not
 divide $N$.
 
 \begin{lemma} \label{lemma-1}
-	Let $a, b \ge 2$ be integers such that $\log a\, / \log b$ is irrational.
-	Suppose that $a^n = b^r u$.
+	Let $a, b \ge 2$ be integers such that $\log(a) / \log(b)$ is irrational.
+	Suppose that $a^n = b^m t$, where $t \ge 1$ is an integer.
 	Then there exists a prime factor $p$ of $a$, and $C > 0$ depending
-	only on $a$ and $b$, such that $\nu_p(u) \ge Cn$.
+	only on $a$ and $b$, such that $\nu_p(t) \ge Cn$.
 \end{lemma}
 
+Intuitively, the irrationality condition means that the
+prime factorizations of $a$ and $b$ are out of balance,
+in the sense of \eqref{eq:nudiff} below;
+so factors of $p$ accumulate in powers of $a$ faster
+than they can be removed by powers of $b$.
+The following argument makes this precise.
+
 \begin{proof}
-	Since $\log a\, / \log b$ is irrational, there exist primes $p$ and $q$
+	Since $\log(a) / \log(b)$ is irrational, there exist primes $p$ and $q$
 	such that
 	\begin{equation} \label{eq:nudiff}
 		\nu_p(a) \nu_q(b) - \nu_q(a) \nu_p(b) > 0.
 	\end{equation}
-	Otherwise, $\log a\, / \log b$ would be equal to the common ratio
+	Otherwise, $\log(a) / \log(b)$ would be equal to the common ratio
 	$\nu_p(a)\, / \nu_p(b)$ for any prime divisor $p$ of $b$.
 
 	By comparing the valuations of $a^n$ with respect to $p$ and $q$,
 	we obtain
 	\begin{equation} \label{eq:nup}
-		n \nu_p(a) = r \nu_p(b) + \nu_p(u)
+		n \nu_p(a) = m \nu_p(b) + \nu_p(t)
 	\end{equation}
 	and
 	\begin{equation} \label{eq:nuq}
-		n \nu_q(a) \ge r \nu_q(b).
+		n \nu_q(a) \ge m \nu_q(b).
 	\end{equation}
 
 	Combining \eqref{eq:nup} and \eqref{eq:nuq} yields
 	\begin{equation} \label{eq:nupq}
-		\nu_p(u) \ge n \nu_p(a) - n \frac{\nu_q(a)}{\nu_q(b)} \nu_p(b) = C n,
+		\nu_p(t) \ge n \nu_p(a) - n \frac{\nu_q(a)}{\nu_q(b)} \nu_p(b) = C n,
 	\end{equation}
 	where
 	\[
@@ -395,34 +409,39 @@ We now come to the main result of this section.
 \begin{theorem} \label{general-digit-sum}
 	Let $a \ge 2$ and $b \ge 2$ be integers. Let $d$ be the smallest factor of $a$
 	such that $\gcd(a/d, b) = 1$, and suppose that $\log(d) / \log(b)$ is irrational.
-	Then $c_{b}(a^{n}) > C \log n$ for all $n \ge 1$, where $C > 0$ depends
-	only on $a$ and $b$.
+	Then $c_{b}(a^{n}) > C \log n$ for all sufficiently large $n$, 
+	where $C > 0$ depends only on $a$ and $b$.
 \end{theorem}
 
 \begin{proof}
-	Write $a^n = b^r u$ with $b \nmid u$, and set $g = a/d$.
-	Since $g^n \mid a^n$ and $\gcd(g, b) = 1$, it follows that $g^n \mid u$.
-	Define $v = u / g^n$; then $d^n = b^r v$.
+	Write $a^n = b^m s$ with $b \nmid s$, and set $g = a/d$.
+	By the minimality of $d$, the prime divisors of $d$ are exactly 
+	the primes of $a$ that also divide $b$;
+	in particular $\gcd(d, g) = 1$ and any prime $p \mid d$ satisfies $p \mid b$.
 
-	By Lemma~\ref{lemma-1},
+	Since $g^n \mid a^n$ and $\gcd(g, b) = 1$, it follows that $g^n \mid u$.
+	Define $t = s / g^n$; then $d^n = b^m t$.
+
+	By Lemma~\ref{lemma-1}, applied with $a \gets d$,
 	there exists a prime divisor $p$ of $d$ such that
 	\[
-		\nu_p(v) \ge C' n,
+		\nu_p(t) \ge C' n,
 	\]
 	for some constant $C' > 0$ depending only on $a$ and $b$.
 
 	Because $\gcd(d, g) = 1$, the prime $p$ does not divide $g$,
-	and hence $\nu_p(u) = \nu_p(v)$. 
-	Therefore, by Theorem~\ref{thm:cbn},
+	and hence $\nu_p(s) = \nu_p(t)$. 
+	Therefore, by Theorem~\ref{thm:cbn} applied with $a \gets p$ and $N \gets s$,
 	\[
-		c_b(u) > C \log n.
+		c_b(s) > C \log n
 	\]
+	for $n$ sufficiently large.
 
-	Finally, $c_{b}(a^{n}) = c_{b}(u)$, 
-	since $u$ and $a^{n}$ differ only by a power of $b$ 
+	Finally, $c_{b}(a^{n}) = c_{b}(s)$, 
+	since $s$ and $a^{n}$ differ only by a power of $b$ 
 	and thus have the same base-$b$ expansion up to trailing zeros.
 	
-	Consequently,
+	Consequently, when $n$ is sufficiently large, we have
 	\[
 		c_b(a^n) > C \log n.
 	\]
@@ -436,7 +455,7 @@ digital sums of $n!$ and $\Lambda_n = \lcm(1,\ldots, n)$.
 In contrast with the situation for $a^n$, where prime-power divisibility
 played a central role, the key feature for factorials and LCMs
 is that both $n!$ and $\Lambda_n$ are divisible by large integers
-having a special form.
+of the form $b^r - 1$.
 
 The key insight is provided by the following lemma, which was
 original proved by Stolarsky~\cite{stolarsky1980} for base $2$,
@@ -518,14 +537,15 @@ but this remains to be proved. See Figure~\ref{fig:s10_fact_lcm_scatter}.
 	\label{fig:s10_fact_lcm_scatter}
 \end{figure}
 
-\section{Digital sums of powers: the general case} \label{general-case}
+\section{Stewart's Theorem} \label{general-case}
 
 In this final section, we prove that the number of nonzero digits in the base-$b$
-expansion of $a^n$ tends to infinity as $n \to \infty$, provided that $\log(b)/\log(a)$
+expansion of $a^n$ tends to infinity as $n \to \infty$, provided that $\log(a)/\log(b)$
 is irrational. This result appears in earlier work of Senge and Straus \cite{senge-straus1973}
 and Stewart \cite{stewart1980}, but we present an argument that we hope is more accessible.
 
-The irrationality condition is necessary. Indeed, if $\log(a)/\log(b) = r/s \in \mathbb{Q}$, then
+The irrationality condition is necessary. 
+Indeed, if $\log(a)/\log(b) = r/s \in \mathbb{Q}$, then
 \[
 	a^{ns} = b^{nr}
 \]
@@ -570,25 +590,25 @@ can be approximated by powers of $b$.
 The next lemma deals with the possibility that some power of $a$ might be divisible by $b$.
 
 \begin{lemma} \label{lemma}
-	Let $a, b \ge 2$ be integers with $\log(a)\,/\log(b)$ irrational.
+	Let $a, b \ge 2$ be integers with $\log(a)/\log(b)$ irrational.
 	Then there exist $C$ and $C'$, depending only on $a$ and $b$,
 	such that whenever
 	\[
-		a^n = b^r u,
+		a^n = b^r t,
 	\]
 	we have
 	\[
-		C n \le \log u \le C' n.
+		C n \le \log t \le C' n.
 	\]
-	In other words, $\log u \asymp n$.
+	In other words, $\log t \asymp n$.
 \end{lemma}
 
 \begin{proof}
 	By Lemma~\ref{lemma-1}, there exists a prime factor $p$ of $a$,
 	and $C_1 > 0$ depending only on $a$ and $b$, such that
-	$\nu_p(u) > C_1 \log n$ for all $n$.
-	Therefore, $u \ge p^{C_1 n}$ and $\log u \ge Cn$ for $C = C_1 \log p$.
-	On the other hand, $\log u \le C' n$ for $C' = \log a$, since $u \le a^n$.
+	$\nu_p(t) > C_1 \log n$ for all $n$.
+	Therefore, $t \ge p^{C_1 n}$ and $\log t \ge Cn$ for $C = C_1 \log p$.
+	On the other hand, $\log t \le C' n$ for $C' = \log a$, since $t \le a^n$.
 \end{proof}
 
 We now prove the main theorem.
@@ -668,7 +688,7 @@ We now prove the main theorem.
 
 	Now set
 	\begin{equation} \label{linear-form}
-		\Lambda = \log(a^{-n} b^{m - m_i} q) = -n \log a + (m - m_i) \log b + \log q.
+		\Lambda = \log(a^{-n} b^{m - m_i} q) = -n \log(a) + (m - m_i) \log(b) + \log(q).
 	\end{equation}
 	Then (since $a^{-n} r < 1/2$)
 	\[
@@ -681,7 +701,7 @@ We now prove the main theorem.
 		{\bf Case 1:} $q < b^2$, or equivalently, $m_i \le 2$.
 
 	In this case, we can apply Baker's theorem with
-	$A = b^2$ and $B = n$ to obtain
+	$A \gets b^2$ and $B \gets n$ to obtain
 	\[
 		|\Lambda| > C_1^{-\log n}
 	\]
@@ -708,7 +728,7 @@ We now prove the main theorem.
 	{\bf Case 2:} $q > b^2$, or equivalently, $m_{i} \ge 3$.
 
 	In this case, we can apply Baker's theorem with
-	$A = q$ and $B = n$ to obtain
+	$A \gets q$ and $B \gets n$ to obtain
 	\[
 		|\Lambda| > C_3^{-\log q \log n}
 	\]
@@ -746,7 +766,7 @@ We now prove the main theorem.
 		b^{m_k-1} < u < b^{m_k}.
 	\]
 
-	Thus $m_k \asymp \log(u)$, and $\log(u) \asymp n$ by Lemma~\ref{lemma}, so
+	Thus $m_k \asymp \log u$, and $\log u \asymp n$ by Lemma~\ref{lemma}, so
 	\begin{equation} \label{log-mk}
 		\log m_k = \log n + O(1).
 	\end{equation}

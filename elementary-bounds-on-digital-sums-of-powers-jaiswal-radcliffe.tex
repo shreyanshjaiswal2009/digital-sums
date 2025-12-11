@@ -28,7 +28,7 @@
 
 \maketitle
 
-\section{Introduction}
+\section{Introduction} \label{sec:introduction}
 
 This expository article establishes lower bounds on digital sums
 of powers, multiples of powers, factorials, and the least common
@@ -69,26 +69,26 @@ since $2^{n}$ has $\lfloor n \log_{10}2\rfloor + 1$ decimal digits,
 and the digits seem to be approximately uniformly distributed among
 $0, 1, 2, \ldots, 9$.
 However, this stronger conjecture remains to be proved.
-See Figure~\ref{fig:s10_scatter}.
+See Figure~\ref{fig:digital-sum-2-to-n}.
 
 \begin{figure} 
 	\centering
 	\includegraphics[width=0.8\linewidth]{s10_scatter.png}
 	\caption{Scatter plot of the digital sum of $2^n$ for $n \le 100$
 		together with the conjectured linear approximation.}
-	\label{fig:s10_scatter}
+	\label{fig:digital-sum-2-to-n}
 \end{figure}
 
 We prove in Section~\ref{sec:powers-of-two} that the digital
 sum of $2^n$ is greater than $\log_4 n$ for all $n \ge 1$.
 But first, we introduce some notation.
 
-\section{Notation and terminology}
+\section{Notation and terminology} \label{sec:notation}
 
 For integers $N \ge 0$ and $b \ge 2$, the \emph{base-$b$ expansion} of $N$
 is the unique representation of the form
 \[
-	N = \sum_{i=0}^{\infty} d_i b^i, \qquad d_i \in \{0, 1, \ldots, b-1\}.
+	N = \sum_{i=0}^{\infty} d_i b^i, \quad d_i \in \{0, 1, \ldots, b-1\}.
 \]
 The integers $d_i$ are the \emph{base-$b$ digits} of $N$; all but finitely
 many of these digits are zero.
@@ -127,7 +127,7 @@ One writes
 \]
 if there exists a positive real number $C$ such that
 \[
-	|f(n)| \le C g(n) \qquad \text{for all } n \in D.
+	|f(n)| \le C g(n) \quad \text{for all } n \in D.
 \]
 
 The notation
@@ -148,7 +148,7 @@ Finally,
 \]
 means that there exist positive real numbers $C$ and $C'$ such that
 \[
-	C g(n) < |f(n)| < C' g(n) \qquad \text{for all } n \in D.
+	C g(n) < |f(n)| < C' g(n) \quad \text{for all } n \in D.
 \]
 
 \section{Digital sums of powers of two} \label{sec:powers-of-two}
@@ -193,7 +193,7 @@ This proves that $c_{10}(2^n)$ tends to infinity as $n \to \infty$.
 
 Let us formalize this argument.
 
-\begin{theorem} \label{base-ten-lower-bound}
+\begin{theorem} \label{thm:digit-sum-bound-2-to-n}
 	Let $(e_k)_{k\ge1}$ be a sequence of integers such that
 	$e_1 \ge 1$ and $2^{e_k} > 10^{e_{k-1}}$ for all $k \ge 2$.
 	If $N$ is a positive integer that is divisible by $2^{e_k}$
@@ -206,10 +206,9 @@ Let us formalize this argument.
 	has at least one nonzero digit.
 
 	Assume now that $k \ge 2$, and that the statement holds for $k-1$.
-	%Let $N$ be a positive integer divisible by $2^{e_{k}}$ but not by $10$.
 	Apply the division algorithm to write
 	\[
-		N = 10^{e_{k-1}} q + r, \qquad 0 \le r < 10^{e_{k-1}},
+		N = 10^{e_{k-1}} q + r, \quad 0 \le r < 10^{e_{k-1}},
 	\]
 	for integers $q$, $r$.
 
@@ -259,7 +258,7 @@ Let us formalize this argument.
 	But $a^n$ is not divisible by $10$.
 
 	Therefore,
-	$c_{10}(a^n) \ge k \ge \log_4 n$, by Theorem~\ref{base-ten-lower-bound}.
+	$c_{10}(a^n) \ge k \ge \log_4 n$, by Theorem~\ref{thm:digit-sum-bound-2-to-n}.
 \end{proof}
 
 A similar argument applies if $a$ is divisible by $5$ but not divisible by $10$,
@@ -267,7 +266,7 @@ or more generally if the prime factorization of $a$ contains unequal numbers
 of twos and fives. In the next section, we generalize this insight to
 non-decimal base expansions.
 
-\section{Digital sums of powers in other bases}
+\section{Digital sums of powers in other bases} \label{sec:digital-sums-powers}
 
 Before extending the arguments of the previous section, we first situate
 our results in the broader context of earlier work on digital sums of powers.
@@ -301,11 +300,11 @@ generalizes the corresponding base-$10$ argument from the previous section.
 \end{theorem}
 
 \begin{proof}
-	Follow the proof of Theorem~\ref{base-ten-lower-bound}, but replace $2$
+	Follow the proof of Theorem~\ref{thm:digit-sum-bound-2-to-n}, but replace $2$
 	with $a$ where needed, and replace $10$ with $b$.
 \end{proof}
 
-\begin{theorem} \label{thm:cbn}
+\begin{theorem} \label{thm:multiples-powers-log-bound}
 	Let $a, b$ be integers such that $2 \le a < b$ and $a$ divides $b$.
 	Suppose that $N$ is divisible by $a^n$ but not $b$. Then
 	there exists $C > 0$, depending only on $a$ and $b$, such that
@@ -431,7 +430,7 @@ We now come to the main result of this section.
 
 	Because $\gcd(d, g) = 1$, the prime $p$ does not divide $g$,
 	and hence $\nu_p(s) = \nu_p(t)$. 
-	Therefore, by Theorem~\ref{thm:cbn} applied with $a \gets p$ and $N \gets s$,
+	Therefore, by Theorem~\ref{thm:multiples-powers-log-bound} applied with $a \gets p$ and $N \gets s$,
 	\[
 		c_b(s) > C \log n
 	\]
@@ -448,7 +447,7 @@ We now come to the main result of this section.
 \end{proof}
 
 \section{Digital sums of factorials and LCMs} 
-\label{sec:factorials-lcms}
+\label{sec:digital-sums-factorials-lcms}
 
 In this section, we prove logarithmic lower bounds for the base-$b$
 digital sums of $n!$ and $\Lambda_n = \lcm(1,\ldots, n)$.
@@ -458,10 +457,10 @@ is that both $n!$ and $\Lambda_n$ are divisible by large integers
 of the form $b^r - 1$.
 
 The key insight is provided by the following lemma, which was
-original proved by Stolarsky~\cite{stolarsky1980} for base $2$,
+originally proved by Stolarsky~\cite{stolarsky1980} for base $2$,
 and extended to general bases by Balog and Dartyge~\cite{balog2012}.
 
-\begin{lemma} \label{lemma-balog}
+\begin{lemma} \label{lem:balog}
 	Let $m, r \ge 1$ and $b \ge 2$ be integers.
 	If $m$ is divisible by $b^r - 1$,
 	then $s_b(m) \ge (b-1)r$.
@@ -471,7 +470,7 @@ and extended to general bases by Balog and Dartyge~\cite{balog2012}.
 	Write the base-$b$ expansion of $m$ as a concatenation of $r$-digit blocks,
 	so that
 	\[
-		m = \sum_{i=0}^{k-1} B_i b^{ri}, \qquad 0 \le B_i < b^r, \qquad B_{k-1} \ge 1.
+		m = \sum_{i=0}^{k-1} B_i b^{ri}, \quad 0 \le B_i < b^r, \quad B_{k-1} \ge 1.
 	\]
 
 	Define the \emph{block-sum} operator $G$ by
@@ -504,12 +503,12 @@ This lemma has an immediate consequence for factorials and least common multiple
 If $n \ge b^r - 1$, then both $n!$ and $\Lambda_n$ are divisible by $b^r - 1$,
 and hence
 \[
-	s_b(n!) \ge (b-1)r, \qquad s_b(\Lambda_n) \ge (b-1)r.
+	s_b(n!) \ge (b-1)r, \quad s_b(\Lambda_n) \ge (b-1)r.
 \]
 Since one may choose $r = \lfloor \log_b (n+1) \rfloor$, this yields
 lower bounds of the form
 \[
-	s_b(n!) > C \log n, \qquad s_b(\Lambda_n) > C \log n
+	s_b(n!) > C \log n, \quad s_b(\Lambda_n) > C \log n
 \]
 for some $C > 0$ depending only on $b$.
 
@@ -537,7 +536,7 @@ but this remains to be proved. See Figure~\ref{fig:s10_fact_lcm_scatter}.
 	\label{fig:s10_fact_lcm_scatter}
 \end{figure}
 
-\section{Stewart's Theorem} \label{general-case}
+\section{Stewart's Theorem} \label{sec:stewart-theorem}
 
 In this final section, we prove that the number of nonzero digits in the base-$b$
 expansion of $a^n$ tends to infinity as $n \to \infty$, provided that $\log(a)/\log(b)$
@@ -587,9 +586,10 @@ of algebraic numbers. In our context, it guarantees that the expression in
 \eqref{linear-form} below cannot be too small, which limits how well powers of $a$
 can be approximated by powers of $b$.
 
-The next lemma deals with the possibility that some power of $a$ might be divisible by $b$.
+The following lemma will permit us to disregard trailing zeros in the base-$b$
+expansion of $a^n$.
 
-\begin{lemma} \label{lemma}
+\begin{lemma} \label{lem:digit-position-growth}
 	Let $a, b \ge 2$ be integers with $\log(a)/\log(b)$ irrational.
 	Then there exist $C$ and $C'$, depending only on $a$ and $b$,
 	such that whenever
@@ -604,16 +604,29 @@ The next lemma deals with the possibility that some power of $a$ might be divisi
 \end{lemma}
 
 \begin{proof}
-	By Lemma~\ref{lemma-1}, there exists a prime factor $p$ of $a$,
-	and $C_1 > 0$ depending only on $a$ and $b$, such that
-	$\nu_p(t) > C_1 \log n$ for all $n$.
-	Therefore, $t \ge p^{C_1 n}$ and $\log t \ge Cn$ for $C = C_1 \log p$.
-	On the other hand, $\log t \le C' n$ for $C' = \log a$, since $t \le a^n$.
+	By Lemma~\ref{lemma-1}, 
+	\[
+		\nu_p(t) > C_1 \log n
+	\]
+	holds for all $n$, where $C_1 > 0$ depends only on $a$ and $b$.
+
+	Therefore, $\displaystyle t > p^{C_1 \log n}$, which implies that
+	\[
+		\log t > C_1 n \log p.
+	\]
+	
+	On the other hand, $t \le a^n$, hence $\log t \le n \log a$.
+
+	Therefore,
+	\[
+		Cn \le \log t \le C'n
+	\]
+	holds for all $n$, where $C = C_1 \log p$ and $C' = \log a$.
 \end{proof}
 
 We now prove the main theorem.
 
-\begin{theorem}
+\begin{theorem}\label{thm:digit-lower-bound}
 	Let $a, b \ge 2$ be integers with $a < b$, and suppose that
 	$\log(a)/\log(b)$ is irrational.
 	Then there exists $C > 0$, depending only on $a$ and $b$,
@@ -640,11 +653,16 @@ We now prove the main theorem.
 	from left (most significant) to right (least significant).
 	We may assume that $k \ge 2$.
 
-	Fix $i\in \{1,\dots,k-1\}$. We estimate the ratio $m_{i+1}/m_{i}$,
-	which will ultimately bound $k$.
+	Fix $i\in \{1,\dots,k-1\}$. Our goal is to show that large
+	gaps between digit positions cannot occur, by showing that
+	\[
+		\frac{m_{i+1}}{m_i} < C \log n
+	\]
+	for some $C>0$. This will imply that the number of gaps,
+	and hence the number of nonzero digits, cannot be too small.
 
 	Define
-	\begin{align*}
+	\begin{align*}\label{ineq:base-b-bounds}
 		q & = b^{m_{i}} (d_1 b^{-m_{1}} + \cdots + d_i b^{-m_{i}}),  \\
 		r & = b^m (d_{i+1} b^{-m_{i+1}} + \cdots + d_k b^{-m_{k}}),
 	\end{align*}
@@ -652,6 +670,9 @@ We now prove the main theorem.
 	\[
 		a^n = b^{m - m_i} q + r.
 	\]
+	In other words, the digits up to the $i$-th nonzero digit
+	form an integer $q$, and the digits from the $(i+1)$-st 
+	nonzero digit onward form an integer $r$.
 
 	From the base-$b$ expansion we obtain the bounds
 	\begin{align*}
@@ -661,9 +682,9 @@ We now prove the main theorem.
 	\end{align*}
 
 	Consequently,
-	\[
+	\begin{equation}\label{ineq:anr-bounds}
 		b^{-m_{i+1}} < a^{-n} r < b^{-m_{i+1}+2},
-	\]
+	\end{equation}
 
 	which implies that
 	\[
@@ -676,18 +697,18 @@ We now prove the main theorem.
 	If $m_i \ge 3$ (and $m_{i+1} \ge 4$) then
 	\[
 		\frac{m_{i+1}-2}{m_{i}} \ge \frac12\, \frac{m_{i+1}}{m_{i}},
-		\qquad
+		\quad
 		\frac{m_{i+1}}{m_{i}-1} \le \frac32\, \frac{m_{i+1}}{m_{i}},
 	\]
 	hence
-	\begin{equation} \label{estimate-1}
+	\begin{equation} \label{ineq:ratio-estimate}
 		\frac12\, \frac{m_{i+1}}{m_{i}} <
 		\frac{-\log(a^{-n}r)}{\log q} <
 		\frac32\, \frac{m_{i+1}}{m_{i}}.
 	\end{equation}
 
 	Now set
-	\begin{equation} \label{linear-form}
+	\begin{equation} \label{def:Lambda}
 		\Lambda = \log(a^{-n} b^{m - m_i} q) = -n \log(a) + (m - m_i) \log(b) + \log(q).
 	\end{equation}
 	Then (since $a^{-n} r < 1/2$)
@@ -695,7 +716,9 @@ We now prove the main theorem.
 		|\Lambda| = -\log(1 - a^{-n} r) < 2 a^{-n} r.
 	\]
 
-	We apply Baker's theorem to the linear form in \eqref{linear-form}.
+	We apply Baker's theorem to the linear form in \eqref{def:Lambda}
+	to obtain a lower bound on $|\Lambda|$. This will imply an upper bound
+	on the gap $m_{i+1}/m_i$, as shown in \eqref{ineq:gap-bound} below.
 	There are two cases, depending on the size of $q$.
 
 		{\bf Case 1:} $q < b^2$, or equivalently, $m_i \le 2$.
@@ -737,28 +760,35 @@ We now prove the main theorem.
 		2 a^{-n} r > C_3^{-\log q \log n},
 	\]
 	and hence, for $n$ sufficiently large,
-	\begin{equation} \label{estimate-2}
+	\begin{equation} \label{ineq:Lambda-upper}
 		\frac{-\log(a^{-n} r)}{\log(q)} < C_4 \log n
 	\end{equation}
 	for some $C_4 > 0$ depending only on $a$ and $b$.
 
-	Combining \eqref{estimate-1} and \eqref{estimate-2} gives
+	Combining \eqref{ineq:ratio-estimate} and \eqref{ineq:Lambda-upper} gives
 	\begin{equation*} \label{m-ratio}
-		\frac{m_{i+1}}{m_{i}} < C_5 \log n, \qquad C_5 = 2C_4.
+		\frac{m_{i+1}}{m_{i}} < C_5 \log n, \quad C_5 = 2C_4.
 	\end{equation*}
 
 	In either case, we have
-	\[
-		\frac{m_{i+1}}{m_{i}} < C_6 \log n, \qquad C_6 = \max(C_2, C_5).
-	\]
+	\begin{equation}
+		\label{ineq:gap-bound}
+		\frac{m_{i+1}}{m_{i}} < C_6 \log n, \quad C_6 = \max(C_2, C_5),
+	\end{equation}
+	and thus
+	\begin{equation}
+		\label{ineq:gap-bound-log}
+		\log\left(\frac{m_{i+1}}{m_i}\right) < \log \log n + C_7,
+		\quad C_7 = \log C_6.
+	\end{equation}
 
 	Summing the logarithms of these ratios,
 	\[
 		\log m_k = \sum_{i=1}^{k-1} \log \left(\frac{m_{i+1}}{m_{i}}\right)
 	\]
 	which yields
-	\begin{equation} \label{estimate-3}
-		\log m_k < (k - 1) (\log \log n + C_{7}), \qquad C_7 = \log C_6.
+	\begin{equation} \label{ineq:sum-log-gaps}
+		\log m_k < (k - 1) (\log \log n + C_{7}).
 	\end{equation}
 
 	Write $a^n$ as $b^{m-m_k} u$, where
@@ -766,11 +796,11 @@ We now prove the main theorem.
 		b^{m_k-1} < u < b^{m_k}.
 	\]
 
-	Thus $m_k \asymp \log u$, and $\log u \asymp n$ by Lemma~\ref{lemma}, so
-	\begin{equation} \label{log-mk}
+	Thus $m_k \asymp \log u$, and $\log u \asymp n$ by Lemma~\ref{lem:digit-position-growth}, so
+	\begin{equation} \label{ineq:mk-growth}
 		\log m_k = \log n + O(1).
 	\end{equation}
-	Therefore, \eqref{estimate-3} and \eqref{log-mk} imply that
+	Therefore, \eqref{ineq:sum-log-gaps} and \eqref{ineq:mk-growth} imply that
 	\[
 		k > \frac{\log n}{\log \log n + C}
 	\]

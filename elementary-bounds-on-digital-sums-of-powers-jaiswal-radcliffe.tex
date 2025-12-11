@@ -359,7 +359,7 @@ generalizes the corresponding base-$10$ argument from the previous section.
 The following lemma allows us to relax the condition that $b$ does not
 divide $N$.
 
-\begin{lemma} \label{lemma-1}
+\begin{lemma} \label{lem:nu-p-estimate}
 	Let $a, b \ge 2$ be integers such that $\log(a) / \log(b)$ is irrational.
 	Suppose that $a^n = b^m t$, where $t \ge 1$ is an integer.
 	Then there exists a prime factor $p$ of $a$, and $C > 0$ depending
@@ -421,7 +421,7 @@ We now come to the main result of this section.
 	Since $g^n \mid a^n$ and $\gcd(g, b) = 1$, it follows that $g^n \mid u$.
 	Define $t = s / g^n$; then $d^n = b^m t$.
 
-	By Lemma~\ref{lemma-1}, applied with $a \gets d$,
+	By Lemma~\ref{lem:nu-p-estimate}, applied with $a \gets d$,
 	there exists a prime divisor $p$ of $d$ such that
 	\[
 		\nu_p(t) \ge C' n,
@@ -583,7 +583,7 @@ which we state without proof.
 
 Baker's theorem gives effective lower bounds on linear forms in logarithms
 of algebraic numbers. In our context, it guarantees that the expression in
-\eqref{linear-form} below cannot be too small, which limits how well powers of $a$
+\eqref{def:Lambda} below cannot be too small, which limits how well powers of $a$
 can be approximated by powers of $b$.
 
 The following lemma will permit us to disregard trailing zeros in the base-$b$
@@ -604,7 +604,7 @@ expansion of $a^n$.
 \end{lemma}
 
 \begin{proof}
-	By Lemma~\ref{lemma-1}, 
+	By Lemma~\ref{lem:nu-p-estimate},
 	\[
 		\nu_p(t) > C_1 \log n
 	\]

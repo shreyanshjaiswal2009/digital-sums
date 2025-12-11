@@ -81,7 +81,7 @@ See Figure~\ref{fig:digital-sum-2-to-n}.
 
 We prove in Section~\ref{sec:powers-of-two} that the digital
 sum of $2^n$ is greater than $\log_4 n$ for all $n \ge 1$.
-But first, we introduce some notation.
+But first, we review the relevant notation and terminology.
 
 \section{Notation and terminology} \label{sec:notation}
 
@@ -111,7 +111,7 @@ prime factorization of $N$. If $p$ does not divide $N$ then $\nu_{p}(N) = 0$.
 The function $\nu_p$ is \emph{completely additive}:
 $\nu_p(MN) = \nu_p(M) + \nu_p(N)$ for all positive integers $M$ and $N$.
 
-Recall that the \emph{floor} of a real number $x$, 
+The \emph{floor} of a real number $x$, 
 denoted $\lfloor x \rfloor$,
 is the greatest integer $n$ such that $n \le x$.
 The \emph{ceiling} of $x$, denoted
@@ -430,7 +430,7 @@ We now come to the main result of this section.
 
 	Because $\gcd(d, g) = 1$, the prime $p$ does not divide $g$,
 	and hence $\nu_p(s) = \nu_p(t)$. 
-	Therefore, by Theorem~\ref{thm:multiples-powers-log-bound} applied with $a \gets p$ and $N \gets s$,
+	Therefore, by Theorem~\ref{thm:multiples-powers-log-bound}, applied with $a \gets p$ and $N \gets s$,
 	\[
 		c_b(s) > C \log n
 	\]
@@ -606,11 +606,11 @@ expansion of $a^n$.
 \begin{proof}
 	By Lemma~\ref{lem:nu-p-estimate},
 	\[
-		\nu_p(t) > C_1 \log n
+		\nu_p(t) > C_1 n
 	\]
 	holds for all $n$, where $C_1 > 0$ depends only on $a$ and $b$.
 
-	Therefore, $\displaystyle t > p^{C_1 \log n}$, which implies that
+	Therefore, $\displaystyle t > p^{C_1 n}$, which implies that
 	\[
 		\log t > C_1 n \log p.
 	\]
@@ -712,19 +712,19 @@ We now prove the main theorem.
 		\Lambda = \log(a^{-n} b^{m - m_i} q) = -n \log(a) + (m - m_i) \log(b) + \log(q).
 	\end{equation}
 	Then (since $a^{-n} r < 1/2$)
-	\[
+	\begin{equation} \label{ineq:Lambda-anr}
 		|\Lambda| = -\log(1 - a^{-n} r) < 2 a^{-n} r.
-	\]
+	\end{equation}
 
-	We apply Baker's theorem to the linear form in \eqref{def:Lambda}
-	to obtain a lower bound on $|\Lambda|$. This will imply an upper bound
-	on the gap $m_{i+1}/m_i$, as shown in \eqref{ineq:gap-bound} below.
+	We apply Baker's theorem to obtain a lower bound on $|\Lambda|$. 
+	This will imply an upper bound on the gap $m_{i+1}/m_i$, 
+	as shown in \eqref{ineq:gap-bound} below.
 	There are two cases, depending on the size of $q$.
 
 		{\bf Case 1:} $q < b^2$, or equivalently, $m_i \le 2$.
 
-	In this case, we can apply Baker's theorem with
-	$A \gets b^2$ and $B \gets n$ to obtain
+	In this case, we can apply Baker's theorem to \eqref{def:Lambda}
+	with $A \gets b^2$ and $B \gets n$, giving
 	\[
 		|\Lambda| > C_1^{-\log n}
 	\]
@@ -750,8 +750,9 @@ We now prove the main theorem.
 
 	{\bf Case 2:} $q > b^2$, or equivalently, $m_{i} \ge 3$.
 
-	In this case, we can apply Baker's theorem with
-	$A \gets q$ and $B \gets n$ to obtain
+	In this case, we can apply Baker's theorem
+	to \eqref{def:Lambda} with
+	$A \gets q$ and $B \gets n$, giving
 	\[
 		|\Lambda| > C_3^{-\log q \log n}
 	\]

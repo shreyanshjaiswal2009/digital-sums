@@ -655,9 +655,9 @@ We now prove the main theorem.
 
 	From the base-$b$ expansion we obtain the bounds
 	\begin{align*}
-		b^{m-1}      & \le a^n \le b^m,            \\
-		b^{m_{i}-1}   & \le q   \le b^{m_i},       \\
-		b^{m-m_{i+1}} & \le r   \le b^{m-m_{i+1}+1}.
+		b^{m-1}       & < a^n  < b^m,            \\
+		b^{m_{i}-1}   & \le q  < b^{m_i},       \\
+		b^{m-m_{i+1}} & \le r  < b^{m-m_{i+1}+1}.
 	\end{align*}
 
 	Consequently,
@@ -667,8 +667,8 @@ We now prove the main theorem.
 
 	which implies that
 	\[
-		\frac{m_{i+1} - 2}{m_{i}} \le
-		\frac{-\log(a^{-n}r)}{\log q} \le
+		\frac{m_{i+1} - 2}{m_{i}} <
+		\frac{-\log(a^{-n}r)}{\log q} <
 		\frac{m_{i+1}}{m_{i} - 1}
 	\]
 	provided that $q \ge 2$ and $m_i \ge 2$.
@@ -681,8 +681,8 @@ We now prove the main theorem.
 	\]
 	hence
 	\begin{equation} \label{estimate-1}
-		\frac12\, \frac{m_{i+1}}{m_{i}} \le
-		\frac{-\log(a^{-n}r)}{\log q} \le
+		\frac12\, \frac{m_{i+1}}{m_{i}} <
+		\frac{-\log(a^{-n}r)}{\log q} <
 		\frac32\, \frac{m_{i+1}}{m_{i}}.
 	\end{equation}
 

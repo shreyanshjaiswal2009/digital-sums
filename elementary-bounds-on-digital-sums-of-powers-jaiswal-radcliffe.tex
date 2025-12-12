@@ -802,6 +802,15 @@ We now prove the main theorem.
 	for all sufficiently large $n$, as required.
 \end{proof}
 
+This is a long and complicated proof, so let's review the main steps.
+\begin{enumerate}
+	\item Approximate $a^n$ by truncating to the $i$-th nonzero digit.
+	\item Estimate the digit gap $m_{i+1} / m_i$ in terms of the truncation error $a^{-n} r$.
+	\item Use Baker's theorem to obtain a lower bound on the truncation error.
+	\item Deduce thereby an upper bound on the digit gap.
+	\item Compute a lower bound on the number of gaps, and hence the number of nonzero digits.
+\end{enumerate}
+
 \begin{thebibliography}{99}
 
 	\bibitem{balog2012}

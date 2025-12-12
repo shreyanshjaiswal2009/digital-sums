@@ -17,7 +17,7 @@
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
 \author{Shreyansh Jaiswal and David G. Radcliffe}
-\date{December 11, 2025}
+\date{December 12, 2025}
 
 \begin{document}
 
@@ -419,7 +419,7 @@ We now come to the main result of this section.
 	the primes of $a$ that also divide $b$;
 	in particular $\gcd(d, g) = 1$ and any prime $p \mid d$ satisfies $p \mid b$.
 
-	Since $g^n \mid a^n$ and $\gcd(g, b) = 1$, it follows that $g^n \mid u$.
+	Since $g^n \mid a^n$ and $\gcd(g, b) = 1$, it follows that $g^n \mid s$.
 	Define $t = s / g^n$; then $d^n = b^m t$.
 
 	By Lemma~\ref{lem:nu-p-estimate}, applied with $a \gets d$,
@@ -710,7 +710,7 @@ We now prove the main theorem.
 
 	Now set
 	\begin{equation} \label{def:Lambda}
-		\Lambda = \log(a^{-n} b^{m - m_i} q) = -n \log(a) + (m - m_i) \log(b) + \log(q).
+		\Lambda = \log(a^{-n} b^{m - m_i} q) = -n \log a + (m - m_i) \log b + \log q.
 	\end{equation}
 	Then (since $a^{-n} r < 1/2$)
 	\begin{equation} \label{ineq:Lambda-anr}
@@ -829,7 +829,7 @@ We now prove the main theorem.
 
 	\bibitem{luca2002}
 	Luca, F.,
-	``The Number of Non-Zero Digits of n!''
+	``The number of non-zero digits of n!''
 	\textit{Canadian Mathematical Bulletin} \textbf{45.1}, (2002), pp. 115--118.
 
 	\bibitem{matveev2000}

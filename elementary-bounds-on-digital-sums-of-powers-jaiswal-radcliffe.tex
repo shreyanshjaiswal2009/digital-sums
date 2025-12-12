@@ -305,6 +305,9 @@ generalizes the corresponding base-$10$ argument from the previous section.
 	with $a$ where needed, and replace $10$ with $b$.
 \end{proof}
 
+The conclusion of Theorem \ref{thm:multiples-of-powers} can be converted
+into an explicit logarithmic lower bound, as described below.
+
 \begin{theorem} \label{thm:multiples-powers-log-bound}
 	Let $a, b$ be integers such that $2 \le a < b$ and $a$ divides $b$.
 	Suppose that $N$ is divisible by $a^n$ but not $b$. Then
@@ -555,12 +558,6 @@ We may assume without loss of generality that $a < b$. If not, replace
 $b$ with $b^r$, where $b^r > a$. Since $c_{b^r}(n) \ge c_{b}(n) / r$,
 this replacement does not affect the order of growth.
 
-Recall that a nonzero algebraic number $\alpha \in \mathbb{C}$ is a root of a unique irreducible
-integer polynomial $P$ with positive leading coefficient and coprime coefficients.
-The \emph{degree} of $\alpha$ is equal to the degree of $P$, and the \emph{height}
-of $\alpha$ is the maximum of the absolute values of the cofficients of $P$.
-A rational integer has degree $1$ and height equal to its absolute value.
-
 Our proof relies on a version of Baker's theorem on linear forms in logarithms,
 which we state without proof.
 
@@ -581,6 +578,12 @@ which we state without proof.
 	See \cite{matveev2000} for an explicit lower bound.
 \end{theorem}
 
+Recall that a nonzero algebraic number $\alpha \in \mathbb{C}$ is a root of a unique irreducible
+integer polynomial $P$ with positive leading coefficient and coprime coefficients.
+The \emph{degree} of $\alpha$ is equal to the degree of $P$, and the \emph{height}
+of $\alpha$ is the maximum of the absolute values of the cofficients of $P$.
+A rational integer has degree $1$ and height equal to its absolute value.
+In our application of Baker's theorem, $\alpha_1, \ldots, \alpha_n$ are rational integers.
 
 Baker's theorem gives effective lower bounds on linear forms in logarithms
 of algebraic numbers. In our context, it guarantees that the expression in

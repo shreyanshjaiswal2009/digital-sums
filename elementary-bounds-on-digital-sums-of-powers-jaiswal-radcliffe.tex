@@ -71,7 +71,7 @@ $0, 1, 2, \ldots, 9$.
 However, this stronger conjecture remains to be proved.
 See Figure~\ref{fig:digital-sum-2-to-n}.
 
-\begin{figure} 
+\begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{s10_scatter.png}
 	\caption{Scatter plot of the digital sum of $2^n$ for $n \le 100$
@@ -111,7 +111,7 @@ prime factorization of $N$. If $p$ does not divide $N$ then $\nu_{p}(N) = 0$.
 The function $\nu_p$ is \emph{completely additive}:
 $\nu_p(MN) = \nu_p(M) + \nu_p(N)$ for all positive integers $M$ and $N$.
 
-The \emph{floor} of a real number $x$, 
+The \emph{floor} of a real number $x$,
 denoted $\lfloor x \rfloor$,
 is the greatest integer $n$ such that $n \le x$.
 The \emph{ceiling} of $x$, denoted
@@ -370,21 +370,16 @@ divide $N$.
 	only on $a$ and $b$, such that $\nu_p(t) \ge Cn$.
 \end{lemma}
 
-Intuitively, the irrationality condition means that the
-prime factorizations of $a$ and $b$ are out of balance,
-in the sense of \eqref{eq:nudiff} below;
-so factors of $p$ accumulate in powers of $a$ faster
-than they can be removed by powers of $b$.
-The following argument makes this precise.
-
 \begin{proof}
-	Since $\log(a) / \log(b)$ is irrational, there exist primes $p$ and $q$
-	such that
+
+	Since $\log(a) / \log(b)$ is irrational,
+	there are no integers $u, v$ with $a^v = b^u$, except $u = v = 0$.
+	Equivalently, the vectors $(\nu_p(a))_p$ and
+	$(\nu_p(b))_p$ are independent,
+	so we can choose primes $p$ and $q$ such that
 	\begin{equation} \label{eq:nudiff}
 		\nu_p(a) \nu_q(b) - \nu_q(a) \nu_p(b) > 0.
 	\end{equation}
-	Otherwise, $\log(a) / \log(b)$ would be equal to the common ratio
-	$\nu_p(a)\, / \nu_p(b)$ for any prime divisor $p$ of $b$.
 
 	By comparing the valuations of $a^n$ with respect to $p$ and $q$,
 	we obtain
@@ -412,13 +407,13 @@ We now come to the main result of this section.
 \begin{theorem} \label{general-digit-sum}
 	Let $a \ge 2$ and $b \ge 2$ be integers. Let $d$ be the smallest factor of $a$
 	such that $\gcd(a/d, b) = 1$, and suppose that $\log(d) / \log(b)$ is irrational.
-	Then $c_{b}(a^{n}) > C \log n$ for all sufficiently large $n$, 
+	Then $c_{b}(a^{n}) > C \log n$ for all sufficiently large $n$,
 	where $C > 0$ depends only on $a$ and $b$.
 \end{theorem}
 
 \begin{proof}
 	Write $a^n = b^m s$ with $b \nmid s$, and set $g = a/d$.
-	By the minimality of $d$, the prime divisors of $d$ are exactly 
+	By the minimality of $d$, the prime divisors of $d$ are exactly
 	the primes of $a$ that also divide $b$;
 	in particular $\gcd(d, g) = 1$ and any prime $p \mid d$ satisfies $p \mid b$.
 
@@ -430,27 +425,27 @@ We now come to the main result of this section.
 	\[
 		\nu_p(t) \ge C' n,
 	\]
-	for some constant $C' > 0$ depending only on $a$ and $b$.
+	for some $C' > 0$ depending only on $a$ and $b$.
 
 	Because $\gcd(d, g) = 1$, the prime $p$ does not divide $g$,
-	and hence $\nu_p(s) = \nu_p(t)$. 
+	and hence $\nu_p(s) = \nu_p(t)$.
 	Therefore, by Theorem~\ref{thm:multiples-powers-log-bound}, applied with $a \gets p$ and $N \gets s$,
 	\[
 		c_b(s) > C \log n
 	\]
 	for $n$ sufficiently large.
 
-	Finally, $c_{b}(a^{n}) = c_{b}(s)$, 
-	since $s$ and $a^{n}$ differ only by a power of $b$ 
+	Finally, $c_{b}(a^{n}) = c_{b}(s)$,
+	since $s$ and $a^{n}$ differ only by a power of $b$
 	and thus have the same base-$b$ expansion up to trailing zeros.
-	
+
 	Consequently, when $n$ is sufficiently large, we have
 	\[
 		c_b(a^n) > C \log n.
 	\]
 \end{proof}
 
-\section{Digital sums of factorials and LCMs} 
+\section{Digital sums of factorials and LCMs}
 \label{sec:digital-sums-factorials-lcms}
 
 In this section, we prove logarithmic lower bounds for the base-$b$
@@ -531,7 +526,7 @@ already imply logarithmic growth.
 We conjecture that $s_{b}(n!) \asymp n \log n$ and $s_b(\Lambda_n) \asymp n$,
 but this remains to be proved. See Figure~\ref{fig:s10_fact_lcm_scatter}.
 
-\begin{figure} 
+\begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{lcm_fact_scatter.png}
 	\caption{Scatter plot of the digital sums of $n!$ and $\Lambda_n$
@@ -547,7 +542,7 @@ expansion of $a^n$ tends to infinity as $n \to \infty$, provided that $\log(a)/\
 is irrational. This result appears in earlier work of Senge and Straus \cite{senge-straus1973}
 and Stewart \cite{stewart1980}, but we present an argument that we hope is more accessible.
 
-The irrationality condition is necessary. 
+The irrationality condition is necessary.
 Indeed, if $\log(a)/\log(b) = r/s \in \mathbb{Q}$, then
 \[
 	a^{ns} = b^{nr}
@@ -618,7 +613,7 @@ expansion of $a^n$.
 	\[
 		\log t > C_1 n \log p.
 	\]
-	
+
 	On the other hand, $t \le a^n$, hence $\log t \le n \log a$.
 
 	Therefore,
@@ -667,7 +662,7 @@ We now prove the main theorem.
 
 	Define
 	\begin{align*}\label{ineq:base-b-bounds}
-		q & = b^{m_{i}} (d_1 b^{-m_{1}} + \cdots + d_i b^{-m_{i}}),  \\
+		q & = b^{m_{i}} (d_1 b^{-m_{1}} + \cdots + d_i b^{-m_{i}}), \\
 		r & = b^m (d_{i+1} b^{-m_{i+1}} + \cdots + d_k b^{-m_{k}}),
 	\end{align*}
 	so that
@@ -675,13 +670,13 @@ We now prove the main theorem.
 		a^n = b^{m - m_i} q + r.
 	\]
 	In other words, the digits up to the $i$-th nonzero digit
-	form an integer $q$, and the digits from the $(i+1)$-st 
+	form an integer $q$, and the digits from the $(i+1)$-st
 	nonzero digit onward form an integer $r$.
 
 	From the base-$b$ expansion we obtain the bounds
 	\begin{align*}
-		b^{m-1}       & < a^n  < b^m,            \\
-		b^{m_{i}-1}   & \le q  < b^{m_i},       \\
+		b^{m-1}       & < a^n  < b^m,             \\
+		b^{m_{i}-1}   & \le q  < b^{m_i},         \\
 		b^{m-m_{i+1}} & \le r  < b^{m-m_{i+1}+1}.
 	\end{align*}
 
@@ -720,8 +715,8 @@ We now prove the main theorem.
 		|\Lambda| = -\log(1 - a^{-n} r) < 2 a^{-n} r.
 	\end{equation}
 
-	We apply Baker's theorem to obtain a lower bound on $|\Lambda|$. 
-	This will imply an upper bound on the gap $m_{i+1}/m_i$, 
+	We apply Baker's theorem to obtain a lower bound on $|\Lambda|$.
+	This will imply an upper bound on the gap $m_{i+1}/m_i$,
 	as shown in \eqref{ineq:gap-bound} below.
 	There are two cases, depending on the size of $q$.
 

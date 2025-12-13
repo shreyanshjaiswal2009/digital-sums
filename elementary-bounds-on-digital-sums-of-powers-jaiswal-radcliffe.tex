@@ -16,13 +16,15 @@
 \setlength{\tabcolsep}{2pt}
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
-\author{Shreyansh Jaiswal and David G. Radcliffe}
-\date{December 12, 2025}
+\author{David G. Radcliffe and Shreyansh Jaiswal} % Alphabetical order implemented
+\date{December 13, 2025}
+\keywords{Sum of digits, powers, factorials, least common multiples.}
+\subjclass[2020]{Primary 11A63; Secondary 11A25.}
 
 \begin{document}
 
 \begin{abstract}
-	We prove lower bounds on digital sums of powers, multiples of powers, factorials,
+	In this expository article, we prove lower bounds on digital sums of powers, multiples of powers, factorials,
 	and the least common multiple of $\{1,\ldots, n\}$, using only elementary number theory.
 \end{abstract}
 
@@ -46,10 +48,10 @@ Note that it is not enough to prove that the sum of digits of $2^{n}$ is
 unbounded, since the sequence is not monotonic.
 
 Consider the sequence of powers of $2$ (sequence \href{https://oeis.org/A000079}{A000079}
-in the OEIS):
+in the On-Line Encyclopedia of Integer Sequences):
 
 \[
-	1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, \ldots .
+	1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, \ldots 
 \]
 
 This sequence grows very rapidly. Now, define another sequence by adding
@@ -58,7 +60,7 @@ becomes $3+2=5$. The first few terms of this new sequence
 (\href{https://oeis.org/A001370}{A001370}) are listed below.
 
 \[
-	1, 2, 4, 8, 7, 5, 10, 11, 13, 8, 7, \ldots .
+	1, 2, 4, 8, 7, 5, 10, 11, 13, 8, 7, \ldots 
 \]
 
 This sequence of digital sums grows much more slowly, and it is not monotonic.
@@ -101,7 +103,7 @@ so we focus on $c_{b}(N)$.
 
 The function $s_b$ is \emph{subadditive}: $s_b(M+N) \le s_b(M) + s_b(N)$
 for all nonnegative integers $M$ and $N$. Equality
-holds if no carries occur in the digitwise addition of $M$ and $N$.
+holds if no carries occur in the digit-wise addition of $M$ and $N$.
 Otherwise, each carry reduces the digital sum by $b-1$.
 The function $c_b$ is likewise subadditive.
 
@@ -121,38 +123,21 @@ We use Bachmann-Landau-Knuth notations~\cite{knuth1997} to describe the approxim
 Let $f$ and $g$ be real-valued functions defined on a domain $D$,
 usually the set of positive integers.
 
-One writes
-\[
-	f(n) = O(g(n))
-\]
-if there exists a positive real number $C$ such that
+One writes $f(n) = O(g(n))$ if there exists a positive real number $C$ such that
 \[
 	|f(n)| \le C g(n) \quad \text{for all } n \in D.
 \]
 
-The notation
-\[
-	f(n) = o(g(n))
-\]
-means that
+The notation $f(n) = o(g(n))$ means that
 \[
 	\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0.
 \]
-
 In particular, $O(1)$ denotes a bounded function, and $o(1)$ denotes
-a function that tends to 0 as $n \to \infty$.
-
-Finally,
-\[
-	f(n) \asymp g(n)
-\]
-means that there exist positive real numbers $C$ and $C'$ such that
+a function that tends to 0 as $n \to \infty$. Finally, $f(n) \asymp g(n)$ means that there exist positive real numbers $C$ and $C'$ such that
 \[
 	C g(n) < |f(n)| < C' g(n) \quad \text{for all } n \in D.
 \]
-
 \section{Digital sums of powers of two} \label{sec:powers-of-two}
-
 We present an informal proof that $c_{10}(2^{n})$ tends to infinity as $n \to \infty$.
 See \cite{radcliffe2016} for an alternative approach.
 
@@ -176,7 +161,7 @@ So at least one of the digits $d_4, d_5, \ldots, d_{13}$ is nonzero.
 
 We can continue in this way, finding longer and longer non-overlapping blocks
 of digits, each containing at least one nonzero digit, as illustrated in
-Figure~\ref{fig-blocks}.
+Figure~\ref{fig-blocks}. %Note - In the PDF, this shows up as Figure 3, which is wrong. It should be Figure 2.
 This proves that $c_{10}(2^n)$ tends to infinity as $n \to \infty$.
 
 \begin{figure} \label{fig-blocks}
@@ -233,14 +218,11 @@ Let us formalize this argument.
 		c_{10}(N) = c_{10}(q) + c_{10}(r) \ge 1 + (k - 1) = k.
 	\]
 	This completes the proof.
-
 \end{proof}
-
+We now apply Theorem~\ref{thm:digit-sum-bound-2-to-n} to obtain our desired lower bound.
 \begin{corollary} \label{even-powers-base-ten-limit}
 	Let $a$ be a positive integer that is divisible by $2$ but not divisible by $10$.
 	Then $c_{10}(a^n) \ge \log_4 n$ for all $n > 1$.
-	In particular,
-	$\lim_{n\to \infty}c_{10}(a^{n}) = \infty$.
 \end{corollary}
 
 \begin{proof}
@@ -279,15 +261,15 @@ showed that for integers $a \ge 1$ and $b \ge 2$,
 \]
 However, their result does not yield any explicit lower bound.
 
-Subsequently, Stewart~\cite[Theorem 2]{stewart1980} proved
+Subsequently, Stewart~\cite[Theorem 2]{stewart1980} (see~\cite{linearrecurrenceluca2000} for a slightly more general result.) proved
 that if $\log(a)/\log(b)$ is irrational then
 \[
 	c_b(a^n) > \frac{\log n}{\log\log n + C} - 1
 \]
 for all $n>4$, where $C$ depends only on $a$ and $b$.
-This bound is extremely general but grows more slowly than logarithmic.
+This bound is extremely general but grows more slowly than logarithmically.
 
-In this section we prove a logarithmic lower bound for $c_b(a^n)$ under
+In this section, we prove a logarithmic lower bound for $c_b(a^n)$ under
 conditions that are stronger than Stewart's.
 The first step (Theorem~\ref{thm:multiples-of-powers} below)
 generalizes the corresponding base-$10$ argument from the previous section.
@@ -444,12 +426,10 @@ We now come to the main result of this section.
 		c_b(a^n) > C \log n.
 	\]
 \end{proof}
-
 \section{Digital sums of factorials and LCMs}
 \label{sec:digital-sums-factorials-lcms}
-
 In this section, we prove logarithmic lower bounds for the base-$b$
-digital sums of $n!$ and $\Lambda_n = \lcm(1,\ldots, n)$.
+digital sums of $n!$ and $\Lambda_n = \lcm(1,\ldots, n)$. We recall that $\Lambda_n$ has an important role in elementary proofs of the Chebyshev bounds $\pi(x) \asymp x/\log x$, for the prime counting function $\pi(x)$~\cite{mnairprimes1982}.
 In contrast with the situation for $a^n$, where prime-power divisibility
 played a central role, the key feature for factorials and LCMs
 is that both $n!$ and $\Lambda_n$ are divisible by large integers
@@ -474,7 +454,7 @@ and extended to general bases by Balog and Dartyge~\cite{balog2012}.
 
 	Define the \emph{block-sum} operator $G$ by
 	\[
-		G(m) = \sum_{i=0}^{k-1} B_i.
+		G(m) := \sum_{i=0}^{k-1} B_i.
 	\]
 	Observe that
 	$G(m) \equiv m \pmod{b^r - 1}$, since $b^r \equiv 1 \pmod{b^r - 1}$.
@@ -519,7 +499,7 @@ together with more advanced methods, to prove that
 \]
 for all integers $n > e^{e}$ and all $b \ge 2$, where $C$ depends only on $b$.
 The same estimate holds for $s_b(\Lambda_n)$.
-Our interest here is not to compete with the best known results,
+Our interest here is not to compete with the best-known results,
 but rather to show that simple divisibility arguments
 already imply logarithmic growth.
 
@@ -614,12 +594,11 @@ See \cite{matveev2000} for an explicit lower bound.
 Recall that a nonzero algebraic number $\alpha \in \mathbb{C}$ is a root of a unique irreducible
 integer polynomial $P$ with positive leading coefficient and coprime coefficients.
 The \emph{degree} of $\alpha$ is equal to the degree of $P$, and the \emph{height}
-of $\alpha$ is the maximum of the absolute values of the cofficients of $P$.
+of $\alpha$ is the maximum of the absolute values of the coefficients of $P$.
 A rational integer has degree $1$ and height equal to its absolute value.
 In our application of Baker's theorem, $\alpha_1, \ldots, \alpha_n$ are rational integers.
 
 We now prove the main theorem.
-
 \begin{theorem}\label{thm:digit-lower-bound}
 	Let $a, b \ge 2$ be integers with $a < b$, and suppose that
 	$\log(a)/\log(b)$ is irrational.
@@ -630,7 +609,6 @@ We now prove the main theorem.
 	\]
 	holds for all sufficiently large $n$.
 \end{theorem}
-
 \begin{proof}
 	Let
 	\[
@@ -653,7 +631,7 @@ We now prove the main theorem.
 		\frac{m_{i+1}}{m_i} < C \log n
 	\]
 	for some $C>0$. This will imply that the number of gaps,
-	and hence the number of nonzero digits, cannot be too small.
+	and hence the number of nonzero digits cannot be too small.
 
 	Define
 	\begin{align*}\label{ineq:base-b-bounds}
@@ -668,7 +646,7 @@ We now prove the main theorem.
 	form an integer $q$, and the digits from the $(i+1)$-st
 	nonzero digit onward form an integer $r$.
 
-	From the base-$b$ expansion we obtain the bounds
+	From the base-$b$ expansion, we obtain the bounds
 	\begin{align*}
 		b^{m-1}       & < a^n  < b^m,             \\
 		b^{m_{i}-1}   & \le q  < b^{m_i},         \\
@@ -841,8 +819,8 @@ This is a long and complicated proof, so let's review the main steps.
 
 	\bibitem{radcliffe2016}
 	Radcliffe, D.,
-	``The growth of digital sums of powers of 2,''
-	arXiv preprint arXiv:1605.02839 (2016).
+	``The growth of digital sums of powers of $2$,''
+	arXiv preprint arXiv:1605.02839 (2016). \url{https://arxiv.org/abs/1605.02839}
 
 	\bibitem{sanna2015}
 	Sanna, C.,
@@ -868,6 +846,16 @@ This is a long and complicated proof, so let's review the main steps.
 	Stolarsky, K.\ B.,
 	``Integers whose multiples have anomalous digital frequencies,''
 	\textit{Acta Arith} \textbf{38.2} (1980), pp. 117-128.
+    
+    \bibitem{linearrecurrenceluca2000}
+	Luca, F.,
+	``Distinct digits in base $b$ expansions of linear recurrence sequences,''
+	\textit{Quaestiones Mathematicae} \textbf{23} (2000), pp. 389--404.
+
+    \bibitem{mnairprimes1982}
+	Nair, M.,
+	``On Chebyshev-Type Inequalities for Primes,''
+	\textit{The American Mathematical Monthly} \textbf{89} (1982), pp. 126--129.
 \end{thebibliography}
 
 \end{document}
